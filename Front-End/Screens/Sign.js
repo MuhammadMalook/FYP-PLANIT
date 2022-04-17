@@ -216,7 +216,7 @@ const SignInScreen = (props) => {
 
                         onPress={async () => {
                             if (data.username.trim() == "" || data.password.trim() == "") {
-                                alert("Please Enter the User Name Password !")
+                                alert("Please Enter the User Name and  Password !")
                                 return;
                             }
 

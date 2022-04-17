@@ -223,7 +223,7 @@ const SignInScreen = (props) => {
                             setData({ ...data, api: true })
                             const apiBody = { name: data.username, password: data.password };
 
-                            const apiData = await fetch(`${apiLink}/login`,
+                            const apiData = await fetch(`${apiLink}/person`,
                                 {
                                     method: 'POST', // or 'PUT'
                                     headers: {
@@ -240,7 +240,7 @@ const SignInScreen = (props) => {
                                 //     param: {user: jsonData.users.name, email: jsonData.users.email, number: jsonData.users.number, id: jsonData.users._id , requests : jsonData.users.requests.length  }
                                 // })
                                 // navigation.navigate('Root', { screen: 'Home', params: { screen: 'Sound', params: { screen: 'Media' } } });
-                                navigation.navigate('Home',{ user: jsonData.users.name, email: jsonData.users.email, number: jsonData.users.number, id: jsonData.users._id, requests: jsonData.users.requests.length }  );
+                               // navigation.navigate('Home',{ user: jsonData.users.name, email: jsonData.users.email, number: jsonData.users.number, id: jsonData.users._id, requests: jsonData.users.requests.length }  );
                             }
                             else
                                 alert("Wrong User Name and Password")

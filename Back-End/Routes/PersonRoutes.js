@@ -1,12 +1,12 @@
 const express = require('express');
-const { addPerson} = require('../controllers/PersonController');
+const { addPerson, login} = require('../controllers/PersonController');
 const router = express.Router();
 // router.route('/persons').get(getAllpersons);
 // router.route('/person').put(updatePerson);
 router.route('/person').post(addPerson);
 // router.route('/person').delete(deletePerson);
 // router.route('/person/:id').get(getPersonByID);
-// router.route('/login').post(login)
+router.route('/login').post(login)
 // router.route('/personByName/:name').get(findByName)
 // router.route('/acceptRequest').post(acceptRequest)
 // router.route('/cancelRequest').post(cancelRequest)

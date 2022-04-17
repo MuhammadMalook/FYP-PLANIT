@@ -1,2 +1,2 @@
-const apiLink = `localhost:4000`;
+const apiLink = `https://planit-backend.herokuapp.com`;
 export default apiLink;

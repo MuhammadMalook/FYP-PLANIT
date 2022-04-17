@@ -154,36 +154,33 @@ const catchAsyncErrors = require('../middlewares/catchAsyncError');
 
 //     }
 // })
-// exports.login = catchAsyncErrors(async (req, res, next) => {
-//     const { name, password } = req.body;
-//     const listUsers = await PersonSchema.find();
+exports.login = catchAsyncErrors(async (req, res, next) => {
+    const { name, password } = req.body;
+    const listUsers = await PersonSchema.find();
 
-//     const users = listUsers.find((user) => {
-//         if (user.name == name && user.password == password) {
+    const users = listUsers.find((user) => {
+        if (user.name == name && user.password == password) {
 
-//             return user;
-//         }
-//         else return null;
-//     })
-//     if (users) {
+            return user;
+        }
+        else return null;
+    })
+    if (users) {
 
-//         res.status(200).json({
-//             success: true,
-//             users
-//         })
+        res.status(200).json({
+            success: true,
+            users
+        })
 
-//     }
-//     else
-//     {
-//         res.status(200).json({
-//             success:false,
-//             message: "Incorrect Email or Password"
-//         })
-//     }
-
-
-
-// })
+    }
+    else
+    {
+        res.status(200).json({
+            success:false,
+            message: "Incorrect Email or Password"
+        })
+    }
+})
 // exports.getAllpersons = catchAsyncErrors(async (req, res, next) => {
 //     const allPerons = await PersonSchema.find();
 //     if (allPerons) {

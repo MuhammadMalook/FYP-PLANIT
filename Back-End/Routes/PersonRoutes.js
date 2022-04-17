@@ -1,5 +1,5 @@
 const express = require('express');
-const { addPerson, login} = require('../controllers/PersonController');
+const { addPerson, login, getEventByUserId} = require('../controllers/PersonController');
 const router = express.Router();
 // router.route('/persons').get(getAllpersons);
 // router.route('/person').put(updatePerson);
@@ -17,7 +17,7 @@ router.route('/login').post(login)
 // router.route('/completedTasks/:userId').get(getCompletedTasksByUser)
 // router.route('/unCompletedTasks/:userId').get(getUnCompletedTasksByUser)
 // router.route('/completeTask').post(completeTasks);
-// router.route('/getEventByUser').post(getEventByUserId);
+router.route('/getEventByUser').post(getEventByUserId);
 // router.route('/myEvents').post(myEvents);
 // router.route('/getAllName').get(getAllNames);
 

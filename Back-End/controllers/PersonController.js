@@ -1,5 +1,5 @@
 const PersonSchema = require('../model/Person')
-// const EventSchema = require('../model/Event')
+const EventSchema = require('../model/Event')
 // const TasksSchema = require('../model/Task')
 
 const catchAsyncErrors = require('../middlewares/catchAsyncError');
@@ -92,32 +92,32 @@ const catchAsyncErrors = require('../middlewares/catchAsyncError');
 //             message: "Not Found Admin of Any Event"
 //         })
 // })
-// exports.getEventByUserId = catchAsyncErrors(async (req, res, next) => {
-//     const { id } = req.body;
-//     const events = await EventSchema.find();
-//     const teamsLists = events.filter(event => 
-//     {
-//         const listofOneTeam = event.team;
-//         if(event.userId== id)
-//             return event;
-//         console.log(listofOneTeam)  
-//         for(let i=0; i<listofOneTeam.length; i++)
-//         {
-//             if(id == listofOneTeam[i].id)
-//             return event;
-//         }
-//     });
-//     if (teamsLists.length == 0)
-//         res.status(404).json({
-//             success: false,
-//             message: "not found the user in any team"
-//         })
-//     else
-//         res.status(200).json({
-//             success: true,
-//             events: teamsLists
-//         })
-// })
+exports.getEventByUserId = catchAsyncErrors(async (req, res, next) => {
+    const { id } = req.body;
+    const events = await EventSchema.find();
+    const teamsLists = events.filter(event => 
+    {
+        const listofOneTeam = event.team;
+        if(event.userId== id)
+            return event;
+        console.log(listofOneTeam)  
+        for(let i=0; i<listofOneTeam.length; i++)
+        {
+            if(id == listofOneTeam[i].id)
+            return event;
+        }
+    });
+    if (teamsLists.length == 0)
+        res.status(404).json({
+            success: false,
+            message: "not found the user in any team"
+        })
+    else
+        res.status(200).json({
+            success: true,
+            events: teamsLists
+        })
+})
 
 // exports.deletePerson = catchAsyncErrors(async (req, res, next) => {
 //     const { id } = req.body;

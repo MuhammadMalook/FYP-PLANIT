@@ -132,7 +132,7 @@ const SignInScreen = (props) => {
                     />
                     <TextInput
                         value={data.username}
-                        placeholder="Your Username"
+                        placeholder="Your email"
                         placeholderTextColor="#666666"
                         style={[styles.textInput, {
                             color: colors.text
@@ -216,13 +216,13 @@ const SignInScreen = (props) => {
 
                         onPress={async () => {
                             if (data.username.trim() == "" || data.password.trim() == "") {
-                                alert("Please Enter the User Name and  Password !")
+                                alert("Please Enter the User Name and Password !")
                                 return;
                             }
 
                             setData({ ...data, api: true })
-                            const apiBody = { name: data.username, password: data.password };
-
+                            const apiBody = { email: data.username, password: data.password };
+                            console.log(apiBody)
                             const apiData = await fetch(`${apiLink}/login`,
                                 {
                                     method: 'POST', // or 'PUT'
@@ -231,7 +231,10 @@ const SignInScreen = (props) => {
                                     },
                                     body: JSON.stringify(apiBody),
                                 });
+                              
                             const jsonData = await apiData.json();
+                            // console.log(apiData)
+                            // console.log(jsonData)
                             setData({ ...data, api: false })
                             if (jsonData.success) {
                                 // console.log({ user: jsonData.users.name, email: jsonData.users.email, number: jsonData.users.number, id: jsonData.users._id, requests: jsonData.users.requests.length })
@@ -240,7 +243,7 @@ const SignInScreen = (props) => {
                                 //     param: {user: jsonData.users.name, email: jsonData.users.email, number: jsonData.users.number, id: jsonData.users._id , requests : jsonData.users.requests.length  }
                                 // })
                                 // navigation.navigate('Root', { screen: 'Home', params: { screen: 'Sound', params: { screen: 'Media' } } });
-                               navigation.navigate('Home',{ user: jsonData.users.name, email: jsonData.users.email, number: jsonData.users.number, id: jsonData.users._id, requests: jsonData.users.requests.length }  );
+                               navigation.navigate('Home',{ user: jsonData.user.name, email: jsonData.user.email, number: jsonData.user.number, id: jsonData.user._id, requests: jsonData.user.requests.length }  );
                             }
                             else
                                 alert("Wrong User Name and Password")

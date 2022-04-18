@@ -25,7 +25,7 @@ const PersonSchema = new mongoose.Schema(
         {
             type: String,
             required: [true, "please Enter password"],  
-            maxlength: [20, "Your Number cannot exceed 20 charachters"]
+            maxlength: [70, "Your Number cannot exceed 20 charachters"]
         },
         requests:[],
         member:[],

@@ -136,7 +136,7 @@ const NewAccount = (props) => {
                     <View style={{ marginBottom: 10 }}>
                         <Text style={[styles.text_footer, {
                             color: colors.text
-                        }]}>Username</Text>
+                        }]}>Fullrname</Text>
                         <View style={styles.action}>
                             <FontAwesome
                                 name="user-o"
@@ -146,7 +146,7 @@ const NewAccount = (props) => {
                             <TextInput
                         value={data.username}
 
-                                placeholder="Your Username"
+                                placeholder="Your Fullname"
                                 placeholderTextColor="#666666"
                                 style={[styles.textInput, {
                                     color: colors.text

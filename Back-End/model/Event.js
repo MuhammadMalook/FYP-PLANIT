@@ -19,7 +19,7 @@ const EventSchema = new mongoose.Schema({
     eventDesc: {
         type: String,
         required: [true, "Please Enter Event Description"],
-        maxlength: [40, "Event Description cannot exceed 40 charachters"],
+        maxlength: [50, "Event Description cannot exceed 40 charachters"],
     },
     userName: {
         type: String,

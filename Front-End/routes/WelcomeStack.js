@@ -4,17 +4,26 @@ import LoginScreen from '../Screens/Login';
 import NewAccount from '../Screens/NewAccount';
 // import SignInScreen from '../screens/Sign';
 import Header from '../shared/header';
+import { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
+
 
 const screens = {
+  
     Intro: {
         screen: LoginScreen,
         navigationOptions: ({ navigation }) => {
-            return {
-                headerTitle: () => <Header title='Login' navigation={navigation} />
-            }
+            return {       
+                headerTitle: () =>  <Header title='Login' navigation={navigation} />
+            } 
+
+            },
+            
+            
         },
-    },
-    
+        
     NewAccount: {
         screen: NewAccount,
         navigationOptions: {

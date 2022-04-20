@@ -10,12 +10,18 @@ import {
     StatusBar,
     Alert, ActivityIndicator
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Animatable from 'react-native-animatable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import { useTheme } from 'react-native-paper';
 import apiLink from '../shared/apiLink';
 import { useFocusEffect } from '@react-navigation/native';
+import HomeScreen from './HomeScreen';
+
+import { AuthContext } from '../components/context';
+//  const { signIn } = React.useContext(AuthContext)
+
 const SignInScreen = (props) => {
     const navigation = props.navigation;
     const [data, setData] = React.useState({
@@ -28,9 +34,15 @@ const SignInScreen = (props) => {
         isValidPassword: true,
     });
 
+
+  
+
+    // const [token, setToken] = useState(null);
+    // const [user, setUser] =  useState({});
+
     const { colors } = useTheme();
 
-    // const { signIn } = React.useContext(AuthContext);
+    const { signIn } = React.useContext(AuthContext);
 
     const textInputChange = (val) => {
         if (val.trim().length >= 4) {
@@ -105,8 +117,7 @@ const SignInScreen = (props) => {
                 { text: 'Okay' }
             ]);
             return;
-        }
-        signIn(foundUser);
+        }        
     }
 
     return (
@@ -238,12 +249,15 @@ const SignInScreen = (props) => {
                             setData({ ...data, api: false })
                             if (jsonData.success) {
                                 // console.log({ user: jsonData.users.name, email: jsonData.users.email, number: jsonData.users.number, id: jsonData.users._id, requests: jsonData.users.requests.length })
-                                // navigation.navigate("Root",{
-                                //     screen: "Home",
-                                //     param: {user: jsonData.users.name, email: jsonData.users.email, number: jsonData.users.number, id: jsonData.users._id , requests : jsonData.users.requests.length  }
-                                // })
-                                // navigation.navigate('Root', { screen: 'Home', params: { screen: 'Sound', params: { screen: 'Media' } } });
-                               navigation.navigate('Home',{ user: jsonData.user.name, email: jsonData.user.email, number: jsonData.user.number, id: jsonData.user._id, requests: jsonData.user.requests.length }  );
+                                    // navigation.navigate("Root",{
+                                    //     screen: "Home",
+                                    //     param: {user: jsonData.users.name, email: jsonData.users.email, number: jsonData.users.number, id: jsonData.users._id , requests : jsonData.users.requests.length  }
+                                    // })
+                                    // navigation.navigate('Root', { screen: 'Home', params: { screen: 'Sound', params: { screen: 'Media' } } });
+                                // await AsyncStorage.setItem('token', jsonData.user.email)
+                                // await AsyncStorage.setItem('user', JSON.stringify(jsonData.user))
+                               signIn(jsonData.user.email, JSON.stringify(jsonData.user));
+                               //navigation.navigate('Home',jsonData.user);
                             }
                             else
                                 alert("Wrong User Name and Password")

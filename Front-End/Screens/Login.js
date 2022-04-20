@@ -1,4 +1,4 @@
-import React from 'react';
+import {React,useEffect,useState} from 'react';
 import {
     Button,
     View,
@@ -9,13 +9,62 @@ import {
     StatusBar,
     Image
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Animatable from 'react-native-animatable';
 // import LinearGradient from 'react-native-linear-gradient'
 import { useTheme } from '@react-navigation/native';
 const LoginScreen = (props) => {
     const { colors } = useTheme();
-    const navigation = props.navigation;
+    console.log(props)
+    const navigation = props.navigation
+   
+//        // AsyncStorage.clear()
+//         const [Token, setToken] = useState(null);
+//         const [jsonData, setjsonData] = useState({})
+//         let length = 0;
 
+//             const getTokens = async ()=>{
+//                 const token = await AsyncStorage.getItem('token');
+//                 console.log(token+" hello wwww");
+//                 if(token!==null)
+//                 {
+//                     console.log(Token)
+                  
+//                     setToken(token)
+//                     console.log(Token)
+                  
+//                   try {
+//                    // setToken(token)
+//                     const user = await AsyncStorage.getItem('user');
+//                     console.log(user + " userrrr ")
+                  
+//                     if (user !== null) {
+//                         // We have data!!
+//                         const jsonData = JSON.parse(user);
+//                        setjsonData(jsonData)
+//                         console.log(JSON.parse(user));
+//                         console.log(jsonData)
+//                         console.log(jsonData.name);  
+//                         length = jsonData.requests.length;
+//                         console.log(length)
+//                         //navigation.navigate('Home',{ user: jsonData.name, email: jsonData.email, number: jsonData.number, id: jsonData._id, requests: jsonData.requests.length }) 
+//                     }
+//                 } catch (error) {
+//                     // Error retrieving data
+//                     console.log(error)
+//                 }
+                
+//                 }
+            
+//             }
+// useEffect(() => {
+//     getTokens()
+//     return () => {
+        
+//     };
+// }, [])    
+            
+// if(Token === null){
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor='#009387' barStyle="light-content" />
@@ -79,6 +128,10 @@ const LoginScreen = (props) => {
         </View>
 
     )
+//}
+// else {
+//     return (navigation.navigate('Home',{ user: jsonData.name, email: jsonData.email, number: jsonData.number, id: jsonData._id, requests: length}))
+// }
 }
 const {height} = Dimensions.get("screen");
 // const height_logo = height * 0.15;

@@ -6,15 +6,19 @@ import { Card, ListItem, ThemeProvider, Button, Icon } from 'react-native-elemen
 
 import { Text } from "../components/Themed"
 import apiLink from "../shared/apiLink";
-const HomeScreen = (props) => {
-    const navigation = props.navigation;
 
-     console.log("in am called")
-    const _user = navigation.getParam('user');
-    const _email = navigation.getParam('email');
-    const _id = navigation.getParam('id');
-    const _number = navigation.getParam('number');
-    const _requests = navigation.getParam('requests');
+// import NavContainer from "../routes/NewDrawer";
+
+const HomeScreen = ({navigation, route}) => {
+    // const navigation = navigation;
+    console.log(route.params, "helloooooooo")
+    // console.log(navigation)
+    const _user = route.params.name;
+    const _email = route.params.email;
+    const _id = route.params.id;
+    const _number = route.params.number;
+    const _requests = route.params.requests;
+    console.log("in am called "+_email)
 
 
     const [homeScreenData, setScreen] = useState({
@@ -45,7 +49,7 @@ const HomeScreen = (props) => {
             body: JSON.stringify(apiBody),
         });
         const jsonData = await apiData.json();
-         console.log(jsonData);
+         console.log(jsonData + "json");
         if (jsonData.success)
             setData({
                 ...data, api: false, events: [...jsonData.events]
@@ -66,10 +70,11 @@ const HomeScreen = (props) => {
     }, [])
     return (
         <ScrollView>
-
+            
             {
                 data.api && <ActivityIndicator color="#0000ff" style={{ position: "absolute", left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "center", top: 0 }} size="large" />
             }
+            {/* <NavContainer/> */}
             <Card style={[{ backgroundColor: colors.card }]}>
 
                 <Text style={[{ textAlign: "center", fontSize: 15, fontWeight: "bold", color: colors.text, marginBottom: 10 }]}>
@@ -79,7 +84,7 @@ const HomeScreen = (props) => {
                 </Text>
                 <View>
                     <Button onPress={() => {
-                        navigation.navigate('myRequests', { user: _user, email: _email, number: _number, id: _id })
+                        navigate('myRequests', { user: _user, email: _email, number: _number, id: _id })
                     }} title={"View Requests"}>
 
                     </Button>
@@ -92,7 +97,7 @@ const HomeScreen = (props) => {
                 </Text>
                 <View>
                     <Button onPress={() => {
-                        navigation.navigate('createEvent', { user: _user, email: _email, number: _number, id: _id })
+                        navigate('createEvent', { user: _user, email: _email, number: _number, id: _id })
                     }} title={"Create Event"}>
 
                     </Button>
@@ -170,7 +175,7 @@ const HomeScreen = (props) => {
                         <View style={[{ margin: 10 }]}>
 
                             <Button onPress={() => {
-                                navigation.navigate('OneEvent', { user: _user, email: _email, number: _number, id: _id, eventId: eventItem._id, eventName: eventItem.eventName, eventAdmin: eventItem.userId })
+                                navigate('OneEvent', { user: _user, email: _email, number: _number, id: _id, eventId: eventItem._id, eventName: eventItem.eventName, eventAdmin: eventItem.userId })
                             }} style={[{ marginTop: 10, marginBottom: 5, width: 50 }]} type="outline" size={3} title={"View"}>
                             </Button>
 

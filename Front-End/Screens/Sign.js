@@ -19,7 +19,7 @@ import apiLink from '../shared/apiLink';
 import { useFocusEffect } from '@react-navigation/native';
 import HomeScreen from './HomeScreen';
 
-import { AuthContext } from '../components/context';
+import { AuthContext } from '../components/Context';
 //  const { signIn } = React.useContext(AuthContext)
 
 const SignInScreen = (props) => {

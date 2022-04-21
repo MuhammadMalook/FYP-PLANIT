@@ -15,7 +15,7 @@ const HomeScreen = ({navigation, route}) => {
     // console.log(navigation)
     const _user = route.params.name;
     const _email = route.params.email;
-    const _id = route.params.id;
+    const _id = route.params._id;
     const _number = route.params.number;
     const _requests = route.params.requests;
     console.log("in am called "+_email)

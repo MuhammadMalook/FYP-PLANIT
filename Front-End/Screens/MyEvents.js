@@ -1,10 +1,15 @@
 import React, { useState } from "react"
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 
-import { Card, ListItem,ThemeProvider, Button, Icon } from 'react-native-elements'
+// import { Card, ListItem,ThemeProvider, Button, Icon } from 'react-native-elements'
+import { Card } from "react-native-elements";
+import { ThemeProvider } from "react-native-elements";
+import { Button } from "react-native-elements";
 
 import { Text } from "../components/Themed"
+import { ScrollView } from "react-native";
+import { View } from "react-native";
 const MyEvents = (props) => {
     const navigation = props.navigation;
 
@@ -12,46 +17,68 @@ const MyEvents = (props) => {
     const [data, setData] = useState({
         "success": true,
         "events": [
-            {
-                "_id": "619032f2271ff186b1c1eca7",
-                "userId": "619032a107",
-                "eventName": "BirthDay",
-                "eventDesc": "Simple Desc of Event but this is just nothing just a small description",
-                "team": [
-                    "61903152fd325904426375da"
-                ],
-                "tasks": [
-                    "6190e046e5cb2abbe906c653",
-                    "6190e111aea523d027c4dbed",
-                    "6191254806d9d4318b2f83f1",
-                    "6197e64193c8dc7293981279"
-                ],
-                "guestList": [],
-                "notes": [],
-                "eventStatus": false,
-                "__v": 0
-            },
-            {
-                "_id": "6196843e6198affe7a130ac8",
-                "userId": "619681e80c",
-                "eventName": "Party_1",
-                "eventDesc": "Simple Desc of Event but this is just nothing just a small description",
-                "team": [],
-                "tasks": [],
-                "guestList": [],
-                "notes": [],
-                "eventStatus": false,
-                "__v": 0
-            }
+            // {
+            //     "_id": "619032f2271ff186b1c1eca7",
+            //     "userId": "619032a107",
+            //     "eventName": "BirthDay",
+            //     "eventDesc": "Simple Desc of Event but this is just nothing just a small description",
+            //     "team": [
+            //         "61903152fd325904426375da"
+            //     ],
+            //     "tasks": [
+            //         "6190e046e5cb2abbe906c653",
+            //         "6190e111aea523d027c4dbed",
+            //         "6191254806d9d4318b2f83f1",
+            //         "6197e64193c8dc7293981279"
+            //     ],
+            //     "guestList": [],
+            //     "notes": [],
+            //     "eventStatus": false,
+            //     "__v": 0
+            // },
+            // {
+            //     "_id": "6196843e6198affe7a130ac8",
+            //     "userId": "619681e80c",
+            //     "eventName": "Party_1",
+            //     "eventDesc": "Simple Desc of Event but this is just nothing just a small description",
+            //     "team": [],
+            //     "tasks": [],
+            //     "guestList": [],
+            //     "notes": [],
+            //     "eventStatus": false,
+            //     "__v": 0
+            // },
+            // {
+            //     "_id": "6196843e6198affe7a130ac8",
+            //     "userId": "619681e80c",
+            //     "eventName": "Party_1",
+            //     "eventDesc": "Simple Desc of Event but this is just nothing just a small description",
+            //     "team": [],
+            //     "tasks": [],
+            //     "guestList": [],
+            //     "notes": [],
+            //     "eventStatus": false,
+            //     "__v": 0
+            // }
         ]
     });
     return (
-        <View>
+    //     <View style={{ flex: 1 }}>
+    //   <ScrollView>
+    //     {Array(200)
+    //       .fill()
+    //       .map((_, i) => {
+    //         return <Text>{i}</Text>;
+    //       })}
+    //   </ScrollView>
+    // </View>
+        <View style={{flex:1}}>
+        <ScrollView style={{marginBottom:100}}>
                 {
-                    data.success == true && data.events.map((eventItem, i) => <Card key={i}>
+                    data.api == true && data.events.map((eventItem, i) => <Card key={i} containerStyle={{shadowColor:'#7F5DF0', shadowOffset:{width:2, height:3},shadowOpacity:0.1}}>
                         <Card.Title style={[{ backgroundColor: colors.card }]}>{eventItem.eventName}</Card.Title>
                         <Card.Divider />
-                        <View key={i} style={[{ backgroundColor: colors.border, borderRadius: 5, padding: 5, color: colors.text }]}>
+                        <View key={i} style={[{ backgroundColor: colors.border, borderRadius: 10, padding: 5, color: colors.text, shadowColor:'#7F5DF0', shadowOffset:{width:2, height:3},shadowOpacity:0.1}]}>
                             <View>
                                 <Text style={[{ textAlign: "center", fontSize: 10, fontWeight: "bold", color: colors.text }]}>
                                     Description
@@ -133,7 +160,7 @@ const MyEvents = (props) => {
 
                 }
 
-
+        </ScrollView>
         </View>
     )
 }
@@ -141,7 +168,26 @@ export default MyEvents;
 
 
 
+
+
 const styles = StyleSheet.create({
+    ShadowRoot:{
+        shadowColor:"#7F5DF0",
+        shadowOffset:{
+          width:0,
+          height:20,
+        },
+        shadowOpacity:0.80,
+        shadowRadius:10.5,
+        elevation:5,
+        borderRadius:50,
+       
+        
+      },
+        container: {
+            flex: 1,
+            backgroundColor: '#009387'
+        },
     drawerContent: {
         flex: 1,
     },

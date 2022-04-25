@@ -7,7 +7,6 @@ import { Platform } from "react-native";
 import { StyleSheet } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // import DrawerComponent from "./screens/DrawerHome";
-import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 // import Navigator from './routes/NewDrawer';
@@ -24,6 +23,13 @@ import MainTabScreen from "./Screens/MainTabScreen";
 // import { navigationRef } from './RootNavigation';
 // import * as RootNavigation from './RootNavigation'
 
+import { NavigationContainer } from '@react-navigation/native';
+import { navigationRef } from './navigatorRoot';
+import EditProfile from "./Screens/EditProfile";
+import EditProfileScreen from "./Screens/EditProfileScreen.js";
+
+
+    
 
 
 const styles = StyleSheet.create({
@@ -38,6 +44,9 @@ const styles = StyleSheet.create({
 
 
 const Stack = createStackNavigator()
+// Stack.Navigator.defaultProps = {
+//   headerMode: 'none',
+// };
 export default function App() {
 
   const initialLoginState = {
@@ -149,10 +158,12 @@ useEffect(() => {
   return(
     
     <AuthContext.Provider value={authContext}>
+
+
     <NavigationContainer>
       { loginState.userToken !== null ? (
        
-          <MainTabScreen data={loginState.userData}/>
+          <AllScreens data={loginState.userData}/>
         
       )
     :
@@ -161,6 +172,9 @@ useEffect(() => {
     </NavigationContainer>
     </AuthContext.Provider>
   )
+
+
+
 // if(Token === null){
 //   return (
 //     <NavigationContainer>
@@ -194,28 +208,28 @@ useEffect(() => {
 //{props => <HomeScreen {...props} extraData={{name:"malook"}} />}
     // <Navigator/>
 
-    // <NavigationContainer>
-    //   <Drawer.Navigator >
-    //     <Drawer.Screen name="Send Request" component={SendRequest} />
-    //     <Drawer.Screen name="All Members of Event" component={EventTeam} />
-    //     <Drawer.Screen name="Create Event" component={CreateEvent} />
-    //     <Drawer.Screen name="Home" component={MyEvents} />
-    //     <Drawer.Screen name="Requests" component={MyRequests} />
-    //     <Drawer.Screen name="Events" component={DisplayAllEvents} />
-    //     <Drawer.Screen name="My Events" component={MyEvents} />
-    //     <Drawer.Screen name="My Tasks" component={Tasks} />
-    //     <Drawer.Screen name="Logout" component={LoginScreen} />
-    //     <Drawer.Screen name="Sign In" component={SignInScreen} />
-    //     <Drawer.Screen name="Create New Note" component={CreateNote} />
-    //     <Drawer.Screen name="Create New Task" component={CreateTask} />
-    //     <Drawer.Screen name="Notes Of Event" component={NotesEvent} />
 
+   export const AllScreens = (props)=>(
+            
+          <Stack.Navigator  initialRouteName="MainTab">
+            <Stack.Screen name="MainTab" component={MainTabScreen} initialParams={props} options={{headerShown: false}}/> 
+            <Stack.Screen name="EditProfile" component={EditProfileScreen}/>
 
+            {/* <Stack.Screen name="All Members of Event" component={EventTeam} /> */}
+            {/* <Stack.Screen name="Create Event" component={CreateEvent} />
+            <Stack.Screen name="Home" component={MyEvents} />
+            <Stack.Screen name="Requests" component={MyRequests} />
+            <Stack.Screen name="Events" component={DisplayAllEvents} />
+            <Stack.Screen name="My Events" component={MyEvents} />
+            <Stack.Screen name="My Tasks" component={Tasks} />
+            <Stack.Screen name="Logout" component={LoginScreen} />
+            <Stack.Screen name="Sign In" component={SignInScreen} />
+            <Stack.Screen name="Create New Note" component={CreateNote} />
+            <Stack.Screen name="Create New Task" component={CreateTask} />
+            <Stack.Screen name="Notes Of Event" component={NotesEvent} /> */}
+          </Stack.Navigator>
 
-
-    //   </Drawer.Navigator>
-    // </NavigationContainer>
-
+    )
 
     // <View>
     // {/* <SignScreen/> */}

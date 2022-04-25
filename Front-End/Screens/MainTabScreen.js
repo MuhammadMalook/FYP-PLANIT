@@ -4,6 +4,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -11,6 +12,12 @@ import HomeScreen from './HomeScreen';
 import DetailsScreen from './DetailsScreen';
 import { AuthContext } from '../components/Context';
 import LoginScreen from './Login';
+import MyEvents from './MyEvents'
+import ListScreen from '../List/ListScreen';
+import Profile from './Profile';
+import { useTheme } from 'react-native-paper';
+import * as RootNavigation from '../navigatorRoot';
+
 
 
 
@@ -40,10 +47,13 @@ const CustomTabBarButton = ({children, onPress}) =>(
   
 // }
 
-const MainTabScreen = (props) =>{
+const MainTabScreen = ({navigation,route}) =>{
+  console.log(route)
+  const {colors} = useTheme();
   
-  const { signOut } = React.useContext(AuthContext);
+  
   return(
+    <>
     <Tab.Navigator initialRouteName='Home'
     screenOptions={{
       tabBarShowLabel:false,
@@ -67,27 +77,27 @@ const MainTabScreen = (props) =>{
           tabBarIcon: ({ focused }) => (
             <View style={{alignItems:'center',justifyContent:'center',}}>
                 <Image source={require('../assets/home.png')} resizeMode="contain" style={{ 
-                  width:30, height:30, tintColor:focused ? '#e32f45' : '#748c4'
+                  width:30, height:30, tintColor:focused ? '#e32f45' : 'black'
                 }}/>
-                  <Text style={{color:focused? "#e32f45" : "#748c4" , fontSize:10}}>Home</Text>
+                  <Text style={{color:focused? "#e32f45" : "black" , fontSize:10}}>Home</Text>
             </View>
           ),
-        }} initialParams={props.data}
+        }} initialParams={route.params.data}
       />
 
        <Tab.Screen
         name="Events"
-        component={DetailsScreen} 
+        component={ListScreen} 
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={{alignItems:'center',justifyContent:'center',}}>
                 <Image source={require('../assets/events.png')} resizeMode="contain" style={{ 
-                  width:30, height:30, tintColor:focused ? '#e32f45' : '#748c4'
+                  width:30, height:30, tintColor:focused ? '#e32f45' : 'black'
                 }}/>
-                  <Text style={{color:focused? "#e32f45" : "#748c4" , fontSize:10}}>Events</Text>
+                  <Text style={{color:focused? "#e32f45" : "black" , fontSize:10}}>Events</Text>
             </View>
           ),
-        }}
+        }} initialParams={route.params.data}
       />
       <Tab.Screen 
         name="Create"
@@ -95,12 +105,12 @@ const MainTabScreen = (props) =>{
         options={{
           tabBarIcon: ({ focused }) => (
                 <Image source={require('../assets/plus.png')} resizeMode="contain" style={{ 
-                  width:50, height:50, tintColor:focused ? '#e32f45' : '#748c4'
+                  width:50, height:50, tintColor:focused ? '#e32f45' : '#21bf60'
                 }}/>
                 
           ),
-          tabBarButton: (props) =>(
-            <CustomTabBarButton {...props}/>
+          tabBarButton: (route) =>(
+            <CustomTabBarButton {...route}/>
           )
         }}
       />
@@ -112,39 +122,54 @@ const MainTabScreen = (props) =>{
           tabBarIcon: ({ focused }) => (
             <View style={{alignItems:'center',justifyContent:'center',}}>
                 <Image source={require('../assets/notification.png')} resizeMode="contain" style={{ 
-                  width:30, height:30, tintColor:focused ? '#e32f45' : '#748c4'
+                  width:30, height:30, tintColor:focused ? '#e32f45' : 'black'
                 }}/>
-                  <Text style={{color:focused? "#e32f45" : "#748c4" , fontSize:10}}>notifications</Text>
+                  <Text style={{color:focused? "#e32f45" : "black" , fontSize:10}}>notifications</Text>
             </View>
           ),
         }}
       />
        <Tab.Screen
         name="Profile"
-        component={HomeScreen}
+        component={Profile}
         options={{
           
           tabBarIcon: ({ focused }) => (
             <View style={{alignItems:'center',justifyContent:'center',}}>
             <Image source={require('../assets/profile.png')} resizeMode="contain" style={{ 
-              width:30, height:30, tintColor:focused ? '#e32f45' : '#748c4'
+              width:30, height:30, tintColor:focused ? '#e32f45' : 'black'
             }}/>
-              <Text style={{color:focused? "#e32f45" : "#748c4" , fontSize:10}}>Profile</Text>
+              <Text style={{color:focused? "#e32f45" : "black" , fontSize:10}}>Profile</Text>
         </View>
           ),
-          // tabBarButton: (props) =>(
-          //   <LogoutAccount {...props}/>
-          // )
-          tabBarButton: props => (
-            <TouchableOpacity {...props} onPress={() => signOut()} />
-          ),
-        }}
+          // headerRight: () => (
+          //   <View style={{marginRight: 10}}>
+          //     <MaterialCommunityIcons.Button
+          //       name="account-edit"
+          //       size={25}
+          //       backgroundColor={colors.background}
+          //       color={colors.text}
+          //       // onPress={() => RootNavigation.navigate('Root', { screen: 'EditProfile' })}
+          //     />
+          //   </View>)
+          // tabBarButton: (route) =>(
+          //   <LogoutAccount {...route}/>
+          // // )
+          // tabBarButton: route => (
+          //   <TouchableOpacity {...route} onPress={() => signOut()} />
+          // ),
+        }} initialParams={route.params.data}
       />
     </Tab.Navigator>
+   
+     
+    </>
+    
   )
 }
 
 export default MainTabScreen;
+
 
 const style = StyleSheet.create({
   ShadowRoot:{

@@ -35,7 +35,18 @@ const colorAr = [
     // 'skyblue',
      //'#ff4c98',
   ]
+  const cardColorAr=[
+    '#4d5e80',
+    '#60c5a8',
+    '#ff5454',
+
+    // '#616247FF',
+    //  'skyblue',
+    //  '#ff4c98',
+     '#8f06e4',
+]
   const bgColor = (i) => colorAr[i % colorAr.length];
+  const bgColorCard = (i) => cardColorAr[i % cardColorAr.length];
   
   const ListItem = ({ item, index, animation, navigation }) => {
   
@@ -286,6 +297,7 @@ const HomeScreen = ({navigation, route}) => {
     const _requests = route.params.requests;
     console.log("in am called "+_email)
 
+    const [eventStats, setEventStats] = useState({"totalEvents":0, "myEvents":0, "completed":0, "tasksAssigned":0,"pendingEvents":0, "totalNotes":0, "requests":0})
 
     const [homeScreenData, setScreen] = useState({
         userName: _user,
@@ -300,7 +312,41 @@ const HomeScreen = ({navigation, route}) => {
         "success": true,
         "events": [
         ]});
-     
+   
+  
+ 
+        
+  async function getData()
+  {
+    
+  const apiBody = { id: route.params._id };
+  const apiData = await fetch(`${apiLink}/getEventsInfo`, {
+      method: 'POST', // or 'PUT'
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(apiBody),
+  });
+  const jsonData = await apiData.json();
+   console.log(jsonData.obj, "json");
+
+  if (jsonData.success){
+    
+      setEventStats(
+          jsonData.obj,
+      ); 
+    }
+  else {
+      setEventStats({ ...eventStats, success : false })
+
+  }
+
+}
+
+useEffect(() => {
+  getData() 
+}, [])
+
     
     useState(async () => {
         setData({
@@ -354,6 +400,8 @@ const HomeScreen = ({navigation, route}) => {
           1: { translateY: 0 },
         }
         return (
+         <>
+    
           <View style={[styles.listEmpty]}>
             <Animatable.Image source={require('../assets/error.png') }
           animation={anim}
@@ -371,8 +419,64 @@ const HomeScreen = ({navigation, route}) => {
            No Events Found
         </Animatable.Text>
           </View>
+         </> 
         )
       }
+
+      const iterateThrough =["requests","pendingEvents","tasksAssigned","totalNotes"]
+      let counter =0;
+
+      const ListCards = ({ item, index, animation, navigation }) => {
+        return (
+          <Animatable.View
+            animation={animation}
+            duration={1000}
+            delay={index * 300}
+          >
+            <View style={styles.cardItem}>
+              <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() => navigation.navigate('Screen')}>
+                <View style={[styles.cardimage, { backgroundColor: bgColorCard(index) }]} >
+                    <Text style={styles.cardText}>{item}</Text>
+                    <Text style={styles.numText}>{eventStats[iterateThrough[counter++]]}</Text>
+                </View>
+              </TouchableOpacity>
+              <View style={styles.detailsContainer}>
+               
+                
+              </View>
+            </View>
+          </Animatable.View>
+        )
+      }
+
+
+      const renderCards = ({ item, index }) => (
+        <ListCards item={item} index={index} animation={animation} navigation={navigation} />)
+    
+      const CardEmptyComponent = () => {
+        const anim = {
+          0: { translateY: 0 },
+          0.5: { translateY: 50 },
+          1: { translateY: 0 },
+        }
+        return (
+          <View style={[styles.listEmpty]}>
+            <Animatable.Text
+              animation={anim}
+              easing="ease-in-out"
+              duration={3000}
+              style={{ fontSize: 24 }}
+              iterationCount="infinite">
+              Empty List!
+            </Animatable.Text>
+          </View>
+        )
+      }
+
+
+
       useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
           viewRef.current.animate({ 0: { opacity: 0.5, }, 1: { opacity: 1 } });
@@ -382,20 +486,30 @@ const HomeScreen = ({navigation, route}) => {
       }, [navigation])
     
       return (
-        <View style={[Styles.container]}>
-          {/* <MyHeader
-            back
-            onPressBack={() => navigation.goBack()}
-            title={route.name}
-            right="more-vertical"
-            onRightPress={() => console.log('right')}
-          /> */}
-
-         {
+      <>
+        {
                 data.api && <ActivityIndicator color="#0000ff" style={{ position: "absolute", left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "center", top: 0 }} size="large" />
-            }
-            {/* <NavContainer/> */}
-            <Card style={[{ backgroundColor: colors.card }]}>
+        }
+        
+      <View style={[Styles.dashborad]}>
+        <Animatable.View
+        ref={viewRef}
+        easing={'ease-in-out'}
+        duration={500}
+        style={Styles.container}>
+        <FlatList
+          data={["Requests", "Pending Events","Tasks Assigned", "Notes"]}
+          keyExtractor={(_, i) => String(i)}
+          numColumns={2}
+          renderItem={renderCards}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 100 }}
+          ListEmptyComponent={CardEmptyComponent}
+        />
+      </Animatable.View>
+      </View>
+      <View  style={Styles.container}>
+            {/* <Card style={[{ backgroundColor: colors.card }]}>
 
                 <Text style={[{ textAlign: "center", fontSize: 15, fontWeight: "bold", color: colors.text, marginBottom: 10 }]}>
 
@@ -422,7 +536,7 @@ const HomeScreen = ({navigation, route}) => {
 
                     </Button>
                 </View>
-            </Card>
+            </Card> */}
 
           <Animatable.View
             ref={viewRef}
@@ -442,6 +556,7 @@ const HomeScreen = ({navigation, route}) => {
             />
           </Animatable.View>
         </View>
+        </>
       )
 
 
@@ -544,5 +659,51 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+      },
+
+
+      cardItem: {
+        
+        height: 100,
+        //width:'auto',
+         width: Dimensions.get('window').width / 2 - 16,
+        //width:'auto',
+        backgroundColor: 'white',
+        margin: 8,
+        
+        // borderRadius: 10,
+        // borderRadius: 10,
+        // shadowColor:'silver',
+        // shadowOpacity:0.8,
+        // shadowOffset:{width:-5, height:8}
+      },
+      cardimage: {
+        height: 100,
+        padding:8,
+        width:'auto',
+        margin: 5,
+        borderRadius: 10,
+        backgroundColor: Colors.primary,
+        justifyContent:'flex-start',
+   
+       
+        
+      },
+
+      cardText: {
+        fontWeight: 'bold',
+      
+        fontSize: 18,
+        color: 'white',
+        alignSelf:'center'
+      },
+      numText: {
+        fontWeight: 'bold',
+      
+        fontSize: 18,
+        color: 'white',
+        alignSelf:'center',
+        textAlignVertical:'center',
+        marginTop:10
       },
 });

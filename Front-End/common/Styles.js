@@ -4,6 +4,11 @@ import Colors from '../constants/Colors';
 const Styles = StyleSheet.create({
     container: {
         flex: 1,
+    
+    },
+    dashborad :{
+        height:250,
+        marginTop:10
     },
     rowView: {
         flexDirection: 'row',

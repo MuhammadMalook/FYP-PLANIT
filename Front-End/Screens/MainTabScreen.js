@@ -9,14 +9,16 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import HomeScreen from './HomeScreen';
-import DetailsScreen from './DetailsScreen';
-import { AuthContext } from '../components/Context';
+
+
 import LoginScreen from './Login';
 import MyEvents from './MyEvents'
 import ListScreen from '../List/ListScreen';
 import Profile from './Profile';
 import { useTheme } from 'react-native-paper';
 import * as RootNavigation from '../navigatorRoot';
+import Notifications from './Notifications';
+import CreateEvent from './CreateEvents';
 
 
 
@@ -59,7 +61,7 @@ const MainTabScreen = ({navigation,route}) =>{
       tabBarShowLabel:false,
       tabBarStyle:{
         position:'absolute',
-        bottom:15,
+        bottom:5,
         left:10,
         right:10,
         elevation:0,
@@ -101,7 +103,7 @@ const MainTabScreen = ({navigation,route}) =>{
       />
       <Tab.Screen 
         name="Create"
-        component={DetailsScreen}
+        component={CreateEvent}
         options={{
           tabBarIcon: ({ focused }) => (
                 <Image source={require('../assets/plus.png')} resizeMode="contain" style={{ 
@@ -112,12 +114,12 @@ const MainTabScreen = ({navigation,route}) =>{
           tabBarButton: (route) =>(
             <CustomTabBarButton {...route}/>
           )
-        }}
+        }} initialParams={route.params.data}
       />
       
       <Tab.Screen
-        name="Details"
-        component={DetailsScreen}
+        name="Notifications"
+        component={Notifications}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={{alignItems:'center',justifyContent:'center',}}>

@@ -156,9 +156,14 @@ import apiLink from '../shared/apiLink';
 
 const Profile = ({route, navigation}) => {
   console.log(route.params, 'paramssss')
+  const profile = route.params
   const {_id} = route.params._id;
+
   const { signOut } = React.useContext(AuthContext);
-  console.log(route.params._id, 'iddddddd')
+  // console.log(route.params._id, 'iddddddd')
+  // console.log(route.params.imageUrl)
+  console.log(route)
+
 
   const [data, setData] = useState({"totalEvents":0, "myEvents":0, "completed":0, "tasksAssigned":0,"pendingEvents":0, "totalNotes":0, "requests":0})
 
@@ -166,6 +171,7 @@ const Profile = ({route, navigation}) => {
   {
     
   const apiBody = { id: route.params._id };
+  
   const apiData = await fetch(`${apiLink}/getEventsInfo`, {
       method: 'POST', // or 'PUT'
       headers: {
@@ -203,7 +209,7 @@ useEffect(() => {
         <View style={{ marginTop: 15}}>
           <Avatar.Image style={{alignSelf:'center'}}
             source={
-              require('../assets/myprof.jpg')}
+              {uri:route.params.imageUrl} }
             size={120}
           />
           <View style={{alignItems:'center'}}>
@@ -289,7 +295,7 @@ useEffect(() => {
             <Text style={styles.menuItemText}>Tell Your Friends</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple onPress={() => {navigation.navigate('EditProfile')}}>
+        <TouchableRipple onPress={() => {navigation.navigate('EditProfile',{profile})}}>
           <View style={styles.menuItem}>
             <Icon name="account-settings-outline" color="#FF6347" size={25}/>
             <Text style={styles.menuItemText}>Settings</Text>

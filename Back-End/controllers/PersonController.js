@@ -119,6 +119,89 @@ exports.getEventByUserId = catchAsyncErrors(async (req, res, next) => {
         })
 })
 
+
+
+
+exports.getEventsInfo = catchAsyncErrors(async (req, res, next) => {
+    const { id } = req.body;
+    const events = await EventSchema.find();
+    let obj = {"totalEvents":0, "myEvents":0, "completed":0, "tasksAssigned":0,"pendingEvents":0, "totalNotes":0, "requests":0};
+    const allEvents = events.filter(event => 
+    {
+        const listofOneTeam = event.team;
+        if(event.userId == id)
+            return event;
+        console.log(listofOneTeam, "hello")  
+        for(let i=0; i<listofOneTeam.length; i++)
+        {
+            if(id == listofOneTeam[i].id)
+            return event;
+        }
+    });
+
+    if (allEvents.length == 0){
+    res.status(404).json({
+        success: false,
+        message: "not found the user in any team"
+    })
+    return
+}
+    const myEvents = events.filter(event=>{
+        if(event.userId == id)
+            return event;
+        
+    })
+    let completedEvents =0;
+    let pendingEvents = 0;
+    let totalNotes=0
+    for (let i=0; i<allEvents.length; i++)
+    {
+        totalNotes+=allEvents[i].notes.length
+        if(allEvents[i].eventStatus)
+        {
+            completedEvents++
+        }
+        else
+            pendingEvents++;
+    }
+
+     PersonSchema.findOne({id}).then(user=>{
+        if(user){
+                obj.tasksAssigned=user.tasks.length
+                obj.requests = user.requests.length
+        }
+        else
+            res.status(402).json(
+            {
+                success: false,
+                msg: "userNotFound"
+            }
+        )
+    }).catch(err => {
+        console.log('error', err);
+    });
+
+    obj.pendingEvents = pendingEvents
+    obj.completed = completedEvents;
+    obj.myEvents = myEvents.length;
+    obj.totalEvents=allEvents.length;
+    obj.totalNotes = totalNotes
+
+
+    res.status(200).json({success:true,obj})
+    // if (teamsLists.length == 0)
+    //     res.status(404).json({
+    //         success: false,
+    //         message: "not found the user in any team"
+    //     })
+    // else
+    //     res.status(200).json({
+    //         success: true,
+    //         events: teamsLists
+    //     })
+})
+
+
 exports.deletePerson = catchAsyncErrors(async (req, res, next) => {
     const { id } = req.body;
     const deletedPerson = await PersonSchema.findByIdAndDelete(id)
@@ -156,7 +239,8 @@ exports.findByName = catchAsyncErrors(async (req, res, next) => {
 })
 exports.login = catchAsyncErrors(async (req, res, next) => {
    // console.log("hello inot login")
-    const { email, password } = req.body;
+    let { email, password } = req.body
+    email = email.trim()
     PersonSchema.findOne({email}).
     then(user => {
         if(!user){ return res.status(404).json({message: "user not found"});}
@@ -226,12 +310,14 @@ exports.getAllpersons = catchAsyncErrors(async (req, res, next) => {
     }
 })
 exports.updatePerson = catchAsyncErrors(async (req, res, next) => {
-    const { id, name, email, number, password } = req.body;
+    const { id, name, email, number, imageUrl } = req.body;
+    console.log(id,name)
     const updateUserData =
     {
-        name, password, email, number
+        name, email, number, imageUrl
     };
-    const updated = await PersonSchema.findByIdAndUpdate(id, updateUserData)
+    const updated = await PersonSchema.findByIdAndUpdate(id, updateUserData,{new:true})
+    console.log(updated)
     if (updated) {
         res.status(200).json({
             success: true,
@@ -271,6 +357,23 @@ exports.addPerson = catchAsyncErrors(async (req, res, next) => {
         personCreated
     })
 })
+
+
+// exports.updatePerson = catchAsyncErrors(async (req, res, next) => {
+//     const data = req.body;
+//     const {id} = req.body;
+//     PersonSchema.updateOne(id,data, (err , collection) => {
+// 		if(err) throw err;
+// 		console.log("Record updated successfully");
+// 		console.log(collection);
+// 	})
+    
+//     res.status(200).json({
+//         success: true,
+//         personCreated
+//     })
+// })
+
 
 exports.getTasksByUser = catchAsyncErrors(async (req, res, next) => {
     const { userId } = req.params;

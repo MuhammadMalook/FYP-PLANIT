@@ -376,7 +376,7 @@ async function askForPermissions() {
                         }]}>Email</Text>
                         <View style={styles.action}>
                             <FontAwesome
-                                name="user-o"
+                                name="envelope-o"
                                 color={colors.text}
                                 size={20}
                             />
@@ -418,12 +418,13 @@ async function askForPermissions() {
                         }]}>Phone</Text>
                         <View style={styles.action}>
                             <FontAwesome
-                                name="user-o"
+                                name="phone"
                                 color={colors.text}
                                 size={20}
                             />
                             <TextInput
                         value={data.number}
+                        keyboardType='number-pad'
 
                                 placeholder="Your Number"
                                 placeholderTextColor="#666666"

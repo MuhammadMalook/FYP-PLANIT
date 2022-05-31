@@ -12,6 +12,7 @@ import { Image } from 'react-native-animatable';
 import apiLink from '../shared/apiLink';
 import {EventImages} from '../events-images/EventImages';
 
+
 const colorAr = [
     '#264653',
   '#60c5a8',
@@ -28,8 +29,9 @@ const colorAr = [
 const birthday = '../assets/events-images/birthday.png'
 const bgColor = (i) => colorAr[i % colorAr.length];
 
-const ListItem = ({ item, index, animation, navigation }) => {
-
+const ListItem = ({ item, index, animation, navigation, admin }) => {
+  
+// const id = item._id;
 
   return (
     <Animatable.View
@@ -38,14 +40,14 @@ const ListItem = ({ item, index, animation, navigation }) => {
       delay={index * 300}
     >
       <View style={styles.listItem}>
-        <TouchableOpacity
+        <TouchableOpacity key={item}
           activeOpacity={0.7}
-          onPress={() => navigation.navigate('Screen')}>
+          onPress={() => navigation.navigate('OneEvent',{...item,admin})}>
           {/* <View style={[styles.image, { backgroundColor: bgColor(index) }]} /> */}
-          <Image source={EventImages[item.toLowerCase()]} style={[styles.image, { backgroundColor: bgColor(index) }]}></Image>
+          <Image source={EventImages[item.eventName.toLowerCase()]} style={[styles.image, { backgroundColor: bgColor(index) }]}></Image>
         </TouchableOpacity>
         <View style={styles.detailsContainer}>
-          <Text style={styles.name}>{item}</Text>
+          <Text style={styles.name}>{item.eventName}</Text>
           <Icon type={Icons.Feather} name="more-vertical" size={20} color={Colors.black} />
         </View>
       </View>
@@ -69,7 +71,8 @@ export default function ListScreen({ route, navigation }) {
       userName: _user,
       email: _email,
       req: _requests,
-      num: _number
+      num: _number,
+      id : _id
   })
 
   // const { colors } = useTheme();
@@ -154,7 +157,8 @@ export default function ListScreen({ route, navigation }) {
       userName: _user,
       email: _email,
       req: _requests,
-      num: _number
+      num: _number,
+      id : _id
   });
 
 
@@ -173,7 +177,8 @@ useEffect(() => {
   console.log('====================================');
 
   const renderItem = ({ item, index }) => (
-    <ListItem item={item} index={index} animation={animation} navigation={navigation} />)
+    
+    <ListItem item={item} index={index} animation={animation} navigation={navigation} admin={homeScreenData} />)
 
   const ListEmptyComponent = () => {
     const anim = {
@@ -207,7 +212,7 @@ useEffect(() => {
     })
     //  ToastAndroid.show(animation+ ' Animation', ToastAndroid.SHORT);
     return () => unsubscribe;
-  }, [navigation])
+  }, [])
 
   return (
     <>
@@ -222,7 +227,7 @@ useEffect(() => {
         duration={500}
         style={Styles.container}>
         <FlatList
-          data={data.events.map(item=>item.eventName).fill(0, NaN, NaN) }
+          data={data.events.map(item=>item).fill(0, NaN, NaN) }
           keyExtractor={(_, i) => String(i)}
           numColumns={1}
           renderItem={renderItem}

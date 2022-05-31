@@ -27,6 +27,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { navigationRef } from './navigatorRoot';
 import EditProfile from "./Screens/EditProfile";
 import EditProfileScreen from "./Screens/EditProfileScreen.js";
+import OneEvent from "./Screens/OneEvent";
+import Tasks from "./Screens/Tasks";
+import CreateTask from "./Screens/createTasks";
 
 
     
@@ -214,7 +217,10 @@ useEffect(() => {
           <Stack.Navigator  initialRouteName="MainTab">
             <Stack.Screen name="MainTab" component={MainTabScreen} initialParams={props} options={{headerShown: false}}/> 
             <Stack.Screen name="EditProfile" component={EditProfileScreen}/>
-
+            <Stack.Screen name="OneEvent" component = {OneEvent}/>
+            <Stack.Screen name="eventTasks" component={Tasks}/>
+            <Stack.Screen name="createTask" component={CreateTask}/>
+ 
             {/* <Stack.Screen name="All Members of Event" component={EventTeam} /> */}
             {/* <Stack.Screen name="Create Event" component={CreateEvent} />
             <Stack.Screen name="Home" component={MyEvents} />

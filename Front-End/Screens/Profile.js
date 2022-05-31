@@ -223,10 +223,7 @@ useEffect(() => {
       </View>
 
       <View style={styles.userInfoSection}>
-        <View style={styles.row}>
-          <Icon name="map-marker-radius" color="#777777" size={20}/>
-          <Text style={{color:"#777777", marginLeft: 20}}>Sukkur, Pakistan</Text>
-        </View>
+      
         <View style={styles.row}>
           <Icon name="phone" color="#777777" size={20}/>
           <Text style={{color:"#777777", marginLeft: 20}}>{route.params.number}</Text>
@@ -279,14 +276,8 @@ useEffect(() => {
       <View style={styles.menuWrapper}>
         <TouchableRipple onPress={() => {}}>
           <View style={styles.menuItem}>
-            <Icon name="heart-outline" color="#FF6347" size={25}/>
-            <Text style={styles.menuItemText}>Your Favorites</Text>
-          </View>
-        </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
-          <View style={styles.menuItem}>
-            <Icon name="credit-card" color="#FF6347" size={25}/>
-            <Text style={styles.menuItemText}>Payment</Text>
+            <Icon name="lock-open-plus-outline" color="#FF6347" size={25}/>
+            <Text style={styles.menuItemText}>Change Password</Text>
           </View>
         </TouchableRipple>
         <TouchableRipple>

@@ -8,7 +8,7 @@ import {
     StatusBar,
     TextInput,
     Platform, ScrollView,
-    TouchableOpacity,ActivityIndicator,
+    TouchableOpacity,ActivityIndicator,SafeAreaView, KeyboardAvoidingView
 } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable';
@@ -67,7 +67,7 @@ const CreateEvent = ({route,navigation}) => {
     const  eventNameChange = (value)=>
     {
         console.log(value)
-        if(value.trim().length>4)
+        if(value.trim().length>=4)
         setData({
             ...data,
             eventName: value,
@@ -132,6 +132,8 @@ const CreateEvent = ({route,navigation}) => {
     }
 
     return (
+<SafeAreaView>
+<KeyboardAvoidingView>
 
   <ScrollView style={{paddingBottom:100}}>
     
@@ -153,7 +155,7 @@ const CreateEvent = ({route,navigation}) => {
              return <Button key={key} mode='outlined' onPress={(e,word)=>{setVisible(false)
                     console.log(key)
                     data.eventName=key.toUpperCase()
-                    //eventNameChange(e.target.innerText)
+                    eventNameChange(data.eventName)
                 }
                 } style={{margin:3}}>{key}</Button>
           })
@@ -213,8 +215,9 @@ const CreateEvent = ({route,navigation}) => {
                             }]}
                             autoCapitalize="none"
                            // onChangeText={(val) => eventNameChange(val)}
-                             ///onEndEditing={(e) => handleValidEventName(e.nativeEvent.text)}
+                            //onEndEditing={(e) => handleValidEventName(e.nativeEvent.text)}
                             value={data.eventName}
+                            
                             onFocus={()=> {
                                 setVisible({ visible: true });
                               }}
@@ -427,6 +430,8 @@ const CreateEvent = ({route,navigation}) => {
 
         </View>
 </ScrollView>
+</KeyboardAvoidingView>
+</SafeAreaView>
     )
 }
 

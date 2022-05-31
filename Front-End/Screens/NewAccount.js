@@ -227,10 +227,11 @@ const NewAccount = (props) => {
                                 size={20}
                             />
                             <TextInput
-                        value={data.number}
-
+                                value={data.number}
+                                keyboardType='number-pad'
                                 placeholder="Your Number"
                                 placeholderTextColor="#666666"
+                                keyboardAppearance='dark'
                                 style={[styles.textInput, {
                                     color: colors.text
                                 }]}

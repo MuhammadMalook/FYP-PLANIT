@@ -104,7 +104,8 @@ const MainTabScreen = ({navigation,route}) =>{
       <Tab.Screen 
         name="Create"
         component={CreateEvent}
-        options={{
+        
+        options={{ tabBarHideOnKeyboard:true,
           tabBarIcon: ({ focused }) => (
                 <Image source={require('../assets/plus.png')} resizeMode="contain" style={{ 
                   width:50, height:50, tintColor:focused ? '#e32f45' : '#21bf60'

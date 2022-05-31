@@ -462,6 +462,7 @@ useEffect(() => {
           1: { translateY: 0 },
         }
         return (
+         
           <View style={[styles.listEmpty]}>
             <Animatable.Text
               animation={anim}

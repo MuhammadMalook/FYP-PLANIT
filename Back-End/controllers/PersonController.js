@@ -121,7 +121,6 @@ exports.getEventByUserId = catchAsyncErrors(async (req, res, next) => {
 
 
 
-
 exports.getEventsInfo = catchAsyncErrors(async (req, res, next) => {
     const { id } = req.body;
     const events = await EventSchema.find();
@@ -165,10 +164,23 @@ exports.getEventsInfo = catchAsyncErrors(async (req, res, next) => {
             pendingEvents++;
     }
 
-     PersonSchema.findOne({id}).then(user=>{
+    let reqs=0, tasksAs=0;
+     PersonSchema.findOne({_id:id}).then(async user=>{
         if(user){
-                obj.tasksAssigned=user.tasks.length
-                obj.requests = user.requests.length
+    
+                tasksAs= await user.tasks.length
+                reqs = await user.requests.length
+                console.log(reqs);  
+                obj.requests = reqs;
+                obj.tasksAssigned = tasksAs;
+            
+
+                obj.pendingEvents = pendingEvents
+                obj.completed = completedEvents;
+                obj.myEvents = myEvents.length;
+                obj.totalEvents=allEvents.length;
+                obj.totalNotes = totalNotes;
+                res.status(200).json({success:true,obj})
         }
         else
             res.status(402).json(
@@ -180,15 +192,7 @@ exports.getEventsInfo = catchAsyncErrors(async (req, res, next) => {
     }).catch(err => {
         console.log('error', err);
     });
-
-    obj.pendingEvents = pendingEvents
-    obj.completed = completedEvents;
-    obj.myEvents = myEvents.length;
-    obj.totalEvents=allEvents.length;
-    obj.totalNotes = totalNotes
-
-
-    res.status(200).json({success:true,obj})
+     
     // if (teamsLists.length == 0)
     //     res.status(404).json({
     //         success: false,

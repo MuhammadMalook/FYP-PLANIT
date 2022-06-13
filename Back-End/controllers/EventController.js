@@ -134,12 +134,22 @@ exports.getTasksByEventId = catchAsyncErrors(async (req, res, next) => {
             return item;
         }
     })
-    res.status(200).json(
+    if(taskByEventId.length>0){
+         res.status(200).json(
         {
             success: true,
             tasks: taskByEventId
         }
-    )
+        )
+    }
+    else{
+        res.status(200).json(
+            {
+                success: false,
+                message: "No tasks found for this event"
+            }
+            )
+    }
 
 })
 exports.getAllEvents = catchAsyncErrors(async (req, res, next) => {

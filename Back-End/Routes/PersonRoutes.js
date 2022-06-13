@@ -24,4 +24,5 @@ router.route('/myEvents').post(myEvents);
 router.route('/getAllName').get(getAllNames);
 router.route('/getEventsInfo').post(getEventsInfo)
 
+
 module.exports = router;

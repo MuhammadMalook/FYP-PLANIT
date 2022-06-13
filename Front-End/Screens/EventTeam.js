@@ -1,0 +1,235 @@
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, ScrollView, ActivityIndicator, Dimensions } from "react-native";
+import { Card, ListItem, ThemeProvider, Button, Icon } from 'react-native-elements'
+import { useTheme } from '@react-navigation/native';
+import apiLink from "../shared/apiLink";
+import * as Animatable from 'react-native-animatable'
+
+const theme = {
+    Button: {
+        titleStyle: {
+            color: 'blue'
+        }
+    }
+};
+
+const EventTeam = ({route,navigation}) => {
+    //const navigation = props.navigation;
+
+    const _user = route.params.user;
+    const _email = route.params.email;
+    const _id = route.params.id;
+    const _number = route.params.event;
+    const _eventName = route.params.eventName;
+    const _eventId = route.params.eventId;
+    const _eventAdmin = route.params.eventAdmin;
+    const _AdminName = route.params.adminName;
+
+
+    const { colors } = useTheme();
+    const [data, setData] = useState({
+        api: false,
+        "success": true,
+        "team":
+            [
+               
+            ]
+    });
+    const anim = {
+        0: { translateY: 0 },
+        0.5: { translateY: 50 },
+        1: { translateY: 0 },
+      }
+
+    useEffect(async () => {
+        // const apiBody = { eventId: _eventId };
+        const apiData = await fetch(`${apiLink}/getMembers/${_eventId}`, {
+            method: 'GET', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+        const jsonData = await apiData.json();
+        // console.log(jsonData);
+
+        if (jsonData.success) {
+            const members = jsonData.members;
+            const team = jsonData.team
+            setData({ ...data, success: true, team: [...team] })
+        }
+        else {
+            setData({ ...data, success: false, })
+
+            alert("No Members")
+        }
+
+    }, [])
+    return (
+        <ScrollView>
+
+            <View>
+                <View style={[{ marginTop: 25, marginBottom: 5, marginLeft: 40, marginRight: 40 }]}>
+
+                    <Button onPress={() => {
+                        if(_eventAdmin == _id)
+                        {
+                            navigation.navigate('sendRequest', { user: _user, email: _email, number: _number, id: _id, eventId: _eventId, eventName: _eventName, eventAdmin: _eventAdmin,adminName : _AdminName })
+                        
+                        }
+                        else
+                        {
+                            alert("Not Authorized")
+
+                        }
+                    }} size={5} title={"Add New Member"}>
+
+                    </Button>
+                </View>
+                {
+                    data.success == true ? data.team.map((member, i) => <Card key={i} >
+                        <View style={[{ backgroundColor: "#ADD8E6", borderRadius: 5, padding: 5, color: colors.text }]}>
+                            <View>
+                                <Text style={[{ textAlign: "center", fontSize: 20, fontWeight: "bold", color: colors.text }]}>
+                                    {member.name}
+                                </Text>
+                            </View>
+                            <View style={[styles.row, { justifyContent: "space-evenly",  }]}>
+
+                                
+                                    
+                                    <View style={{flex:1, margin:2,color:"black"}}>
+                                        <Button
+                                        onPress={async () => {
+
+                                            setData({
+                                                ...data, api: true
+                                            });
+
+                                            const apiBody = { eventId: `${_eventId}`, plannerId: `${_eventAdmin}`, memberId : `${member.id}`, memberName: member.name };
+                                            const apiData = await fetch(`${apiLink}/removeMember`, {
+                                                method: 'POST', // or 'PUT'
+                                                headers: {
+                                                    'Content-Type': 'application/json',
+                                                },
+                                                body: JSON.stringify(apiBody),
+                                            });
+                                            const jsonData = await apiData.json();
+                                            console.log(jsonData);
+                                            setData({
+                                                ...data, api: false
+                                            });
+                                            
+
+                                            if (jsonData.success) 
+                                            {
+                                                alert("Member Removed ")
+                                            }
+                                            else {
+                                                alert("Member Not Removed")
+                                            }
+
+                                        }}
+
+                                     buttonStyle={[{backgroundColor:'red'}]} title={"Remove"}>
+                                    </Button>
+                                    </View>
+                                    <View style={{flex:1, margin:2}}>
+                                        <Button onPress={() => {
+                                        navigation.navigate('memberProfile', { name: member.name, id: member.id });
+                                    }} buttonStyle={[{ backgroundColor:'blue'}]} title={"View"}  >
+                                    </Button>
+                                    </View>   
+
+                      
+
+                            </View>
+                        </View>
+                    </Card>
+                    ) : 
+                     <View style={[[styles.listEmpty]]}>
+                    <Animatable.Image source={require('../assets/error.png') }
+                    animation={anim}
+                    easing="ease-in-out"
+                    duration={3000}
+                    style={{ width: 250, height: 250}}
+                    iterationCount="infinite">
+                   
+                  </Animatable.Image>
+                  <Animatable.Text style={{color:'red', fontSize:24, fontFamily:'sans-serif', marginLeft:20}} animation={anim}
+                    easing="ease-in-out"
+                    duration={3000} 
+                    iterationCount="infinite"
+                    >
+                     No Members Found
+                  </Animatable.Text>
+                  </View>
+
+                }
+
+                {
+
+                    data.api && <ActivityIndicator color="#0000ff" style={{ position: "absolute", left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "center", top: 0 }} size="large" />
+                }
+
+            </View>
+
+        </ScrollView>
+    )
+}
+export default EventTeam;
+const styles = StyleSheet.create({
+    drawerContent: {
+        flex: 1,
+    },
+    userInfoSection: {
+        paddingLeft: 20,
+    },
+    title: {
+        fontSize: 16,
+        marginTop: 3,
+        fontWeight: 'bold',
+    },
+    caption: {
+        fontSize: 14,
+        lineHeight: 14,
+    },
+    row: {
+        marginTop: 20,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    section: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginRight: 15,
+    },
+    paragraph: {
+        fontWeight: 'bold',
+        marginRight: 3,
+    },
+    drawerSection: {
+        marginTop: 15,
+    },
+    bottomDrawerSection: {
+        marginBottom: 15,
+        borderTopColor: '#f4f4f4',
+        borderTopWidth: 1
+    },
+    preference: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: 12,
+        paddingHorizontal: 16,
+    },
+    blackColor: {
+        color: "black",
+    },
+    button: {
+        color: "#ff5c5c",
+    },
+    listEmpty: {
+        height: 500,
+       alignItems: 'center',
+       justifyContent: 'center',
+     },
+});

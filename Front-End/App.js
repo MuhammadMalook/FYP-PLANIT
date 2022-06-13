@@ -30,6 +30,11 @@ import EditProfileScreen from "./Screens/EditProfileScreen.js";
 import OneEvent from "./Screens/OneEvent";
 import Tasks from "./Screens/Tasks";
 import CreateTask from "./Screens/createTasks";
+import EventTeam from "./Screens/EventTeam";
+import NotesEvent from "./Screens/NotesEvent";
+import CreateNote from "./Screens/createNote";
+import { sendRequest } from "../Back-End/controllers/EventController";
+import SendRequest from "./Screens/SendRequest";
 
 
     
@@ -220,6 +225,13 @@ useEffect(() => {
             <Stack.Screen name="OneEvent" component = {OneEvent}/>
             <Stack.Screen name="eventTasks" component={Tasks}/>
             <Stack.Screen name="createTask" component={CreateTask}/>
+            <Stack.Screen name="eventTeam" component={EventTeam}/>
+            <Stack.Screen name="eventNotes" component={NotesEvent}/>
+            <Stack.Screen name="newNote" component={CreateNote}/>
+            <Stack.Screen name="sendRequest" component={SendRequest}/>
+
+
+
  
             {/* <Stack.Screen name="All Members of Event" component={EventTeam} /> */}
             {/* <Stack.Screen name="Create Event" component={CreateEvent} />

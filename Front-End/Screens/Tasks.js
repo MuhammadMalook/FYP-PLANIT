@@ -4,6 +4,7 @@ import { Card, ListItem, Button, Icon } from 'react-native-elements'
 import { useTheme } from '@react-navigation/native';
 import { CheckBox } from 'react-native';
 import apiLink from "../shared/apiLink";
+import * as Animatable from 'react-native-animatable'
 //import { TouchableOpacity } from "react-native-gesture-handler";
 // import { tapGestureHandlerProps } from "react-native-gesture-handler/lib/typescript/handlers/TapGestureHandler";
 
@@ -17,38 +18,14 @@ const Tasks = ({route, navigation}) => {
     const [data, setData] = useState({
         "success": true,
          "api":true,
-        "tasks":[ {
-            "_id": "6191254806d9d4318b2f83f1",
-            "eventId": "619032f2271ff186b1c1eca7",
-            "taskText": "Bring Cake",
-            "assignTo": "61903152fd325904426375da",
-            "__v": 0,
-            "taskStatus": true
-        },
-        {
-            "_id": "6197e64193c8dc7293981279",
-            "eventId": "619032f2271ff186b1c1eca7",
-            "taskText": "Bring Candles",
-            "assignTo": "61903152fd325904426375da",
-            "__v": 0
-        },
-        {
-            "_id": "6191254806d9d4318b2f83f1",
-            "eventId": "619032f2271ff186b1c1eca7",
-            "taskText": "Bring Cake",
-            "assignTo": "61903152fd325904426375da",
-            "__v": 0,
-            "taskStatus": true
-        },
-        {
-            "_id": "6197e64193c8dc7293981279",
-            "eventId": "619032f2271ff186b1c1eca7",
-            "taskText": "Bring Candles",
-            "assignTo": "61903152fd325904426375da",
-            "__v": 0
-        }]
+        "tasks":[]
     });
 
+    const anim = {
+        0: { translateY: 0 },
+        0.5: { translateY: 50 },
+        1: { translateY: 0 },
+      }
 
    async function getData()
     {
@@ -73,16 +50,33 @@ const Tasks = ({route, navigation}) => {
            setData({...data, api:false, tasks:[...taskList.tasks]})
         }
         else{
-            setData({...data, sucees:false})
+            setData({...data, api:false, sucees:false})
         }
     },[])
 return(
+    <ScrollView>
+                <View style={[{ marginTop: 25, marginBottom: 5, marginLeft: 40, marginRight: 40 }]}>
+
+                    <Button onPress={() => {
+                        if(data_task.eventAdmin === data_task.id){
+                            navigation.navigate('createTask', {...data_task})
+                        }
+                        else
+                        {
+                            alert("you are not admin of this event");
+
+                        }
+                    }} size={5} title={"Add New Member"}>
+
+                    </Button>
+            </View>
+{
     data.api ? <ActivityIndicator color="#0000ff" style={{ position: "absolute", left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "center", top: 0 }} size="large" />
 
         : <>
-            <ScrollView>      
+             
             {
-                data.tasks.map((item,i) => <Card key={i}>
+               data.tasks.length > 0 ? data.tasks.map((item,i) => <Card key={i}>
                     <Card.Title>
                         {item.taskText}
                     </Card.Title>
@@ -124,11 +118,27 @@ return(
                         </Button>}
 
                     </View>
-                </Card>)
-            }
-            
-    </ScrollView> 
-    <View style={{flex:1}}>
+                </Card>):
+                 <View style={[[styles.listEmpty]]}>
+                 <Animatable.Image source={require('../assets/error.png') }
+                 animation={anim}
+                 easing="ease-in-out"
+                 duration={3000}
+                 style={{ width: 250, height: 250}}
+                 iterationCount="infinite">
+                
+               </Animatable.Image>
+               <Animatable.Text style={{color:'red', fontSize:24, fontFamily:'sans-serif', marginLeft:20}} animation={anim}
+                 easing="ease-in-out"
+                 duration={3000} 
+                 iterationCount="infinite"
+                 >
+                  No Members Found
+               </Animatable.Text>
+               </View>
+            }  
+   
+    {/* <View style={{flex:1}}>
             <View style = {styles.containerMain}>
        <TouchableOpacity
         onPress={()=> {
@@ -151,8 +161,10 @@ return(
             />
          </TouchableOpacity>
          </View>
-       </View>
+       </View> */}
     </>
+}
+    </ScrollView> 
     
 )
     
@@ -177,6 +189,11 @@ const styles = StyleSheet.create({
       color: '#fff',
       fontSize: 18,
     },
+    listEmpty: {
+        height: 500,
+       alignItems: 'center',
+       justifyContent: 'center',
+     },
   });
 
 export default Tasks;

@@ -319,7 +319,7 @@ async function askForPermissions() {
             </View>
           </TouchableOpacity>
           <Text style={{marginTop: 10, fontSize: 18, fontWeight: 'bold'}}>
-            John Doe
+            {_user}
           </Text>
         </View>
         <Animatable.View

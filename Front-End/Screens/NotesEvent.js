@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, ScrollView, ActivityIndicator } from "react-native";
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
 import { useTheme } from '@react-navigation/native';
+import * as Animatable from 'react-native-animatable'
 import apiLink from "../shared/apiLink";
+
 
 
 const NotesEvent = ({route, navigation}) => {
@@ -16,8 +18,14 @@ const NotesEvent = ({route, navigation}) => {
     const _eventId = route.params.eventId;
     const _eventAdmin = route.params.eventAdmin;
 
+    const anim = {
+        0: { translateY: 0 },
+        0.5: { translateY: 50 },
+        1: { translateY: 0 },
+      }
+
     const { colors } = useTheme();
-    const [data, setData] = useState({ success: false });
+    const [data, setData] = useState({ success: false, api:true });
 
     useEffect(async () => {
         const apiBody = { eventId: _eventId };
@@ -33,17 +41,18 @@ const NotesEvent = ({route, navigation}) => {
 
         if (jsonData.success) {
             const noteListsFound = jsonData.noteListsFound
-            setData({ ...data, success: true, notes: [...noteListsFound] })
+            setData({ ...data, api:false, success: true, notes: [...noteListsFound] })
         }
         else {
             alert("No Notes")
+            setData({ ...data, api:false, success: false})
         }
 
     }, [])
     return (
         <ScrollView>
             {
-                data.api && <ActivityIndicator color="#0000ff" style={{ position: "absolute", left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "center", top: 0 }} size="large" />
+                data.api && <ActivityIndicator color="#0000ff" style={{ position: "absolute", left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "center", top: 250 }} size="large" />
             }
             <View>
                 <Card.Title style={[{ backgroundColor: colors.card, fontSize: 30 }]}>{_eventName}</Card.Title>
@@ -56,7 +65,7 @@ const NotesEvent = ({route, navigation}) => {
 
                 </View>
                 {
-                    data.success == true ? data.notes.map((note, i) => <Card containerStyle={{backgroundColor:'#30D5C8'}} key={i}>
+                    data.success ? data.notes.map((note, i) => <Card containerStyle={{backgroundColor:'#30D5C8'}} key={i}>
                         <Card.Title style={[{ backgroundColor: "#30D5C8" }]}>Note : {i+1} </Card.Title>
                         <Card.Divider />
                         <View style={[{ backgroundColor: "#000080", borderRadius: 5, padding: 5, color: colors.text }]}>
@@ -96,13 +105,16 @@ const NotesEvent = ({route, navigation}) => {
                         </View>
                     </Card>
                     )
-                        : <Card style={[{ backgroundColor: colors.card }]}>
-
-                            <Text style={[{ textAlign: "center", fontSize: 15, fontWeight: "bold", color: colors.text, marginBottom: 10 }]}>
-                                No Notes For The Event
-                            </Text>
-
-                        </Card>
+                        : !data.api ? <View style={[[styles.listEmpty]]}>
+                        <Animatable.Image source={require('../assets/error.png') }
+                        animation={anim}
+                        easing="ease-in-out"
+                        duration={3000}
+                        style={{ width: 300, height: 160}}
+                        iterationCount="infinite">
+                       
+                      </Animatable.Image> 
+                      </View>: ""
                 }
             </View>
 
@@ -159,5 +171,10 @@ const styles = StyleSheet.create({
     },
     blackColor: {
         color: "black",
-    }
+    },
+    listEmpty: {
+        height: 500,
+       alignItems: 'center',
+       justifyContent: 'center',
+     },
 });

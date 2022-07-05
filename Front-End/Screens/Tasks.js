@@ -17,7 +17,7 @@ const Tasks = ({route, navigation}) => {
    // const [apiState,setApi] = useState(false);
     const [data, setData] = useState({
         "success": true,
-         "api":true,
+         api:true,
         "tasks":[]
     });
 
@@ -66,12 +66,12 @@ return(
                             alert("you are not admin of this event");
 
                         }
-                    }} size={5} title={"Add New Member"}>
+                    }} size={5} title={"Assign new Task"}>
 
                     </Button>
             </View>
 {
-    data.api ? <ActivityIndicator color="#0000ff" style={{ position: "absolute", left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "center", top: 0 }} size="large" />
+    data.api ? <ActivityIndicator color="#0000ff" style={{ position: "absolute", left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "center", top: 250 }} size="large" />
 
         : <>
              
@@ -124,17 +124,17 @@ return(
                  animation={anim}
                  easing="ease-in-out"
                  duration={3000}
-                 style={{ width: 250, height: 250}}
+                 style={{ width: 300, height: 160}}
                  iterationCount="infinite">
                 
                </Animatable.Image>
-               <Animatable.Text style={{color:'red', fontSize:24, fontFamily:'sans-serif', marginLeft:20}} animation={anim}
+               {/* <Animatable.Text style={{color:'red', fontSize:24, fontFamily:'sans-serif', marginLeft:20}} animation={anim}
                  easing="ease-in-out"
                  duration={3000} 
                  iterationCount="infinite"
                  >
-                  No Members Found
-               </Animatable.Text>
+                  No Task Assigned
+               </Animatable.Text> */}
                </View>
             }  
    

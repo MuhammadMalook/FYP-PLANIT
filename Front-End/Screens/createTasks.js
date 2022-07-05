@@ -314,10 +314,19 @@ const CreateTask = ({route, navigation}) => {
                             <Text onPress={() => {
                                 setFilteredList([]);
                                 setData({ ...data, assignTo: items });
-                                console.log("on prss in text")
+                                console.log("on prss in text", items)
+                               if(items.length > 4)
+                               {
+                                setData({
+                                    ...data,
+                                    assignTo: items,
+                                    isValidPerson: true
+                                })
+                               }
                             }} style={{ padding: 10, fontSize: 20, }}>
                                 {items}
                             </Text>
+                            
                         </View>
                     </TouchableOpacity>)
                 }

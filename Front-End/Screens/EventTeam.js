@@ -28,7 +28,7 @@ const EventTeam = ({route,navigation}) => {
 
     const { colors } = useTheme();
     const [data, setData] = useState({
-        api: false,
+        api: true,
         "success": true,
         "team":
             [
@@ -55,10 +55,10 @@ const EventTeam = ({route,navigation}) => {
         if (jsonData.success) {
             const members = jsonData.members;
             const team = jsonData.team
-            setData({ ...data, success: true, team: [...team] })
+            setData({ ...data, api:false, success: true, team: [...team] })
         }
         else {
-            setData({ ...data, success: false, })
+            setData({ ...data, api:false, success: false, })
 
             alert("No Members")
         }
@@ -151,24 +151,18 @@ const EventTeam = ({route,navigation}) => {
                     animation={anim}
                     easing="ease-in-out"
                     duration={3000}
-                    style={{ width: 250, height: 250}}
+                    style={{  width: 300, height: 160}}
                     iterationCount="infinite">
                    
                   </Animatable.Image>
-                  <Animatable.Text style={{color:'red', fontSize:24, fontFamily:'sans-serif', marginLeft:20}} animation={anim}
-                    easing="ease-in-out"
-                    duration={3000} 
-                    iterationCount="infinite"
-                    >
-                     No Members Found
-                  </Animatable.Text>
+                
                   </View>
 
                 }
 
                 {
 
-                    data.api && <ActivityIndicator color="#0000ff" style={{ position: "absolute", left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "center", top: 0 }} size="large" />
+                    data.api && <ActivityIndicator color="#0000ff" style={{ position: "absolute", left: 0, right: 0, bottom: -20, top: 250 }} size="large" />
                 }
 
             </View>

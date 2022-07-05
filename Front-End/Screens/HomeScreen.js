@@ -407,17 +407,17 @@ useEffect(() => {
           animation={anim}
           easing="ease-in-out"
           duration={3000}
-          style={{ width: 200, height: 200}}
+          style={{  width: 300, height: 160}}
           iterationCount="infinite">
          
         </Animatable.Image>
-        <Animatable.Text style={{color:'red', fontSize:24, fontFamily:'sans-serif', marginLeft:20}} animation={anim}
+        {/* <Animatable.Text style={{color:'red', fontSize:24, fontFamily:'sans-serif', marginLeft:20}} animation={anim}
           easing="ease-in-out"
           duration={3000} 
           iterationCount="infinite"
           >
            No Events Found
-        </Animatable.Text>
+        </Animatable.Text> */}
           </View>
          </> 
         )
@@ -505,7 +505,7 @@ useEffect(() => {
           renderItem={renderCards}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 100 }}
-          ListEmptyComponent={CardEmptyComponent}
+          ListEmptyComponent={!data.api? CardEmptyComponent:""}
         />
       </Animatable.View>
       </View>
@@ -553,7 +553,7 @@ useEffect(() => {
               renderItem={renderItem}
               showsVerticalScrollIndicator={false}
               contentContainerStyle={{ paddingBottom: 130 }}
-              ListEmptyComponent={ListEmptyComponent}
+              ListEmptyComponent={!data.api? ListEmptyComponent : ""}
             />
           </Animatable.View>
         </View>

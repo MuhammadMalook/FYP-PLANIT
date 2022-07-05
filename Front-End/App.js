@@ -33,8 +33,8 @@ import CreateTask from "./Screens/createTasks";
 import EventTeam from "./Screens/EventTeam";
 import NotesEvent from "./Screens/NotesEvent";
 import CreateNote from "./Screens/createNote";
-import { sendRequest } from "../Back-End/controllers/EventController";
 import SendRequest from "./Screens/SendRequest";
+import ViewGuest from "./Screens/ViewGuest";
 
 
     
@@ -229,6 +229,7 @@ useEffect(() => {
             <Stack.Screen name="eventNotes" component={NotesEvent}/>
             <Stack.Screen name="newNote" component={CreateNote}/>
             <Stack.Screen name="sendRequest" component={SendRequest}/>
+            <Stack.Screen name="eventGuest" component={ViewGuest}/>
 
 
 

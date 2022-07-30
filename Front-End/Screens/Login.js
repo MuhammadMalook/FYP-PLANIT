@@ -13,10 +13,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Animatable from 'react-native-animatable';
 // import LinearGradient from 'react-native-linear-gradient'
 import { useTheme } from '@react-navigation/native';
-const LoginScreen = (props) => {
+const LoginScreen = ({route, navigation}) => {
     const { colors } = useTheme();
-    console.log(props)
-    const navigation = props.navigation
+    console.log(route,"he;llo")
+   
+    const deviceToken = route.params.data;
    
 //        // AsyncStorage.clear()
 //         const [Token, setToken] = useState(null);
@@ -92,7 +93,7 @@ const LoginScreen = (props) => {
             <View style={{flexDirection:"row", marginTop:20}}>
 
             <TouchableOpacity
-                    onPress={() => navigation.navigate('NewAccount')}
+                    onPress={() => navigation.navigate('NewAccount', {deviceToken:deviceToken})}
                     style={[styles.signIn, {
                         borderColor: '#009387',
                         borderWidth: 1,

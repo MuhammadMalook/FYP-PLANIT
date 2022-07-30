@@ -120,6 +120,8 @@ const SignInScreen = (props) => {
         }        
     }
 
+    
+
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor='#009387' barStyle="light-content" />
@@ -258,6 +260,7 @@ const SignInScreen = (props) => {
                                 // await AsyncStorage.setItem('token', jsonData.user.email)
                                 // await AsyncStorage.setItem('user', JSON.stringify(jsonData.user))
                                signIn(jsonData.user.email, JSON.stringify(jsonData.user));
+                            //    sendPushNotification();
                                //navigation.navigate('Home',jsonData.user);
                             }
                             else

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, Button } from 'react-native-elements'
 
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { useTheme } from '@react-navigation/native';
 import apiLink from "../shared/apiLink";
 import { useBackHandler } from "@react-native-community/hooks"
@@ -67,11 +67,13 @@ const OneEvent = ({ route, navigation }) => {
     }, [])
 
     return (
+        <ScrollView>
         <View>
             <Card>
                 <Card.Title style={[{ backgroundColor: colors.card, fontSize: 20 }]}>{data.event.eventName}</Card.Title>
                 <Card.Divider />
-                <View style={[{ backgroundColor: "#00203FFF", borderRadius: 8, padding: 10, color: "white" }]}>
+               
+                <View style={[{ backgroundColor: "#00203FFF", borderRadius: 8, padding: 10, color: "white", paddingBottom:30 }]}>
                     <View style={[{ marginTop: 5, flexDirection: "row", justifyContent: "space-between" }]}>
 
                         {/* <Text style={[{ fontSize: 15, fontWeight: "bold", color: "white" }]}>
@@ -225,6 +227,7 @@ const OneEvent = ({ route, navigation }) => {
 
             </Card>
         </View>
+    </ScrollView>
     )
 }
 export default OneEvent;

@@ -119,7 +119,25 @@ const SendRequest = ({route,navigation}) => {
         else {
             alert("Not getting names")
         }
+
     }, [])
+
+
+    sendRequestNotification = (token, title, body) => {
+        let response = fetch('https://exp.host/--/api/v2/push/send', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            to: token,
+            sound: 'default',
+            title: title,
+            body: body
+          })
+        });
+      };
 
     return (
         <View style={styles.container}>
@@ -301,6 +319,20 @@ const SendRequest = ({route,navigation}) => {
                                 });
 
                                 if (jsonData.success) {
+                                    const apiBody = {name: `${data.username}`};
+                                    const getDeviceToken = await fetch(`${apiLink}/getDeviceToken`, {
+                                        method:"POST",
+                                        headers:{
+                                            'Content-type':'application/json',
+                                        },
+                                        body: JSON.stringify(apiBody)
+                                    });
+                                    const deviceToken = await getDeviceToken.json();
+                                    console.log(deviceToken)
+                                    if(deviceToken.success)
+                                    {
+                                            sendRequestNotification(deviceToken.deviceToken,"Member Invitation", `You are invited for the event ${_eventName}`);
+                                    }
                                     alert("Sent Request")
                                 }
                                 else {

@@ -114,7 +114,7 @@ const NotesEvent = ({route, navigation}) => {
                         iterationCount="infinite">
                        
                       </Animatable.Image> 
-                      </View>: ""
+                      </View>: <Text></Text>
                 }
             </View>
 

@@ -1,5 +1,5 @@
 // import "react-native-gesture-handler";
-
+import * as Device from 'expo-device';
 import { registerRootComponent } from "expo";
 import { View } from "react-native-animatable";
 import { ActivityIndicator } from "react-native-paper";
@@ -11,7 +11,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 // import Navigator from './routes/NewDrawer';
 import LoginScreen from "./Screens/Login";
-import {React, useState, useEffect,useReducer, useMemo } from "react";
+import {React, useState, useEffect,useReducer, useMemo, useRef} from "react";
+import {Text} from 'react-native'
 // import NavContainer from "./routes/NewDrawer";
 import SignInScreen from "./Screens/Sign";
 import NewAccount from "./Screens/NewAccount";
@@ -22,6 +23,9 @@ import DrawerScreen from "./Screens/DrawerScreens";
 import MainTabScreen from "./Screens/MainTabScreen";
 // import { navigationRef } from './RootNavigation';
 // import * as RootNavigation from './RootNavigation'
+
+import * as Notifications from 'expo-notifications';
+import * as Permissions from 'expo-permissions';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { navigationRef } from './navigatorRoot';
@@ -38,6 +42,13 @@ import ViewGuest from "./Screens/ViewGuest";
 
 
     
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
 
 
 const styles = StyleSheet.create({
@@ -56,6 +67,11 @@ const Stack = createStackNavigator()
 //   headerMode: 'none',
 // };
 export default function App() {
+
+  const [expoPushToken, setExpoPushToken] = useState('');
+  const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
 
   const initialLoginState = {
     isLoading: true,
@@ -139,6 +155,19 @@ export default function App() {
 
 
 useEffect(() => {
+  registerForPushNotification().then(token=>setExpoPushToken(token));
+
+  notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+    setNotification(notification);
+  });
+
+  // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
+  responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+    console.log(response);
+  });
+
+
+
     setTimeout(async() => {
       // setIsLoading(false);
     // await AsyncStorage.clear();
@@ -154,7 +183,56 @@ useEffect(() => {
       // console.log('user token: ', userToken);
       dispatch({ type: 'RETRIEVE_TOKEN', token: userToken, data: JSON.parse(userdata)});
     }, 1000);
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
   }, []);
+
+
+ 
+  async function registerForPushNotification(){
+    // const {status} = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+    // if (status != 'granted') {
+    //   const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+    //   // finalStatus = status;
+    // }
+    // if (status !== 'granted') {
+    //   alert('Failed to get push token for push notification!');
+    //   return;
+    // }
+    // token = (await Notifications.getExpoPushTokenAsync()).data;
+    // return token
+    let token;
+    if (Device.isDevice) {
+      const { status: existingStatus } = await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+      if (existingStatus !== 'granted') {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      if (finalStatus !== 'granted') {
+        alert('Failed to get push token for push notification!');
+        return;
+      }
+      token = (await Notifications.getExpoPushTokenAsync()).data;
+      console.log(token,"hhhh");
+    } else {
+      alert('Must use physical device for Push Notifications');
+    }
+  
+    if (Platform.OS === 'android') {
+      Notifications.setNotificationChannelAsync('default', {
+        name: 'default',
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: '#FF231F7C',
+      });
+    }
+  
+    return token;
+  }
 
   if( loginState.isLoading ) {
     return(
@@ -174,8 +252,8 @@ useEffect(() => {
           <AllScreens data={loginState.userData}/>
         
       )
-    :
-      <RootStackScreen/>
+    :expoPushToken ?
+      <RootStackScreen data={expoPushToken}/> : <Text></Text>
     }
     </NavigationContainer>
     </AuthContext.Provider>

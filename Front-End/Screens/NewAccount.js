@@ -17,8 +17,11 @@ import Feather from 'react-native-vector-icons/Feather';
 import { useTheme } from 'react-native-paper';
 import apiLink from '../shared/apiLink';
 
-const NewAccount = (props) => {
-    const navigation = props.navigation;
+import { auth } from '../firebase';
+
+const NewAccount = ({route, navigation}) => {
+    console.log(route)
+    const deviceToken = route.params.deviceToken
     const [data, setData] = React.useState({
         api: false,
         username: '',
@@ -320,7 +323,7 @@ const NewAccount = (props) => {
 
                                 }
                                 setData({ ...data, api: true })
-                                const apiBody = { name: data.username, password: data.password, email: data.email, number: data.number };
+                                const apiBody = { name: data.username, password: data.password, email: data.email, number: data.number, deviceToken: deviceToken};
                                 const apiData = await fetch(`${apiLink}/person`, {
                                     method: 'POST', // or 'PUT'
                                     headers: {
@@ -331,6 +334,15 @@ const NewAccount = (props) => {
                                 const jsonData = await apiData.json();
                                 setData({ ...data, api: false })
                                 if (jsonData.success) {
+                                    // auth
+                                    // .createUserWithEmailAndPassword(data.email, data.password)
+                                    // .then(userCredentials => {
+                                    //   const user = userCredentials.user;
+                                    //   console.log('Registered with:', user.email);
+                                    //   console.log(user.getIdToken())
+                                    // })
+                                    // .catch(error => alert(error.message))
+
                                     alert("New Account Created")
                                     navigation.navigate('Login');
                                 }

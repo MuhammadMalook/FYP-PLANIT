@@ -59,8 +59,6 @@ const EventTeam = ({route,navigation}) => {
         }
         else {
             setData({ ...data, api:false, success: false, })
-
-            alert("No Members")
         }
 
     }, [])
@@ -104,7 +102,9 @@ const EventTeam = ({route,navigation}) => {
                                             setData({
                                                 ...data, api: true
                                             });
-
+                                            console.log(_id,"hello")
+                                            if(_id === _eventAdmin)
+                                            {
                                             const apiBody = { eventId: `${_eventId}`, plannerId: `${_eventAdmin}`, memberId : `${member.id}`, memberName: member.name };
                                             const apiData = await fetch(`${apiLink}/removeMember`, {
                                                 method: 'POST', // or 'PUT'
@@ -128,7 +128,15 @@ const EventTeam = ({route,navigation}) => {
                                                 alert("Member Not Removed")
                                             }
 
-                                        }}
+                                        }
+                                        else
+                                        {
+                                            console.log(_id,"hello")
+                                            alert("You cannnot remove member")
+                                        }
+                                    
+                                    }
+                                }
 
                                      buttonStyle={[{backgroundColor:'red'}]} title={"Remove"}>
                                     </Button>

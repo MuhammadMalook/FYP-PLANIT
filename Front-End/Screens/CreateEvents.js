@@ -417,7 +417,7 @@ const CreateEvent = ({route,navigation}) => {
                     }]}
                 >
                     <Text style={[styles.textSign, {
-                        color: '#009387'
+                        color: '#009387',
                     }]}>Create New Event</Text>
                 </TouchableOpacity>
 
@@ -485,7 +485,8 @@ const styles = StyleSheet.create({
     },
     button: {
         alignItems: 'center',
-        marginTop: 50
+        marginTop: 30,
+        paddingBottom:80
     },
     textInput: {
         marginLeft:5,

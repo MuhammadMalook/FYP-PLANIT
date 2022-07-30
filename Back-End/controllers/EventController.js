@@ -458,6 +458,7 @@ exports.assignTaskByName = catchAsyncErrors(async (req, res, next) => {
     //     taskText: taskText,
     //     assignTo: taskAssignedTo
     // })
+    
     const eventById = await EventSchema.findById(eventId);
     const personsById = await PersonSchema.find();
     const filteredPerson = personsById.filter(person => person.name == taskAssignedTo);

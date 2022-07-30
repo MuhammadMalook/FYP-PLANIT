@@ -31,6 +31,10 @@ const PersonSchema = new mongoose.Schema(
             type:String,
             default:"",
         },
+        deviceToken:{
+            type: String,
+            required: true,
+        },
         requests:[],
         member:[],
         tasks:[]

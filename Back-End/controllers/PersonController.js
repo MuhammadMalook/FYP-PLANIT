@@ -358,10 +358,10 @@ exports.getPersonByID = catchAsyncErrors(async (req, res, next) => {
 })
 
 exports.addPerson = catchAsyncErrors(async (req, res, next) => {
-    const { name, email, number, password } = req.body;
+    const { name, email, number, password, deviceToken } = req.body;
     const passwordHash = await bcrypt.hash(password,10);
     const personCreated = await PersonSchema.create({
-        name, password:passwordHash, email, number
+        name, password:passwordHash, email, number, deviceToken
     });
     res.status(200).json({
         success: true,
@@ -561,6 +561,27 @@ exports.acceptRequest = catchAsyncErrors(async (req, res, next) => {
         })
     }
 })
+
+exports.getDeviceToken = catchAsyncErrors(async (req, res, next)=>{
+    const {name} = req.body;
+    const person = await PersonSchema.findOne({name});
+    console.log(person)
+    if(person){
+        const deviceToken = person.deviceToken
+       res.status(200).json({
+            success:true,
+            deviceToken
+       })  
+    }
+    else{
+        res.status(402).json({
+            success:false,
+            msg:"Device Token not found"
+        })
+    }
+
+})
+
 const searchIndex = (list, id) => {
     let boolean = false;
     list.forEach((element, i) => {

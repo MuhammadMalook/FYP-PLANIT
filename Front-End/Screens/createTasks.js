@@ -24,20 +24,20 @@ const height_logo = height * 0.25;
 const CreateTask = ({route, navigation}) => {
     console.log(route)
     //const navigation = props.navigation;
-
-    const _user = route.params.user;
+    const _user = route.params.user;  //current user name
     const _email = route.params.email;
-    const _id = route.params.id;
+    const _id = route.params.id;  //current user id
     const _number = route.params.number;
-    const _eventName = route.params.eventName;
-    const _eventId = route.params.eventId;
-    const _eventAdmin = route.params.eventAdmin;
-    const _AdminName = route.params.adminName;
+    const _eventName = route.params.eventName; 
+    const _eventId = route.params.eventId; //id of the event
+    const _eventAdmin = route.params.eventAdmin;  //id of the admin of the event
+    const _AdminName = route.params.adminName;  //name of the admin of event
+    const _imageUrl = route.params.imageUrl
 
     const { colors } = useTheme();
-    const [nameList, setList] = useState(["haseeb",
+    const [nameList, setList] = useState(["xyz",
         "simple",
-        "qadeer",
+        "abc",
     ]);
     const [FilteredList, setFilteredList] =
         useState([]);
@@ -405,7 +405,26 @@ const CreateTask = ({route, navigation}) => {
                                 });
 
                                 if (jsonData.success) {
+                                    const apiBody = {eventId:_eventId, eventName:_eventName, to: data.username, from: _AdminName, Message:"Send you Request", type:'task'}
+                                            const result = await fetch(`${apiLink}/addNotification`, {
+                                                method:'POST',
+                                                headers:{
+                                                    'Content-type':'application/json'
+                                                },
+                                                body: JSON.stringify(apiBody)
+
+                                            })
+                                            const jsonResult = await result.json()
+                                            if(jsonResult.success)
+                                            {
+                                                console.log('notification added')
+                                            }
+                                            else{
+                                                console.log('notification not added')
+                                            }
+
                                     alert("Task Created")
+
                                 }
                                 else {
                                     console.log(jsonData)

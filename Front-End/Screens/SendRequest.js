@@ -332,6 +332,23 @@ const SendRequest = ({route,navigation}) => {
                                     if(deviceToken.success)
                                     {
                                             sendRequestNotification(deviceToken.deviceToken,"Member Invitation", `You are invited for the event ${_eventName}`);
+                                            const apiBody = {eventId:_eventId, eventName:_eventName, to: data.username, from: _AdminName, Message:"Send you Request", type:'MemberRequest'}
+                                            const result = await fetch(`${apiLink}/addNotification`, {
+                                                method:'POST',
+                                                headers:{
+                                                    'Content-type':'application/json'
+                                                },
+                                                body: JSON.stringify(apiBody)
+
+                                            })
+                                            const jsonResult = await result.json()
+                                            if(jsonResult.success)
+                                            {
+                                                console.log('notification added')
+                                            }
+                                            else{
+                                                console.log('notification not added')
+                                            }
                                     }
                                     alert("Sent Request")
                                 }

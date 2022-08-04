@@ -131,7 +131,8 @@ const MainTabScreen = ({navigation,route}) =>{
             </View>
           ),
         }}
-      />
+        initialParams={route.params.data}
+    />
        <Tab.Screen
         name="Profile"
         component={Profile}

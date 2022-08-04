@@ -30,6 +30,7 @@ const EventSchema = new mongoose.Schema({
     tasks: [],
     guestList: [],
     notes: [],
+    notifications:[],
     eventStatus: {
         type: Boolean,
         required: [true, "please Enter Event Status"],

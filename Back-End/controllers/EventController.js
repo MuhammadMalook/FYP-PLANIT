@@ -3,6 +3,7 @@ const EventSchema = require('../model/Event')
 const GuestSchema = require('../model/Guest')
 const NotesSchema = require('../model/Notes')
 const TaskSchema = require('../model/Task')
+const NotificationSchema = require('../model/Notifications')
 
 const catchAsyncErrors = require('../middlewares/catchAsyncError');
 exports.getMembersByEvent = catchAsyncErrors(async (req, res, next) => {
@@ -571,4 +572,95 @@ exports.getEventByID = catchAsyncErrors(async (req, res, next) => {
         res.status(402).json({
             success: false
         })
+})
+
+exports.addNotification = catchAsyncErrors (async (req, res, next)=> {
+    const {eventId, eventName, to, from, imageUrl, Message, type} = req.body;
+   
+    const person = await PersonSchema.findOne({name:to})
+    console.log(person)
+    const userId = person._id
+    const NotificationCreated = await NotificationSchema.create({
+        eventId,
+        eventName,
+        to,
+        userId,
+        from,
+        imageUrl,
+        Message,
+        type
+    })
+
+    const eventById = await EventSchema.findById({_id:eventId})
+    console.log(eventById);
+    console.log(NotificationCreated.userId);
+    eventById.notifications.push(NotificationCreated._id)
+    const UpdatedEvent = await EventSchema.updateOne({_id: eventById._id }, { notifications: [...eventById.notifications] });
+
+    res.status(200).json({
+        success: true,
+        NotificationCreated,
+        UpdatedEvent
+    })
+})
+
+exports.getNotifications = catchAsyncErrors(async (req, res, next)=>{
+    const {userId} = req.params
+    console.log(userId)
+    const notifications = await NotificationSchema.find()
+
+    if(notifications)
+    {
+        const filtered = notifications.filter(element => {
+            console.log(element)
+            if(element.type == "MemberRequest")
+            {
+                if(element.userId == userId)
+                {
+                    return element
+                }
+            }
+            else
+                return element
+        })
+
+        res.status(200).json({
+            success:true,
+            filtered
+        })
+    }
+    else{
+        res.status(403).json({
+            success:false,
+            msg:"No notification"
+        })
+    }
+})
+
+exports.removeNotification = catchAsyncErrors(async (req, res, next)=>{
+    const {_id, eventId} = req.body
+    const updatedNotifications = await NotificationSchema.deleteOne({_id})
+
+    const event = await EventSchema.findById({_id:eventId})
+    console.log(event)
+    const notifications = event.notifications
+    console.log(notifications)
+    const index = notifications.indexOf(_id)
+    console.log(index)
+
+    if(index!=-1)
+    {
+        notifications.splice(index,1)
+        const updatedEvent = await EventSchema.updateOne({ _id: event._id }, { notifications: [...notifications] });
+        res.status(200).json({
+            success:true,
+            msg:'notification removed'
+        })
+    }
+    else{
+        res.status(200).json({
+            succes:false,
+            msg : 'notification not removed'
+        })
+    }
 })

@@ -34,9 +34,7 @@ const Tasks = ({route, navigation}) => {
 
     useEffect(async()=>{  
     
-        setData({
-            ...data, api: false
-        });
+        
         const tasks = await fetch(`${apiLink}/getEventTasks/${data_task.eventId}`,{
             method: 'GET', // or 'PUT'
             headers: {
@@ -54,8 +52,12 @@ const Tasks = ({route, navigation}) => {
         }
     },[])
 return(
+    
     <ScrollView>
-                <View style={[{ marginTop: 25, marginBottom: 5, marginLeft: 40, marginRight: 40 }]}>
+        {
+            data.api && <ActivityIndicator color="#0000ff" style={{ position: "absolute", left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "center", top: 250 }} size="large" />
+        }
+        <View style={[{ marginTop: 25, marginBottom: 5, marginLeft: 40, marginRight: 40 }]}>
 
                     <Button onPress={() => {
                         if(data_task.eventAdmin === data_task.id){
@@ -70,11 +72,7 @@ return(
 
                     </Button>
             </View>
-{
-    data.api ? <ActivityIndicator color="#0000ff" style={{ position: "absolute", left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "center", top: 250 }} size="large" />
 
-        : <>
-             
             {
                data.tasks.length > 0 ? data.tasks.map((item,i) => <Card key={i}>
                     <Card.Title>
@@ -118,7 +116,7 @@ return(
                         </Button>}
 
                     </View>
-                </Card>):
+                </Card>) : !data.api ?
                  <View style={[[styles.listEmpty]]}>
                  <Animatable.Image source={require('../assets/error.png') }
                  animation={anim}
@@ -135,7 +133,7 @@ return(
                  >
                   No Task Assigned
                </Animatable.Text> */}
-               </View>
+               </View>: <Text></Text>
             }  
    
     {/* <View style={{flex:1}}>
@@ -162,13 +160,11 @@ return(
          </TouchableOpacity>
          </View>
        </View> */}
-    </>
-}
+    
+
     </ScrollView> 
     
 )
-    
-
 }
 
 const styles = StyleSheet.create({

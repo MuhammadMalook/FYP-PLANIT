@@ -45,6 +45,7 @@ exports.requestsDetailsById = catchAsyncErrors(async (req, res, next) => {
 
 
 })
+
 exports.getAllNames =  catchAsyncErrors(async (req, res, next) => {
     const persons =  await PersonSchema.find();
     const  namesList =   persons.map(person=> person.name);
@@ -69,6 +70,26 @@ exports.getAllNames =  catchAsyncErrors(async (req, res, next) => {
     }
 
 })
+
+exports.getNumberByName = catchAsyncErrors(async (req, res, next)=>{
+        const {name} = req.body
+        const person = await PersonSchema.findOne({name})
+        if(person){
+            const number = person.number
+            res.status(200).json({
+                success:true,
+                number:number,
+                
+            })
+        }
+        else{
+            res.status(404).json({
+                success:false,
+                msg:"no user found"
+            })
+        }
+})
+
 exports.myEvents = catchAsyncErrors(async (req, res, next) => {
     const { id } = req.body;
     const events = await EventSchema.find();

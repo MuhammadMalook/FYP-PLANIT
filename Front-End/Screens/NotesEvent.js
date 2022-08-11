@@ -44,7 +44,7 @@ const NotesEvent = ({route, navigation}) => {
             setData({ ...data, api:false, success: true, notes: [...noteListsFound] })
         }
         else {
-            alert("No Notes")
+           
             setData({ ...data, api:false, success: false})
         }
 

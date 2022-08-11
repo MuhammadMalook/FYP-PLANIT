@@ -38,7 +38,8 @@ import EventTeam from "./Screens/EventTeam";
 import NotesEvent from "./Screens/NotesEvent";
 import CreateNote from "./Screens/createNote";
 import SendRequest from "./Screens/SendRequest";
-import ViewGuest from "./Screens/ViewGuest";
+import EventGuest from './Screens/EventGuest';
+import InviteGuest from './Screens/InviteGuest'
 
 
     
@@ -252,8 +253,9 @@ useEffect(() => {
           <AllScreens data={loginState.userData}/>
         
       )
-    :expoPushToken ?
-      <RootStackScreen data={expoPushToken}/> : <Text></Text>
+      :<RootStackScreen/>
+    // :expoPushToken ?
+    //   <RootStackScreen data={expoPushToken}/> : <Text></Text>
     }
     </NavigationContainer>
     </AuthContext.Provider>
@@ -307,7 +309,8 @@ useEffect(() => {
             <Stack.Screen name="eventNotes" component={NotesEvent}/>
             <Stack.Screen name="newNote" component={CreateNote}/>
             <Stack.Screen name="sendRequest" component={SendRequest}/>
-            <Stack.Screen name="eventGuest" component={ViewGuest}/>
+            <Stack.Screen name="eventGuest" component={EventGuest}/>
+            <Stack.Screen name = "inviteGuest" component={InviteGuest}/>
 
 
 

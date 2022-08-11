@@ -38,6 +38,7 @@ exports.getMembersByEvent = catchAsyncErrors(async (req, res, next) => {
         )
     }
 })
+
 exports.removeMember = catchAsyncErrors(async (req, res, next) => {
     const { eventId, plannerId, memberId, memberName } = req.body;
     const event = await EventSchema.findById(eventId);

@@ -253,9 +253,8 @@ useEffect(() => {
           <AllScreens data={loginState.userData}/>
         
       )
-      :<RootStackScreen/>
-    // :expoPushToken ?
-    //   <RootStackScreen data={expoPushToken}/> : <Text></Text>
+    :expoPushToken ?
+      <RootStackScreen data={expoPushToken}/> : <Text></Text>
     }
     </NavigationContainer>
     </AuthContext.Provider>

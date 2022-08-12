@@ -42,6 +42,10 @@ import EventGuest from './Screens/EventGuest';
 import InviteGuest from './Screens/InviteGuest'
 
 
+
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();//Ignore all log notifications
     
 Notifications.setNotificationHandler({
   handleNotification: async () => ({

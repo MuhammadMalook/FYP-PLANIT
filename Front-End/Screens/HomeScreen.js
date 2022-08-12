@@ -48,9 +48,9 @@ const colorAr = [
   const bgColor = (i) => colorAr[i % colorAr.length];
   const bgColorCard = (i) => cardColorAr[i % cardColorAr.length];
   
-  const ListItem = ({ item, index, animation, navigation }) => {
-  
-    console.log(item, index)
+  const ListItem = ({ item, index, animation, navigation, admin, events }) => {
+
+    console.log(events[1], "hello", index)
     return (  
       <>
        <Animatable.View 
@@ -59,9 +59,9 @@ const colorAr = [
         delay={index * 300}
       >
         <View style={styles.listItem}>
-          <TouchableOpacity
+          <TouchableOpacity key={events[index]}
             activeOpacity={0.7}
-            onPress={() => navigation.navigate('Screen')}>
+            onPress={() => navigation.navigate('OneEvent',{...events[index],admin})}>
              <View style={[styles.image, { backgroundColor: bgColor(index),  padding:10, bottom:3}]}>
                <View  style={{flexDirection:'row', justifyContent:'space-between', top:10}}><Text style={styles.innerText}>Planner </Text><Text style={styles.smallText}>{item[2]}</Text></View>
                <View  style={{flexDirection:'row', justifyContent:'space-between', top:10}}><Text style={styles.innerText}>Guests </Text><Text style={styles.smallText}>{item[3]}</Text></View>
@@ -83,7 +83,8 @@ const colorAr = [
             
             {/* <Icon type={Icons.Feather} name="more-vertical" size={20} color={Colors.black} /> */}
             {item[8] ?  <Button title='' buttonStyle={{backgroundColor:'green'}} type="solid" icon={ <Icon name="check-circle" size={15}   color="white"/>}
-            ></Button> : <Button buttonStyle={{backgroundColor:'rgba(199, 43, 98, 1)', borderRadius:5,borderColor:'white'}}  titleStyle={{
+            ></Button> : <Button
+            buttonStyle={{backgroundColor:'rgba(199, 43, 98, 1)', borderRadius:5,borderColor:'white'}}  titleStyle={{
               color: 'white',
 
             }} title='Complete' type="outline" style={{fontSize:12}}></Button>}
@@ -390,7 +391,7 @@ useEffect(() => {
     
       const renderItem = (props) => (
         // console.log(props)
-         <ListItem item={props.item} index={props.index} animation={animation} navigation={navigation} />
+         <ListItem item={props.item} index={props.index} animation={animation} navigation={navigation} admin={homeScreenData} events={data.events} />
         )
     
       const ListEmptyComponent = () => {

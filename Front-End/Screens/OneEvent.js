@@ -11,7 +11,7 @@ const OneEvent = ({ route, navigation }) => {
    // const tasks_data = route.params;
     // const navigation = props.navigation;
 
-    console.log(route)    
+    console.log(route, "palkkkkkkk")    
 
     const _user = route.params.admin.userName;
     const _email = route.params.admin.email;

@@ -32,6 +32,7 @@ const bgColor = (i) => colorAr[i % colorAr.length];
 const ListItem = ({ item, index, animation, navigation, admin }) => {
   
 // const id = item._id;
+console.log(item,"hhhhhhhh")
 
   return (
     <Animatable.View

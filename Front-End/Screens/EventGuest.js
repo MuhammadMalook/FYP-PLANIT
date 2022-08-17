@@ -15,8 +15,6 @@ const theme = {
 
 const EventGuest = ({route, navigation}) => {
    
-
-
     const _user = route.params.user;
     const _email = route.params.email;
     const _id = route.params.id;
@@ -54,7 +52,7 @@ const EventGuest = ({route, navigation}) => {
             }
         });
         const jsonData = await apiData.json();
-        // console.log(jsonData);
+        console.log(jsonData);
 
         if (jsonData.success) {
             const guestList = jsonData.guestList
@@ -150,7 +148,7 @@ const EventGuest = ({route, navigation}) => {
                                     </View>
                                     <View style={{flex:1, margin:2}}>
                                         <Button onPress={() => {
-                                        navigation.navigate('memberProfile', { name: guest.name, id: guest.id });
+                                        navigation.navigate('ViewProfile', { name: guest.name, id: guest._id });
                                     }} buttonStyle={[{ backgroundColor:'blue'}]} title={"View"}  >
                                     </Button>
                                     </View>   

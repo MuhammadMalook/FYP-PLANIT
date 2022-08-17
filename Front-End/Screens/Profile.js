@@ -274,7 +274,7 @@ useEffect(() => {
 
 
       <View style={styles.menuWrapper}>
-        <TouchableRipple onPress={() => {}}>
+        <TouchableRipple onPress={() => {navigation.navigate('ChangePassword',{profile})}}>
           <View style={styles.menuItem}>
             <Icon name="lock-open-plus-outline" color="#FF6347" size={25}/>
             <Text style={styles.menuItemText}>Change Password</Text>

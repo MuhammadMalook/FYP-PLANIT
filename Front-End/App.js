@@ -44,6 +44,7 @@ import InviteGuest from './Screens/InviteGuest'
 
 
 import { LogBox } from 'react-native';
+import ChangePassword from './Screens/ChangePassword';
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
 LogBox.ignoreAllLogs();//Ignore all log notifications
     
@@ -314,6 +315,7 @@ useEffect(() => {
             <Stack.Screen name="sendRequest" component={SendRequest}/>
             <Stack.Screen name="eventGuest" component={EventGuest}/>
             <Stack.Screen name = "inviteGuest" component={InviteGuest}/>
+            <Stack.Screen name='ChangePassword' component={ChangePassword}/>
 
 
 

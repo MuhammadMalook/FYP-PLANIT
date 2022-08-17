@@ -5,6 +5,9 @@ const TasksSchema = require('../model/Task')
 const catchAsyncErrors = require('../middlewares/catchAsyncError');
 
 exports.requestsDetailsById = catchAsyncErrors(async (req, res, next) => {
+    
+})
+exports.requestsDetailsById = catchAsyncErrors(async (req, res, next) => {
     const { userId } = req.params;
     const foundPerson = await PersonSchema.findById(userId);
     if (foundPerson) {

@@ -603,6 +603,37 @@ exports.getDeviceToken = catchAsyncErrors(async (req, res, next)=>{
 
 })
 
+exports.UpdatePassword = catchAsyncErrors(async(req,res, next)=>{
+    const {_id, currPass, newPass} = req.body;
+    const person = await PersonSchema.findById(_id)
+    console.log(person)
+    console.log(currPass)
+    if(person)
+    {
+        const matched = await bcrypt.compare(currPass, person.password)
+        if(matched)
+        {
+            const updated = await PersonSchema.updateOne({_id}, {password:newPass})
+            res.status(200).json({
+                success:true,
+                data:updated
+            })
+        }
+        else{
+            res.status(400).json({
+                success:false,
+                msg:"wrong old password"
+            })
+        }
+    }
+    else{
+        res.status(404).json({
+            success:false,
+            msg:"Person not found"
+        })
+    }
+})
+
 const searchIndex = (list, id) => {
     let boolean = false;
     list.forEach((element, i) => {

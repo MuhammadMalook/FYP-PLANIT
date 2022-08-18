@@ -616,7 +616,8 @@ exports.UpdatePassword = catchAsyncErrors(async(req,res, next)=>{
         const matched = await bcrypt.compare(currPass, person.password)
         if(matched)
         {
-            const updated = await PersonSchema.updateOne({_id}, {password:newPass})
+            const updatedPass = await bcrypt.hash(newPass,10)
+            const updated = await PersonSchema.updateOne({_id}, {password:updatedPass})
             res.status(200).json({
                 success:true,
                 data:updated

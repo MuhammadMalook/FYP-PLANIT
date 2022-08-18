@@ -66,7 +66,7 @@ const updateSecureTextEntryNewPass = () => {
 
   const handleValidCurrPass = (val) => {
     console.log(val)
-    if (val.trim().length > 8) {
+    if (val.trim().length >= 8) {
         setData({
             ...data,
             CurrentPass: val,
@@ -84,7 +84,7 @@ const updateSecureTextEntryNewPass = () => {
     }
 }
 const handleValidNewPass = (val) => {
-    if (val.trim().length > 8) {
+    if (val.trim().length >= 8) {
         setData({
             ...data,
             NewPass: val,
@@ -100,23 +100,7 @@ const handleValidNewPass = (val) => {
         })
     }
 }
-const handleValidNumber = (val) => {
-  if (val.trim().length > 10) {
-      setData({
-          ...data,
-          number: val,
-          isValidNumber: true
-      })
-  }
-  else {
 
-      setData({
-          ...data,
-          number: val,
-          isValidNumber: false
-      })
-  }
-}
 
 
 
@@ -206,7 +190,7 @@ const handleValidNumber = (val) => {
                         {data.isValidCurrPass ? null :
                             <Animatable.View animation="fadeInLeft" duration={500}>
 
-                                <Text style={styles.errorMsg}>Username must be 4 characters long.</Text>
+                                <Text style={styles.errorMsg}>Password must be 8 characters long.</Text>
                             </Animatable.View>
                         }
                     
@@ -254,7 +238,7 @@ const handleValidNumber = (val) => {
                         {data.isValidNewPass ? null :
                             <Animatable.View animation="fadeInLeft" duration={500}>
 
-                                <Text style={styles.errorMsg}>email should be valid.</Text>
+                                <Text style={styles.errorMsg}>Password must be 8 characters long.</Text>
                             </Animatable.View>
                         }
                     
@@ -266,11 +250,11 @@ const handleValidNumber = (val) => {
                return ;
 
            }
-           setData({ ...data, api: true })
+          //  setData({ ...data, api: true })
            console.log(image)
-           const apiBody = {id:route.params.profile._id, name: data.username, email: data.email, number: data.number, imageUrl:image };
-                                const apiData = await fetch(`${apiLink}/`, {
-                                    method: 'PUT',
+           const apiBody = {_id, currPass:data.CurrentPass, newPass:data.NewPass };
+                                const apiData = await fetch(`${apiLink}/updatePassword`, {
+                                    method: 'POST',
                                     headers: {
                                         'Content-Type': 'application/json',
                                     },
@@ -278,14 +262,14 @@ const handleValidNumber = (val) => {
                                 });
                                 const jsonData = await apiData.json();
                                 console.log(jsonData," helo")
-                                setData({ ...data, api: false })
+                                // setData({ ...data, api: false })
                                 if (jsonData.success) {
-                                    alert("Profile Updated")
+                                    alert("Password Updated")
                                     const data = jsonData.updated
-                                    navigation.navigate('Profile',{...data})
+                                  
                                 }
                                 else {
-                                    alert("Not Updated")
+                                    alert(jsonData.msg)
 
                                 }
          }}>

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator, Dimensions } from "react-native";
+import { View, Text, StyleSheet, ScrollView, ActivityIndicator, Dimensions,TouchableOpacity, Pressable } from "react-native";
 import { Card, ListItem, ThemeProvider, Button, Icon } from 'react-native-elements'
 import { useTheme } from '@react-navigation/native';
 import apiLink from "../shared/apiLink";
 import * as Animatable from 'react-native-animatable'
+import Colors from "../constants/Colors";
+import { FAB } from "react-native-paper";
 
 const theme = {
     Button: {
@@ -63,12 +65,19 @@ const EventTeam = ({route,navigation}) => {
 
     }, [])
     return (
+        <View style={{flex:1}}>
+            
+    
         <ScrollView>
+         
 
             <View>
-                <View style={[{ marginTop: 25, marginBottom: 5, marginLeft: 40, marginRight: 40 }]}>
+                <View style={[{ marginTop: 0, marginBottom: 5, marginLeft: 40, marginRight: 40 }]}>
 
-                    <Button onPress={() => {
+                
+                    {
+                    
+                    /* <Button onPress={() => {
                         if(_eventAdmin == _id)
                         {
                             navigation.navigate('sendRequest', { user: _user, email: _email, number: _number, id: _id, eventId: _eventId, eventName: _eventName, eventAdmin: _eventAdmin,adminName : _AdminName })
@@ -81,13 +90,13 @@ const EventTeam = ({route,navigation}) => {
                         }
                     }} size={5} title={"Add New Member"}>
 
-                    </Button>
+                    </Button> */}
                 </View>
                 {
-                    data.success == true ? data.team.map((member, i) => <Card key={i} >
-                        <View style={[{ backgroundColor: "#ADD8E6", borderRadius: 5, padding: 5, color: colors.text }]}>
+                    data.success == true ? data.team.map((member, i) => <Card key={i} containerStyle={{padding:0}}>
+                        <View style={[{ backgroundColor: Colors.primary, borderRadius: 5, padding: 5, color: colors.text }]}>
                             <View>
-                                <Text style={[{ textAlign: "center", fontSize: 20, fontWeight: "bold", color: colors.text }]}>
+                                <Text style={[{ textAlign: "center", fontSize: 20, fontWeight: "bold", color: Colors.white }]}>
                                     {member.name}
                                 </Text>
                             </View>
@@ -138,13 +147,13 @@ const EventTeam = ({route,navigation}) => {
                                     }
                                 }
 
-                                     buttonStyle={[{backgroundColor:'red'}]} title={"Remove"}>
+                                     buttonStyle={[{backgroundColor:'#ff5a5f'}]} title={"Remove"}>
                                     </Button>
                                     </View>
                                     <View style={{flex:1, margin:2}}>
                                         <Button onPress={() => {
                                         navigation.navigate('memberProfile', { name: member.name, id: member.id });
-                                    }} buttonStyle={[{ backgroundColor:'blue'}]} title={"View"}  >
+                                    }} buttonStyle={[{ backgroundColor:'#7fc8f8'}]} title={"View"}  >
                                     </Button>
                                     </View>   
 
@@ -176,6 +185,24 @@ const EventTeam = ({route,navigation}) => {
             </View>
 
         </ScrollView>
+        <FAB 
+                icon="plus"
+                label="Add Member"
+                style={styles.fab}
+                onPress={() => {
+                    if(_eventAdmin == _id)
+                    {
+                        navigation.navigate('sendRequest', { user: _user, email: _email, number: _number, id: _id, eventId: _eventId, eventName: _eventName, eventAdmin: _eventAdmin,adminName : _AdminName })
+                    
+                    }
+                    else
+                    {
+                        alert("Not Authorized")
+
+                    }
+                }}
+            />
+        </View>
     )
 }
 export default EventTeam;
@@ -234,4 +261,10 @@ const styles = StyleSheet.create({
        alignItems: 'center',
        justifyContent: 'center',
      },
+     fab: {
+        position: 'absolute',
+        margin: 16,
+        right: 0,
+        bottom: 0,
+      },
 });

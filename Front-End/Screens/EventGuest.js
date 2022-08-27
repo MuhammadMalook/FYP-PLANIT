@@ -4,6 +4,7 @@ import { Card, ListItem, ThemeProvider, Button, Icon } from 'react-native-elemen
 import { useTheme } from '@react-navigation/native';
 import apiLink from "../shared/apiLink";
 import * as Animatable from 'react-native-animatable'
+import { FAB } from "react-native-paper";
 
 const theme = {
     Button: {
@@ -65,12 +66,13 @@ const EventGuest = ({route, navigation}) => {
     }, [])
 
     return (
+        <View style={{flex:1}}>
         <ScrollView>
 
             <View>
-                <View style={[{ marginTop: 25, marginBottom: 5, marginLeft: 40, marginRight: 40 }]}>
+                <View style={[{ marginTop: 0, marginBottom: 5, marginLeft: 40, marginRight: 40 }]}>
 
-                    <Button onPress={() => {
+                    {/* <Button onPress={() => {
                         if(_eventAdmin == _id)
                         {
                             navigation.navigate('inviteGuest', { user: _user, email: _email, number: _number, id: _id, eventId: _eventId, eventName: _eventName, eventAdmin: _eventAdmin,adminName : _AdminName })
@@ -83,7 +85,7 @@ const EventGuest = ({route, navigation}) => {
                         }
                     }} size={5} title={"Invite New Guest"}>
 
-                    </Button>
+                    </Button> */}
                 </View>
                 {
                     data.success == true ? data.guestList.map((guest, i) => <Card key={i} >
@@ -181,6 +183,24 @@ const EventGuest = ({route, navigation}) => {
             </View>
 
         </ScrollView>
+        <FAB 
+                icon="plus"
+                label="Add Guest"
+                style={styles.fab}
+                onPress={() => {
+                    if(_eventAdmin == _id)
+                    {
+                        navigation.navigate('inviteGuest', { user: _user, email: _email, number: _number, id: _id, eventId: _eventId, eventName: _eventName, eventAdmin: _eventAdmin,adminName : _AdminName })
+                    
+                    }
+                    else
+                    {
+                        alert("Not Authorized")
+
+                    }
+                }}
+            />
+        </View>
     )
 }
 export default EventGuest;
@@ -239,4 +259,10 @@ const styles = StyleSheet.create({
        alignItems: 'center',
        justifyContent: 'center',
      },
+     fab: {
+        position: 'absolute',
+        margin: 16,
+        right: 0,
+        bottom: 0,
+      },
 });

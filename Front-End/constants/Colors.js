@@ -1,5 +1,7 @@
 export default {
-    primary: '#637aff',
+    primary: '#4d5e80',
+    primaryTextColor:'#ee9c81',
+    cardsColor:'#05668d',
     primaryDark: '#2759ff',
     primaryLite: '#637aff99',
     black: '#000',

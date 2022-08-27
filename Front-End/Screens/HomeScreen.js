@@ -22,29 +22,29 @@ import { color } from "react-native-reanimated";
 
 
 
-const colorAr = [
-   // '#637aff',
-   '#00203FFF',
-   //'#4d5e80',
-    //'#60c5a8',
-    // '#CCCCCC',
-    //'#ff5454',
-    //'#039a83',
-   // '#dcb834',
-    //'#8f06e4',
-    // 'skyblue',
-     //'#ff4c98',
-  ]
-  const cardColorAr=[
-    '#4d5e80',
-    '#60c5a8',
-    '#ff5454',
+// const colorAr = [
+//    // '#637aff',
+//    '#05668d',
+//    //'#4d5e80',
+//     //'#60c5a8',
+//     // '#CCCCCC',
+//     //'#ff5454',
+//     //'#039a83',
+//    // '#dcb834',
+//     //'#8f06e4',
+//     // 'skyblue',
+//      //'#ff4c98',
+//   ]
+//   const cardColorAr=[
+//     Colors.
+//     //'#60c5a8',
+//     //'#ff5454',
 
-    // '#616247FF',
-    //  'skyblue',
-    //  '#ff4c98',
-     '#8f06e4',
-]
+//     // '#616247FF',
+//     //  'skyblue',
+//     //  '#ff4c98',
+//      //'#8f06e4',
+// ]
   const bgColor = (i) => colorAr[i % colorAr.length];
   const bgColorCard = (i) => cardColorAr[i % cardColorAr.length];
   
@@ -62,7 +62,7 @@ const colorAr = [
           <TouchableOpacity key={events[index]}
             activeOpacity={0.7}
             onPress={() => navigation.navigate('OneEvent',{...events[index],admin})}>
-             <View style={[styles.image, { backgroundColor: bgColor(index),  padding:10, bottom:3}]}>
+             <View style={[styles.image, { backgroundColor: Colors.cardsColor,  padding:10, bottom:3}]}>
                <View  style={{flexDirection:'row', justifyContent:'space-between', top:10}}><Text style={styles.innerText}>Planner </Text><Text style={styles.smallText}>{item[2]}</Text></View>
                <View  style={{flexDirection:'row', justifyContent:'space-between', top:10}}><Text style={styles.innerText}>Guests </Text><Text style={styles.smallText}>{item[3]}</Text></View>
                <View  style={{flexDirection:'row', justifyContent:'space-between', top:10}}><Text style={styles.innerText}>Notes </Text><Text style={styles.smallText}>{item[4]}</Text></View>
@@ -438,7 +438,7 @@ useEffect(() => {
               <TouchableOpacity
                 activeOpacity={0.7}
                 onPress={() => navigation.navigate('Screen')}>
-                <View style={[styles.cardimage, { backgroundColor: bgColorCard(index) }]} >
+                <View style={[styles.cardimage, { backgroundColor: Colors.primary}]} >
                     <Text style={styles.cardText}>{item}</Text>
                     <Text style={styles.numText}>{eventStats[iterateThrough[counter++]]}</Text>
                 </View>
@@ -670,7 +670,7 @@ const styles = StyleSheet.create({
         //width:'auto',
          width: Dimensions.get('window').width / 2 - 16,
         //width:'auto',
-        backgroundColor: 'white',
+       
         margin: 8,
         
         // borderRadius: 10,
@@ -703,7 +703,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
       
         fontSize: 18,
-        color: 'white',
+        color: Colors.primaryTextColor,
         alignSelf:'center',
         textAlignVertical:'center',
         marginTop:10

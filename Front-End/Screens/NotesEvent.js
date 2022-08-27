@@ -4,6 +4,7 @@ import { Card, ListItem, Button, Icon } from 'react-native-elements'
 import { useTheme } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable'
 import apiLink from "../shared/apiLink";
+import { FAB } from "react-native-paper";
 
 
 
@@ -50,6 +51,9 @@ const NotesEvent = ({route, navigation}) => {
 
     }, [])
     return (
+        <View style={{flex:1}}>
+
+        
         <ScrollView>
             {
                 data.api && <ActivityIndicator color="#0000ff" style={{ position: "absolute", left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "center", top: 250 }} size="large" />
@@ -57,11 +61,11 @@ const NotesEvent = ({route, navigation}) => {
             <View>
                 <Card.Title style={[{ backgroundColor: colors.card, fontSize: 30 }]}>{_eventName}</Card.Title>
 
-                <View style={[{ marginTop: 20, marginBottom: 5, marginLeft: 40, marginRight: 40 }]}>
-                    <Button onPress={() => {
+                <View style={[{ marginTop: 0, marginBottom: 5, marginLeft: 40, marginRight: 40 }]}>
+                    {/* <Button onPress={() => {
                         navigation.navigate('newNote', { user: _user, email: _email, number: _number, id: _id, eventId: _eventId, eventName: _eventName, eventAdmin: _eventAdmin })
                     }
-                    } size={5} title={"Add New Note"}></Button>
+                    } size={5} title={"Add New Note"}></Button> */}
 
                 </View>
                 {
@@ -119,6 +123,16 @@ const NotesEvent = ({route, navigation}) => {
             </View>
 
         </ScrollView>
+        <FAB 
+                icon="plus"
+                label="Add Note"
+                style={styles.fab}
+                onPress={() => {
+                    navigation.navigate('newNote', { user: _user, email: _email, number: _number, id: _id, eventId: _eventId, eventName: _eventName, eventAdmin: _eventAdmin })
+                }
+                }
+            />
+        </View>
     )
 }
 export default NotesEvent;
@@ -177,4 +191,10 @@ const styles = StyleSheet.create({
        alignItems: 'center',
        justifyContent: 'center',
      },
+     fab: {
+        position: 'absolute',
+        margin: 16,
+        right: 0,
+        bottom: 0,
+      },
 });

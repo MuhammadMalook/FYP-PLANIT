@@ -5,6 +5,7 @@ import { useTheme } from '@react-navigation/native';
 import { CheckBox } from 'react-native';
 import apiLink from "../shared/apiLink";
 import * as Animatable from 'react-native-animatable'
+import { FAB } from "react-native-paper";
 //import { TouchableOpacity } from "react-native-gesture-handler";
 // import { tapGestureHandlerProps } from "react-native-gesture-handler/lib/typescript/handlers/TapGestureHandler";
 
@@ -52,14 +53,14 @@ const Tasks = ({route, navigation}) => {
         }
     },[])
 return(
-    
+    <View style={{flex:1}}>
     <ScrollView>
         {
             data.api && <ActivityIndicator color="#0000ff" style={{ position: "absolute", left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "center", top: 250 }} size="large" />
         }
-        <View style={[{ marginTop: 25, marginBottom: 5, marginLeft: 40, marginRight: 40 }]}>
+        <View style={[{ marginTop: 0, marginBottom: 5, marginLeft: 40, marginRight: 40 }]}>
 
-                    <Button onPress={() => {
+                    {/* <Button onPress={() => {
                         if(data_task.eventAdmin === data_task.id){
                             navigation.navigate('createTask', {...data_task})
                         }
@@ -70,7 +71,7 @@ return(
                         }
                     }} size={5} title={"Assign new Task"}>
 
-                    </Button>
+                    </Button> */}
             </View>
 
             {
@@ -163,6 +164,22 @@ return(
     
 
     </ScrollView> 
+    <FAB 
+                icon="plus"
+                label="Add Task"
+                style={styles.fab}
+                onPress={() => {
+                    if(data_task.eventAdmin === data_task.id){
+                        navigation.navigate('createTask', {...data_task})
+                    }
+                    else
+                    {
+                        alert("you are not admin of this event");
+
+                    }
+                }}
+            />
+    </View>
     
 )
 }
@@ -190,6 +207,12 @@ const styles = StyleSheet.create({
        alignItems: 'center',
        justifyContent: 'center',
      },
+     fab: {
+        position: 'absolute',
+        margin: 16,
+        right: 0,
+        bottom: 0,
+      },
   });
 
 export default Tasks;

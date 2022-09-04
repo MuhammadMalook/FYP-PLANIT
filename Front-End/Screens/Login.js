@@ -108,7 +108,7 @@ const LoginScreen = ({route, navigation}) => {
                 </TouchableOpacity>
 
             <TouchableOpacity
-                    onPress={() => navigation.navigate('Login')}
+                    onPress={() => navigation.navigate('Login', {deviceToken:deviceToken})}
                     style={[styles.signIn, {
                         borderColor: '#009387',
                         borderWidth: 1,

@@ -22,8 +22,10 @@ import HomeScreen from './HomeScreen';
 import { AuthContext } from '../components/Context';
 //  const { signIn } = React.useContext(AuthContext)
 
-const SignInScreen = (props) => {
-    const navigation = props.navigation;
+const SignInScreen = ({route,navigation}) => {
+
+    console.log(route, "login")
+    const deviceToken = route.params.deviceToken;
     const [data, setData] = React.useState({
         api: false,
         username: '',
@@ -279,7 +281,7 @@ const SignInScreen = (props) => {
 
                     <TouchableOpacity
 
-                        onPress={() => navigation.navigate('NewAccount')}
+                        onPress={() => navigation.navigate('NewAccount', {deviceToken:deviceToken})}
                         style={[styles.signIn, {
                             borderColor: '#009387',
                             borderWidth: 1,

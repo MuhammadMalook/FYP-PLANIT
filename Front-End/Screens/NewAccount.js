@@ -30,10 +30,10 @@ const NewAccount = ({route, navigation}) => {
         number: '',
         secureTextEntry: true,
 
-        isValidNumber: false,
-        isValidUser: false,
-        isValidPassword: false,
-        isValidEmail: false,
+        isValidNumber: true,
+        isValidUser: true,
+        isValidPassword: true,
+        isValidEmail: true,
     });
 
     const { colors } = useTheme();

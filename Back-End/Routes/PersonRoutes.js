@@ -1,7 +1,7 @@
 const express = require('express');
 const { addPerson, login, getEventByUserId, updatePerson, getAllpersons, deletePerson, getPersonByID,
         findByName, acceptRequest, cancelRequest, requestsById, requestsDetailsById, getTasksByUser, getCompletedTasksByUser,
-        getUnCompletedTasksByUser, completeTasks, myEvents, getAllNames, getEventsInfo, getDeviceToken, getNumberByName, UpdatePassword} = require('../controllers/PersonController');
+        getUnCompletedTasksByUser, completeTasks, myEvents, getAllNames, getEventsInfo, getDeviceToken, getNumberByName, UpdatePassword, check} = require('../controllers/PersonController');
 const router = express.Router();
 router.route('/persons').get(getAllpersons);
 router.route('/person').put(updatePerson);
@@ -25,6 +25,7 @@ router.route('/getEventsInfo').post(getEventsInfo)
 router.route('/getDeviceToken').post(getDeviceToken)
 router.route('/getNumberByName').post(getNumberByName)
 router.route('/updatePassword').post(UpdatePassword)
+router.route('/user').post(check)
 
 
 module.exports = router;

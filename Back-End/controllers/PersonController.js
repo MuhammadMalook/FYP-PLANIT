@@ -651,3 +651,7 @@ const searchIndex = (list, id) => {
         return -1;
     }
 }
+
+exports.check = catchAsyncErrors(async(req,res, next)=>{
+    res.send({success:true})
+})

@@ -42,8 +42,8 @@ const ChangePassword = ({navigation,route}) => {
     
 
 
-    isValidCurrPass: false,
-    isValidNewPass: false,
+    isValidCurrPass: true,
+    isValidNewPass: true,
 });
 
   const [image, setImage] = useState(route.params.profile.imageUrl);

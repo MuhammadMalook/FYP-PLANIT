@@ -5,6 +5,7 @@ import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { useTheme } from '@react-navigation/native';
 import apiLink from "../shared/apiLink";
 import { useBackHandler } from "@react-native-community/hooks"
+import Colors from "../constants/Colors";
 
 const OneEvent = ({ route, navigation }) => {
 
@@ -69,8 +70,8 @@ const OneEvent = ({ route, navigation }) => {
     return (
         <ScrollView>
         <View>
-            <Card>
-                <Card.Title style={[{ backgroundColor: colors.card, fontSize: 20 }]}>{data.event.eventName}</Card.Title>
+            <Card containerStyle={{padding:10}}>
+                <Card.Title style={[{ backgroundColor: colors.card, fontSize: 20, }]}>{data.event.eventName}</Card.Title>
                 <Card.Divider />
                
                 <View style={[{ backgroundColor: "#00203FFF", borderRadius: 8, padding: 10, color: "white", paddingBottom:30 }]}>

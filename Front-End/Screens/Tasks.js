@@ -6,6 +6,7 @@ import { CheckBox } from 'react-native';
 import apiLink from "../shared/apiLink";
 import * as Animatable from 'react-native-animatable'
 import { FAB } from "react-native-paper";
+import Colors from "../constants/Colors";
 //import { TouchableOpacity } from "react-native-gesture-handler";
 // import { tapGestureHandlerProps } from "react-native-gesture-handler/lib/typescript/handlers/TapGestureHandler";
 
@@ -58,61 +59,47 @@ return(
         {
             data.api && <ActivityIndicator color="#0000ff" style={{ position: "absolute", left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "center", top: 250 }} size="large" />
         }
-        <View style={[{ marginTop: 0, marginBottom: 5, marginLeft: 40, marginRight: 40 }]}>
-
-                    {/* <Button onPress={() => {
-                        if(data_task.eventAdmin === data_task.id){
-                            navigation.navigate('createTask', {...data_task})
-                        }
-                        else
-                        {
-                            alert("you are not admin of this event");
-
-                        }
-                    }} size={5} title={"Assign new Task"}>
-
-                    </Button> */}
-            </View>
+        
 
             {
-               data.tasks.length > 0 ? data.tasks.map((item,i) => <Card key={i}>
-                    <Card.Title>
+               data.tasks.length > 0 ? data.tasks.map((item,i) => <Card containerStyle={{backgroundColor:Colors.cardsColor, borderRadius:10}} key={i}>
+                    <Card.Title style={{color:Colors.white }}>
                         {item.taskText}
                     </Card.Title>
                     <Card.Divider />
                     <View>
                         <View style={[{ marginTop: 8, flexDirection: "row", justifyContent: "space-between" }]}>
-                            <Text style={[{ textAlign: "center", fontSize: 10, fontWeight: "bold", color: colors.text }]}>
+                            <Text style={[{ textAlign: "center", fontSize: 10, fontWeight: "bold", color: Colors.white }]}>
                                 Assigned To
                             </Text>
 
-                            <Text style={[{ textAlign: "center", fontSize: 10, fontWeight: "bold", color: colors.text }]}>
+                            <Text style={[{ textAlign: "center", fontSize: 10, fontWeight: "bold", color: Colors.white  }]}>
                                 {item.assignTo}
                             </Text>
                         </View>
 
                         <View style={[{ marginTop: 8, flexDirection: "row", justifyContent: "space-between" }]}>
-                            <Text style={[{ textAlign: "center", fontSize: 10, fontWeight: "bold", color: colors.text }]}>
+                            <Text style={[{ textAlign: "center", fontSize: 10, fontWeight: "bold", color: Colors.white  }]}>
                                 Event
                             </Text>
 
-                            <Text style={[{ textAlign: "center", fontSize: 10, fontWeight: "bold", color: colors.text }]}>
+                            <Text style={[{ textAlign: "center", fontSize: 10, fontWeight: "bold", color: Colors.white  }]}>
                                 {data_task.eventName}
                             </Text>
                         </View>
 
                         <View style={[{ marginTop: 8, flexDirection: "row", justifyContent: "space-between" }]}>
-                            <Text style={[{ textAlign: "center", fontSize: 10, fontWeight: "bold", color: colors.text }]}>
+                            <Text style={[{ textAlign: "center", fontSize: 10, fontWeight: "bold", color: Colors.white  }]}>
                                 Task Status
                             </Text>
 
-                            <Text style={[{ textAlign: "center", fontSize: 10, fontWeight: "bold", color: colors.text }]}>
+                            <Text style={[{ textAlign: "center", fontSize: 10, fontWeight: "bold", color: Colors.white  }]}>
                                 {item.taskStatus === true ? "Completed" : "Not Completed"}
                             </Text>
                         </View>
-                        {item.taskStatus === true ? <Button style={[{ marginTop: 10, marginBottom: 5, marginLeft: 20, marginRight: 20 }]} type="solid" size={5} title={"Completed"} disabled>
+                        {item.taskStatus === true ? <Button  style={[{ marginTop: 10, marginBottom: 5, marginLeft: 20, marginRight: 20 }]} type="solid" size={5} title={"Completed"} disabled>
 
-                        </Button> : <Button style={[{ marginTop: 10, marginBottom: 5, marginLeft: 20, marginRight: 20 }]} type="outline" size={5} title={"Complete Task"}>
+                        </Button> : <Button containerStyle={{marginTop:20}} style={[{ marginTop: 10, marginBottom: 5, marginLeft: 20, marginRight: 20 }]} type="solid" size={5} title={"Complete Task"}>
 
                         </Button>}
 

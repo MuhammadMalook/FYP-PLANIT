@@ -8,7 +8,7 @@ import {
     Platform,
     StyleSheet,
     StatusBar,
-    Alert, ActivityIndicator
+    Alert, ActivityIndicator,ScrollView
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Animatable from 'react-native-animatable';
@@ -125,6 +125,7 @@ const SignInScreen = ({route,navigation}) => {
     
 
     return (
+      <ScrollView>
         <View style={styles.container}>
             <StatusBar backgroundColor='#009387' barStyle="light-content" />
             <View style={styles.header}>
@@ -133,15 +134,13 @@ const SignInScreen = ({route,navigation}) => {
             <Animatable.View
                 animation="fadeInUpBig"
                 style={[styles.footer, {
-                    backgroundColor: colors.background
+                    backgroundColor: colors.background,
                 }]}
             >
-                <Text style={[styles.text_footer, {
-                    color: colors.text
-                }]}>Username</Text>
-                <View style={styles.action}>
-                    <FontAwesome
-                        name="user-o"
+                
+                <View style={{...styles.action}}>
+                    <Feather
+                        name="user"
                         color={colors.text}
                         size={20}
                     />
@@ -150,7 +149,7 @@ const SignInScreen = ({route,navigation}) => {
                         placeholder="Your email"
                         placeholderTextColor="#666666"
                         style={[styles.textInput, {
-                            color: colors.text
+                            color: colors.text, padding:5
                         }]}
                         autoCapitalize="none"
                         onChangeText={(val) => textInputChange(val)}
@@ -166,7 +165,7 @@ const SignInScreen = ({route,navigation}) => {
                                 size={20}
                             />
                         </Animatable.View>
-                        : null}
+                        : <Text>      </Text>}
                 </View>
                 {data.isValidUser ? null :
                     <Animatable.View animation="fadeInLeft" duration={500}>
@@ -175,11 +174,8 @@ const SignInScreen = ({route,navigation}) => {
                 }
 
 
-                <Text style={[styles.text_footer, {
-                    color: colors.text,
-                    marginTop: 35
-                }]}>Password</Text>
-                <View style={styles.action}>
+            
+                <View style={{top:10, ...styles.action, }}>
                     <Feather
                         name="lock"
                         color={colors.text}
@@ -190,13 +186,13 @@ const SignInScreen = ({route,navigation}) => {
                         placeholderTextColor="#666666"
                         secureTextEntry={data.secureTextEntry ? true : false}
                         style={[styles.textInput, {
-                            color: colors.text
+                            color: colors.text,padding:5,
                         }]}
                         autoCapitalize="none"
                         onChangeText={(val) => handlePasswordChange(val)}
                     />
                     <TouchableOpacity
-                        onPress={updateSecureTextEntry}
+                        onPress={updateSecureTextEntry} 
                     >
                         {data.secureTextEntry ?
                             <Feather
@@ -295,6 +291,8 @@ const SignInScreen = ({route,navigation}) => {
                 </View>
             </Animatable.View>
         </View>
+        
+</ScrollView>
     );
 };
 
@@ -309,20 +307,23 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
         paddingHorizontal: 20,
-        paddingBottom: 50
+        paddingBottom: 80, 
+        top:30
     },
     footer: {
         flex: 3,
         backgroundColor: '#fff',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
+        top:10,
         paddingHorizontal: 20,
-        paddingVertical: 30
+        paddingVertical: 40
     },
     text_header: {
         color: '#fff',
         fontWeight: 'bold',
-        fontSize: 30
+        fontSize: 30,
+        alignSelf:'center'
     },
     text_footer: {
         color: '#05375a',
@@ -357,6 +358,8 @@ const styles = StyleSheet.create({
     errorMsg: {
         color: '#FF0000',
         fontSize: 14,
+        marginLeft:20,
+
     },
     button: {
         alignItems: 'center',

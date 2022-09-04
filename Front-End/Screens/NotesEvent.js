@@ -5,6 +5,7 @@ import { useTheme } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable'
 import apiLink from "../shared/apiLink";
 import { FAB } from "react-native-paper";
+import Colors from "../constants/Colors";
 
 
 
@@ -60,19 +61,9 @@ const NotesEvent = ({route, navigation}) => {
             }
             <View>
                 <Card.Title style={[{ backgroundColor: colors.card, fontSize: 30 }]}>{_eventName}</Card.Title>
-
-                <View style={[{ marginTop: 0, marginBottom: 5, marginLeft: 40, marginRight: 40 }]}>
-                    {/* <Button onPress={() => {
-                        navigation.navigate('newNote', { user: _user, email: _email, number: _number, id: _id, eventId: _eventId, eventName: _eventName, eventAdmin: _eventAdmin })
-                    }
-                    } size={5} title={"Add New Note"}></Button> */}
-
-                </View>
                 {
-                    data.success ? data.notes.map((note, i) => <Card containerStyle={{backgroundColor:'#30D5C8'}} key={i}>
-                        <Card.Title style={[{ backgroundColor: "#30D5C8" }]}>Note : {i+1} </Card.Title>
-                        <Card.Divider />
-                        <View style={[{ backgroundColor: "#000080", borderRadius: 5, padding: 5, color: colors.text }]}>
+                    data.success ? data.notes.map((note, i) => <Card containerStyle={{padding:0}} key={i}>
+                        <View style={[{ backgroundColor:Colors.cardsColor, borderRadius: 5, padding: 10, color: Colors.primaryTextColor }]}>
                             <View>
                                 <Text style={[{ textAlign: "center", fontSize: 15, fontWeight: "bold", color: "white" }]}>
                                     {note.NotesText}

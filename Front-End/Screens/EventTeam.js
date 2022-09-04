@@ -100,7 +100,7 @@ const EventTeam = ({route,navigation}) => {
                                     {member.name}
                                 </Text>
                             </View>
-                            <View style={[styles.row, { justifyContent: "space-evenly",  }]}>
+                            <View style={[styles.row, { justifyContent: "space-evenly", marginTop:20 }]}>
 
                                 
                                     

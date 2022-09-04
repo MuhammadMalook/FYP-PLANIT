@@ -128,7 +128,7 @@ const NewAccount = ({route, navigation}) => {
             <View style={styles.container}>
                 <StatusBar backgroundColor='#009387' barStyle="light-content" />
                 <View style={styles.header}>
-                    <Text style={styles.text_header}>Welcome To Planit </Text>
+                    <Text style={styles.text_header}>Register Here </Text>
                 </View>
                 <Animatable.View
                     animation="fadeInUpBig"
@@ -381,11 +381,10 @@ const styles = StyleSheet.create({
     },
     header: {
         flex: 1,
-        justifyContent: 'flex-end',
-        alignContent:'center',
-        textAlign:'center',
+        alignItems:'center',
+        top:20,
         paddingHorizontal: 20,
-        paddingBottom: 50
+        paddingBottom: 80
     },
     footer: {
         flex: 3,
@@ -398,11 +397,13 @@ const styles = StyleSheet.create({
     text_header: {
         color: '#fff',
         fontWeight: 'bold',
-        fontSize: 30
+        fontSize: 30,
+        
     },
     text_footer: {
         color: '#05375a',
-        fontSize: 18
+        fontSize: 14, 
+        marginLeft:35
     },
     action: {
         flexDirection: 'row',

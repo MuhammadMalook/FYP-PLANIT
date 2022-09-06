@@ -10,7 +10,8 @@ import {
     TextInput,
     Platform,
     TouchableOpacity,
-    ActivityIndicator
+    ActivityIndicator,
+    ScrollView
 } from 'react-native';
 import apiLink from '../shared/apiLink';
 import Feather from 'react-native-vector-icons/Feather';
@@ -46,8 +47,8 @@ const InviteGuest = ({route, navigation}) => {
         eventPlanner: _eventAdmin,
         username: "",
         number: "",
-        isValidNumber: false,
-        isValidUser:false
+        isValidNumber: true,
+        isValidUser:true
     });
 
     const [clicked, setClicked] = useState(false)
@@ -181,6 +182,7 @@ const [FilteredList, setFilteredList] =
     }
     
     return (
+        <ScrollView>
         <View style={styles.container}>
             <StatusBar backgroundColor='#009387' barStyle="light-content" />
 
@@ -295,7 +297,7 @@ const [FilteredList, setFilteredList] =
                             onChangeText={(val) => textInputChange(val)}
                             onEndEditing={(e) => handleValidUser(e.nativeEvent.text)}
                         />
-                        {data.check_textInputChange ?
+                        {data.isValidUser ?
                             <Animatable.View
                                 animation="bounceIn"
                             >
@@ -350,6 +352,7 @@ const [FilteredList, setFilteredList] =
 
                                 placeholder="Guest Number"
                                 placeholderTextColor="#666666"
+                                keyboardType='numeric'
                                 style={[styles.textInput, {
                                     color: colors.text
                                 }]}
@@ -432,6 +435,7 @@ const [FilteredList, setFilteredList] =
             </Animatable.View>
 
         </View>
+        </ScrollView>
     )
 }
 
@@ -462,7 +466,8 @@ const styles = StyleSheet.create({
     },
     text_footer: {
         color: '#05375a',
-        fontSize: 18
+        fontSize: 18,
+        marginLeft:25,
     },
     action: {
         flexDirection: 'row',

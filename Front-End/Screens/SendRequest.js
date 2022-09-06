@@ -56,7 +56,8 @@ const SendRequest = ({route,navigation}) => {
         eventName: "Dinner &  Party",
         eventPlanner: "Faisal Nisar",
         eventStatus: false,
-        username: ""
+        username: "",
+        isValidUser:true
     });
     const handleValidUser = (val) => {
         if (val.trim().length >= 4) {
@@ -264,7 +265,7 @@ const SendRequest = ({route,navigation}) => {
                                     size={20}
                                 />
                             </Animatable.View>
-                            : null}
+                            : <Text>     </Text>}
                     </View>
 
                     {data.isValidUser ? null :
@@ -410,7 +411,8 @@ const styles = StyleSheet.create({
     },
     text_footer: {
         color: '#05375a',
-        fontSize: 18
+        fontSize: 18,
+        marginLeft:25,
     },
     action: {
         flexDirection: 'row',

@@ -79,7 +79,8 @@ const CreateNote = ({route,navigation}) => {
             setData({
                 ...data,
                 eventDesc: value,
-                isValidDesc: true
+                isValidDesc: true,
+                textChange : true,
             })
         }
         else {
@@ -87,19 +88,21 @@ const CreateNote = ({route,navigation}) => {
             setData({
                 ...data,
                 eventDesc: value,
-                isValidDesc: false
+                isValidDesc: false,
+                textChange : false,
             })
         }
     }
 
     const [data, setData] = useState({
-        isValidEventId: false,
+        isValidEventId: true,
         apiHit: false,
-        isValidPlanner: false,
-        isValidDesc: false,
+        isValidPlanner: true,
+        isValidDesc: true,
         eventID: _eventId,
         plannerId: _eventAdmin,
         eventDesc: "",
+        textChange:false,
     });
 
 
@@ -225,7 +228,7 @@ const CreateNote = ({route,navigation}) => {
                             autoCapitalize="none"
                             onChangeText={(val) => handleDesc(val)}
                         />
-                        {data.isValidDesc ?
+                        {data.textChange ?
                             <Animatable.View
                                 animation="bounceIn"
                             >
@@ -235,7 +238,7 @@ const CreateNote = ({route,navigation}) => {
                                     size={20}
                                 />
                             </Animatable.View>
-                            : null}
+                            : <Text>      </Text>}
                     </View>
 
                     {data.isValidDesc ? null :

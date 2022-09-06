@@ -10,7 +10,8 @@ import {
     TextInput,
     Platform,
     TouchableOpacity,
-    ActivityIndicator
+    ActivityIndicator,
+    ScrollView
 } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable';
@@ -86,7 +87,8 @@ const CreateTask = ({route, navigation}) => {
             setData({
                 ...data,
                 task: value,
-                isValidTask: true
+                isValidTask: true,
+                changeTaskDesc:true,
             })
         }
         else {
@@ -94,7 +96,8 @@ const CreateTask = ({route, navigation}) => {
             setData({
                 ...data,
                 task: value,
-                isValidTask: false
+                isValidTask: false,
+                changeTaskDesc:false,
             })
         }
     }
@@ -118,7 +121,8 @@ const CreateTask = ({route, navigation}) => {
             setData({
                 ...data,
                 assignTo: value,
-                isValidPerson: true
+                isValidPerson: true,
+                changeTaskTo: true,
             })
         }
         else {
@@ -126,7 +130,8 @@ const CreateTask = ({route, navigation}) => {
             setData({
                 ...data,
                 assignTo: value,
-                isValidPerson: false
+                isValidPerson: false,
+                changeTaskTo: false,
             })
         }
     }
@@ -136,12 +141,14 @@ const CreateTask = ({route, navigation}) => {
         api: false,
         isValidEventId: true,
         isValidPlanner: true,
-        isValidPerson: false,
-        isValidTask: false,
+        isValidPerson: true,
+        isValidTask: true,
         eventID: _eventId,
         assignTo: "",
         plannerId: _eventAdmin,
         task: "",
+        changeTaskTo:false,
+        changeTaskDesc : false,
     });
 
     useEffect(async () => {
@@ -164,6 +171,7 @@ const CreateTask = ({route, navigation}) => {
     }, [])
 
     return (
+        <ScrollView>
         <View style={styles.container}>
 
             {
@@ -186,7 +194,7 @@ const CreateTask = ({route, navigation}) => {
                         color: colors.text
                     }]}>Event Id</Text>
                     <View style={styles.action}>
-                        <FontAwesome
+                        <FontAwesome style={styles.icons}
                             name="group"
                             color={colors.text}
                             size={20}
@@ -231,7 +239,7 @@ const CreateTask = ({route, navigation}) => {
                         Your Id
                     </Text>
                     <View style={styles.action}>
-                        <FontAwesome
+                        <FontAwesome style={styles.icons}
                             name="user-o"
                             color={colors.text}
                             size={20}
@@ -274,7 +282,7 @@ const CreateTask = ({route, navigation}) => {
                         Task Assign To
                     </Text>
                     <View style={styles.action}>
-                        <FontAwesome
+                        <FontAwesome style={styles.icons}
                             name="user-o"
                             color={colors.text}
                             size={20}
@@ -289,7 +297,7 @@ const CreateTask = ({route, navigation}) => {
                             autoCapitalize="none"
                             onChangeText={(val) => handleValidUser(val)}
                         />
-                        {data.isValidPerson ?
+                        {data.changeTaskTo ?
                             <Animatable.View
                                 animation="bounceIn"
                             >
@@ -299,7 +307,7 @@ const CreateTask = ({route, navigation}) => {
                                     size={20}
                                 />
                             </Animatable.View>
-                            : null}
+                            : <Text>      </Text>}
                     </View>
 
                     {data.isValidPerson ? null :
@@ -336,14 +344,16 @@ const CreateTask = ({route, navigation}) => {
                 <View style={{ marginBottom: 15 }}>
                     <Text style={[styles.text_footer, {
                         color: colors.text
-                    }]}>Tasks </Text>
+                    }]}>Task Description </Text>
                     <View style={styles.action}>
-                        <FontAwesome
+                        <FontAwesome style={styles.icons}
                             name="file-text-o"
                             color={colors.text}
                             size={20}
                         />
                         <TextInput
+                             multiline={true}
+                            numberOfLines={5}
                             value={data.task}
                             placeholder="Description"
                             placeholderTextColor="#666666"
@@ -353,7 +363,7 @@ const CreateTask = ({route, navigation}) => {
                             autoCapitalize="none"
                             onChangeText={(val) => handleDesc(val)}
                         />
-                        {data.isValidTask ?
+                        {data.changeTaskDesc ?
                             <Animatable.View
                                 animation="bounceIn"
                             >
@@ -363,7 +373,7 @@ const CreateTask = ({route, navigation}) => {
                                     size={20}
                                 />
                             </Animatable.View>
-                            : null}
+                            : <Text>      </Text>}
                     </View>
 
                     {data.isValidTask ? null :
@@ -450,6 +460,7 @@ const CreateTask = ({route, navigation}) => {
             </Animatable.View>
 
         </View>
+        </ScrollView>
     )
 }
 export default CreateTask;
@@ -479,7 +490,8 @@ const styles = StyleSheet.create({
     },
     text_footer: {
         color: '#05375a',
-        fontSize: 18
+        fontSize: 18,
+        marginLeft:25,
     },
     action: {
         flexDirection: 'row',
@@ -524,6 +536,9 @@ const styles = StyleSheet.create({
     textSign: {
         fontSize: 18,
         fontWeight: 'bold'
+    },
+    icons:{
+        bottom:8
     }
 });
 

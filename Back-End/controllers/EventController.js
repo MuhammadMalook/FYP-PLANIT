@@ -455,12 +455,8 @@ exports.assignTask = catchAsyncErrors(async (req, res, next) => {
 })
 exports.assignTaskByName = catchAsyncErrors(async (req, res, next) => {
     const { plannerId, eventId, taskAssignedTo, taskText } = req.body;
-    // const taskCreated = await TaskSchema.create({
-    //     eventId: eventId,
-    //     taskText: taskText,
-    //     assignTo: taskAssignedTo
-    // })
-    
+   
+    console.log(req.body)
     const eventById = await EventSchema.findById(eventId);
     const personsById = await PersonSchema.find();
     const filteredPerson = personsById.filter(person => person.name == taskAssignedTo);
@@ -485,6 +481,11 @@ exports.assignTaskByName = catchAsyncErrors(async (req, res, next) => {
 
         }
         else {
+            const taskCreated = await TaskSchema.create({
+                eventId: eventId,
+                taskText: taskText,
+                assignTo: taskAssignedTo
+            })
             eventById.tasks.push(taskCreated._id);
             filteredPerson[0].tasks.push(taskCreated._id)
             const UpdatedEvent = await EventSchema.updateOne({ _id: eventById._id }, { tasks: [...eventById.tasks] });

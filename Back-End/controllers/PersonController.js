@@ -163,32 +163,29 @@ exports.getEventsInfo = catchAsyncErrors(async (req, res, next) => {
         }
     });
 
-    if (allEvents.length == 0){
-    res.status(404).json({
-        success: false,
-        message: "not found the user in any team"
-    })
-    return
+        let completedEvents =0;
+        let pendingEvents = 0;
+        let totalNotes=0
+    if (allEvents.length != 0){
+        
+        for (let i=0; i<allEvents.length; i++)
+        {
+            totalNotes+=allEvents[i].notes.length
+            if(allEvents[i].eventStatus)
+            {
+                completedEvents++
+            }
+            else
+                pendingEvents++;
+        }
+    
 }
     const myEvents = events.filter(event=>{
         if(event.userId == id)
             return event;
         
     })
-    let completedEvents =0;
-    let pendingEvents = 0;
-    let totalNotes=0
-    for (let i=0; i<allEvents.length; i++)
-    {
-        totalNotes+=allEvents[i].notes.length
-        if(allEvents[i].eventStatus)
-        {
-            completedEvents++
-        }
-        else
-            pendingEvents++;
-    }
-
+    
     let reqs=0, tasksAs=0;
      PersonSchema.findOne({_id:id}).then(async user=>{
         if(user){
@@ -466,16 +463,33 @@ exports.getCompletedTasksByUser = catchAsyncErrors(async (req, res, next) => {
 })
 
 exports.completeTasks = catchAsyncErrors(async (req, res, next) => {
-    const { taskId, userId } = req.body;
+    const { taskId, user } = req.body;
+    console.log(user)
     const foundTask = await TasksSchema.findById(taskId);
-    foundTask.taskStatus = true;
-    await TasksSchema.updateOne({ _id: taskId }, { taskStatus: true });
-
-    res.status(200).json({
-        success: true,
-        foundTask
-
+    if(foundTask)
+    {
+        if(user == foundTask.assignTo)
+        {
+            foundTask.taskStatus = true;
+            await TasksSchema.updateOne({ _id: taskId }, { taskStatus: true });
+            res.status(200).json({
+            success: true,
+            foundTask
+        })
+        }
+        else
+        res.status(400).json({
+            success: false,
+            msg:"You can not complete this task"
+        })
+    }
+    else
+    res.status(404).json({
+        success: false,
+        msg:"Task not Found"
     })
+   
+    
 })
 exports.requestsById = catchAsyncErrors(async (req, res, next) => {
     const { userId } = req.params;

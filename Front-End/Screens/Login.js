@@ -18,6 +18,7 @@ const LoginScreen = ({route, navigation}) => {
     console.log(route,"he;llo")
    
     const deviceToken = route.params.data;
+    console.log(route)
    
 //        // AsyncStorage.clear()
 //         const [Token, setToken] = useState(null);

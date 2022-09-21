@@ -344,7 +344,7 @@ const NewAccount = ({route, navigation}) => {
                                     // .catch(error => alert(error.message))
 
                                     alert("New Account Created")
-                                    navigation.navigate('Login');
+                                    navigation.navigate('Login', {deviceToken});
                                 }
                                 else {
                                     alert("Not Created")

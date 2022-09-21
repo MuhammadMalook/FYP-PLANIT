@@ -409,13 +409,12 @@ const CreateTask = ({route, navigation}) => {
                                     body: JSON.stringify(apiBody),
                                 });
                                 const jsonData = await apiData.json();
-                                // console.log(jsonData);
-                                setData({
-                                    ...data, api: false
-                                });
+                                console.log(jsonData, " created");
+                               
 
                                 if (jsonData.success) {
-                                    const apiBody = {eventId:_eventId, eventName:_eventName, to: data.username, from: _AdminName, Message:"Send you Request", type:'task'}
+                                    const apiBody = {eventId:_eventId, eventName:_eventName, to: `${data.assignTo}`, from: _AdminName, Message:"Send you Request", type:'task'}
+                                    console.log(apiBody, "Body")
                                             const result = await fetch(`${apiLink}/addNotification`, {
                                                 method:'POST',
                                                 headers:{
@@ -425,6 +424,9 @@ const CreateTask = ({route, navigation}) => {
 
                                             })
                                             const jsonResult = await result.json()
+                                            setData({
+                                                ...data, api: false
+                                            });
                                             if(jsonResult.success)
                                             {
                                                 console.log('notification added')
@@ -434,6 +436,7 @@ const CreateTask = ({route, navigation}) => {
                                             }
 
                                     alert("Task Created")
+                                    
 
                                 }
                                 else {

@@ -13,8 +13,9 @@ import Colors from "../constants/Colors";
 const Tasks = ({route, navigation}) => {
     const colors = useTheme();
     const data_task = route.params;
+    const admin = route.params.user;
   
-    console.log(route)
+    console.log(route, "tasks")
    // const navigation = props.navigation;
    // const [apiState,setApi] = useState(false);
     const [data, setData] = useState({
@@ -99,8 +100,27 @@ return(
                         </View>
                         {item.taskStatus === true ? <Button  style={[{ marginTop: 10, marginBottom: 5, marginLeft: 20, marginRight: 20 }]} type="solid" size={5} title={"Completed"} disabled>
 
-                        </Button> : <Button containerStyle={{marginTop:20}} style={[{ marginTop: 10, marginBottom: 5, marginLeft: 20, marginRight: 20 }]} type="solid" size={5} title={"Complete Task"}>
-
+                        </Button> : <Button containerStyle={{marginTop:20}} style={[{ marginTop: 10, marginBottom: 5, marginLeft: 20, marginRight: 20 }]} type="solid" size={5} title={"Complete Task"} 
+                        onPress={async()=>{
+                            const jsonBody = {taskId:item._id, user:admin}
+                            console.log(jsonBody)
+                            const completeTask = await fetch(`${apiLink}/completeTask`,{
+                                method:"POST",
+                                headers:{
+                                    "Content-type":"application/json"
+                                },
+                                body: JSON.stringify(jsonBody)
+                            })
+                            const jsonData = await completeTask.json()
+                            if(jsonData.success)
+                            {
+                                alert("Task completed")
+                            }
+                            else
+                            alert(jsonData.msg)
+                        }}
+                        >
+                        
                         </Button>}
 
                     </View>

@@ -17,6 +17,7 @@ const Notifications = ({route,navigation}) => {
     "notifications":[]
   })
   const [accepted, setAccepted] = useState(false)
+  const [status, setStatus] = useState("")
  // console.log(route.params)
  
   const anim = {
@@ -150,6 +151,7 @@ const Notifications = ({route,navigation}) => {
                           console.log(jsonData)
                           if(jsonData.success){
                             setAccepted(true)
+                            setStatus("Accepted")
                             const apiBody = {_id:element._id, eventId:element.eventId}
                             const apiData = await fetch(`${apiLink}/removeNotification`, {
                               method:'POST',
@@ -174,10 +176,46 @@ const Notifications = ({route,navigation}) => {
                      }}
                      />
                      
-                     <Button buttonStyle={{marginLeft:20, backgroundColor:'silver' , borderRadius:25, width:100}} type="solid" size={5} title={"Reject"} />
+                     <Button buttonStyle={{marginLeft:20, backgroundColor:'silver' , borderRadius:25, width:100}} type="solid" size={5} title={"Reject"} 
+                      onPress={async()=>{
+                        const apiBody = {userId: userId, eventId:element.eventId }
+                        const apiData = await fetch(`${apiLink}/cancelRequest`, {
+                          method:"POST",
+                          headers:{
+                            "Content-type":"application/json"
+                          },
+                          body: JSON.stringify(apiBody)
+                        })
+
+                        const jsonData = await apiData.json()
+                        if(jsonData.success){
+                          setAccepted(true)
+                          setStatus("Rejected")
+                          const apiBody = {_id:element._id, eventId:element.eventId}
+                          const apiData = await fetch(`${apiLink}/removeNotification`, {
+                            method:'POST',
+                            headers:{
+                              'Content-type':'application/json'
+                            },
+                            body: JSON.stringify(apiBody)
+                          })
+                          const result = await apiData.json()
+                          if(result.success)
+                          {
+
+                          }
+                          else{
+                            console.log('Network error')
+                          }
+                        }
+                        else{
+                          alert("Can not reject at this moment!. Try again later")
+                        }
+                      }}
+                     />
                     
                      </View> :
-                     <Text style = {{fontSize:12, color:'white', fontStyle:'italic'}}>Request Accepted</Text>
+                     <Text style = {{fontSize:12, color:'white', fontStyle:'italic'}}>Request {status}</Text>
                      }
                      
                      </> : element.type == "GuestInvitation" ? 

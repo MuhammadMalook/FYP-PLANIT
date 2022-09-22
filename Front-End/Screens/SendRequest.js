@@ -144,9 +144,7 @@ const SendRequest = ({route,navigation}) => {
         <View style={styles.container}>
             <StatusBar backgroundColor='#009387' barStyle="light-content" />
 
-            {
-                data.api && <ActivityIndicator color="#0000ff" style={{ position: "absolute", left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "center", top: 0 }} size="large" />
-            }
+        
             <View style={styles.text_header}>
                 <Text style={[styles.text_header, { margin: 10 }]}>  Request Information  </Text>
             </View>
@@ -369,7 +367,9 @@ const SendRequest = ({route,navigation}) => {
                             color: '#009387'
                         }]}>Send </Text>
                     </TouchableOpacity>
-
+                    {
+                    data.api && <ActivityIndicator color="#0000ff" style={{ position: "absolute", left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "center", top: 0 }} size="large" />
+                     }
                 </View>
 
             </Animatable.View>

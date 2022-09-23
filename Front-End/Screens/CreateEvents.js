@@ -23,12 +23,14 @@ import { EventImages } from '../events-images/EventImages';
 const { height } = Dimensions.get("screen");
 const height_logo = height * 0.25;
 
+import { AuthContext } from '../components/Context';
 
 
 const CreateEvent = ({route,navigation}) => {
-
+const { togleUpdate } = React.useContext(AuthContext)
  const [visible, setVisible] = useState(false)
    // const navigation = props.navigation;
+   console.log(route, " Create Event")
     
     const _user = route.params.name;
     const _email = route.params.email;
@@ -160,26 +162,7 @@ const CreateEvent = ({route,navigation}) => {
                 } style={{margin:3}}>{key}</Button>
           })
          
-      }
-          {/* <Button mode='outlined' onPress={()=>setVisible(false)}>Tea</Button>
-          <Button mode='outlined' onPress={()=>setVisible(false)}>Tea</Button>
-          <Button mode='outlined' onPress={()=>setVisible(false)}>Tea</Button>
-          <Button mode='outlined' onPress={()=>setVisible(false)}>Tea</Button>
-          <Button mode='outlined' onPress={()=>setVisible(false)}>Tea</Button>
-          <Button mode='outlined' onPress={()=>setVisible(false)}>Tea</Button>
-          <Button mode='outlined' onPress={()=>setVisible(false)}>Tea</Button>
-          <Button mode='outlined' onPress={()=>setVisible(false)}>Tea</Button>
-          <Button mode='outlined' onPress={()=>setVisible(false)}>Tea</Button>
-          <Button mode='outlined' onPress={()=>setVisible(false)}>Tea</Button>
-          <Button mode='outlined' onPress={()=>setVisible(false)}>Tea</Button>
-          <Button mode='outlined' onPress={()=>setVisible(false)}>Tea</Button>
-          <Button mode='outlined' onPress={()=>setVisible(false)}>Tea</Button>
-          <Button mode='outlined' onPress={()=>setVisible(false)}>Tea</Button>
-          <Button mode='outlined' onPress={()=>setVisible(false)}>Tea</Button>
-          <Button mode='outlined' onPress={()=>setVisible(false)}>Tea</Button>
-          <Button mode='outlined' onPress={()=>setVisible(false)}>Tea</Button>
-          <Button mode='outlined' onPress={()=>setVisible(false)}>Tea</Button> */}
-          
+      }      
     
     </DialogContent>
   </Dialog>
@@ -396,7 +379,7 @@ const CreateEvent = ({route,navigation}) => {
                                 body: JSON.stringify(apiBody),
                             });
                             const jsonData = await apiData.json();
-                            {/* console.log(jsonData);                         */}
+                            console.log(jsonData);             
                             setData({
                                 ...data,api: false 
                             });
@@ -404,6 +387,7 @@ const CreateEvent = ({route,navigation}) => {
                             if(jsonData.success)
                             {
                                 alert("Event Created")
+                                navigation.navigate('Home',{data:route.params})
                             }
                             else
                             {

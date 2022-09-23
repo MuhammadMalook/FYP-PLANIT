@@ -1,6 +1,6 @@
 import React, { useState , useRef, useEffect} from "react"
 import { View,Dimensions, FlatList, StyleSheet, ScrollView, ActivityIndicator,TouchableOpacity } from 'react-native';
-import { useTheme } from '@react-navigation/native';
+import { useTheme, useIsFocused } from '@react-navigation/native';
 
 import Styles from '../common/Styles';
 import Colors from '../constants/Colors';
@@ -98,205 +98,19 @@ import { color } from "react-native-reanimated";
 
 
 
-
 const HomeScreen = ({navigation, route}) => {
 
 
-    
-    // // const navigation = navigation;
-    // console.log(route.params, "helloooooooo")
-    // // console.log(navigation)
-    // const _user = route.params.name;
-    // const _email = route.params.email;
-    // const _id = route.params._id;
-    // const _number = route.params.number;
-    // const _requests = route.params.requests;
-    // console.log("in am called "+_email)
-
-
-    // const [homeScreenData, setScreen] = useState({
-    //     userName: _user,
-    //     email: _email,
-    //     req: _requests,
-    //     num: _number
-    // })
-    // const { colors } = useTheme();
-    // const [data, setData] = useState({
-    //     "success": true,
-    //     "events": [
-
-    //     ]
-    // });
-
-    // useState(async () => {
-    //     setData({
-    //         ...data, api: true
-    //     });
-
-    //     const apiBody = { id: _id };
-    //     const apiData = await fetch(`${apiLink}/getEventByUser`, {
-    //         method: 'POST', // or 'PUT'
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify(apiBody),
-    //     });
-    //     const jsonData = await apiData.json();
-    //      console.log(jsonData + "json");
-    //     if (jsonData.success)
-    //         setData({
-    //             ...data, api: false, events: [...jsonData.events]
-    //         });
-    //     else {
-    //         setData({ ...data, api: false, success : false })
-
-    //     }
-
-    //     setScreen({
-    //         userName: _user,
-    //         email: _email,
-    //         req: _requests,
-    //         num: _number
-    //     });
-
-
-    // }, [])
-    // return (
-    //     <ScrollView>
-            
-    //         {
-    //             data.api && <ActivityIndicator color="#0000ff" style={{ position: "absolute", left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "center", top: 0 }} size="large" />
-    //         }
-    //         {/* <NavContainer/> */}
-    //         <Card style={[{ backgroundColor: colors.card }]}>
-
-    //             <Text style={[{ textAlign: "center", fontSize: 15, fontWeight: "bold", color: colors.text, marginBottom: 10 }]}>
-
-    //                 Hi {homeScreenData.userName} ,
-    //                 You Have  {homeScreenData.req} Requests
-    //             </Text>
-    //             <View>
-    //                 <Button onPress={() => {
-    //                     navigate('myRequests', { user: _user, email: _email, number: _number, id: _id })
-    //                 }} title={"View Requests"}>
-
-    //                 </Button>
-    //             </View>
-    //         </Card>
-    //         <Card style={[{ backgroundColor: colors.card, marginTop: 5 }]}>
-    //             <Text style={[{ textAlign: "center", fontSize: 15, fontWeight: "bold", color: colors.text, marginBottom: 10 }]}>
-
-    //                 Why Are You Waiting ! Just Create New Event
-    //             </Text>
-    //             <View>
-    //                 <Button onPress={() => {
-    //                     navigate('createEvent', { user: _user, email: _email, number: _number, id: _id })
-    //                 }} title={"Create Event"}>
-
-    //                 </Button>
-    //             </View>
-    //         </Card>
-
-    //         {
-    //             data.success == true ? data.events.map((eventItem, i) => <Card key={i}>
-    //                 <Card.Title style={[{ backgroundColor: colors.card, fontSize: 18 }]}>{eventItem.eventName}</Card.Title>
-    //                 <Card.Divider />
-    //                 <View key={i} style={[{ backgroundColor: colors.border, borderRadius: 5, padding: 5, color: colors.text }]}>
-
-    //                     <View style={[{ marginTop: 5, flexDirection: "row", justifyContent: "space-between" }]}>
-
-    //                         <Text style={[{ textAlign: "center", fontSize: 13, fontWeight: "bold", color: colors.text }]}>
-    //                             Planner
-    //                         </Text>
-
-    //                         <Text style={[{ textAlign: "center", fontSize: 13, fontWeight: "bold", color: colors.text }]}>
-    //                             {eventItem.eventDesc}
-    //                         </Text>
-    //                     </View>
-
-
-    //                     <View style={[{ marginTop: 5, flexDirection: "row", justifyContent: "space-between" }]}>
-
-    //                         <Text style={[{ textAlign: "center", fontSize: 13, fontWeight: "bold", color: colors.text }]}>
-    //                             Planner
-    //                         </Text>
-
-    //                         <Text style={[{ textAlign: "center", fontSize: 13, fontWeight: "bold", color: colors.text }]}>
-    //                             {eventItem.userName}
-    //                         </Text>
-
-
-    //                     </View>
-
-
-    //                     <View style={[{ marginTop: 5, flexDirection: "row", justifyContent: "space-between" }]}>
-
-    //                         <Text style={[{ textAlign: "center", fontSize: 13, fontWeight: "bold", color: colors.text }]}>
-    //                             Team Members
-    //                         </Text>
-    //                         <Text style={[{ textAlign: "center", fontSize: 13, fontWeight: "bold", color: colors.text }]}>
-    //                             {eventItem.team.length}
-    //                         </Text>
-    //                     </View>
-    //                     <View style={[{ marginTop: 5, flexDirection: "row", justifyContent: "space-between" }]}>
-
-    //                         <Text style={[{ textAlign: "center", fontSize: 13, fontWeight: "bold", color: colors.text }]}>
-    //                             Tasks Assigned
-    //                         </Text>
-    //                         <Text style={[{ textAlign: "center", fontSize: 13, fontWeight: "bold", color: colors.text }]}>
-    //                             {eventItem.tasks.length}
-    //                         </Text>
-    //                     </View>
-    //                     <View style={[{ marginTop: 5, flexDirection: "row", justifyContent: "space-between" }]}>
-
-    //                         <Text style={[{ textAlign: "center", fontSize: 13, fontWeight: "bold", color: colors.text }]}>
-    //                             Notes
-    //                         </Text>
-    //                         <Text style={[{ textAlign: "center", fontSize: 13, fontWeight: "bold", color: colors.text }]}>
-    //                             {eventItem.notes.length}
-    //                         </Text>
-    //                     </View>
-    //                     <View style={[{ marginTop: 5, flexDirection: "row", justifyContent: "space-between" }]}>
-
-    //                         <Text style={[{ textAlign: "center", fontSize: 13, fontWeight: "bold", color: colors.text }]}>
-    //                             Status
-    //                         </Text>
-    //                         <Text style={[{ textAlign: "center", fontSize: 13, fontWeight: "bold", color: colors.text }]}>
-    //                             {eventItem.eventStatus ? "Completed" : "In Progess"}
-    //                         </Text>
-    //                     </View>
-    //                     <View style={[{ margin: 10 }]}>
-
-    //                         <Button onPress={() => {
-    //                             navigate('OneEvent', { user: _user, email: _email, number: _number, id: _id, eventId: eventItem._id, eventName: eventItem.eventName, eventAdmin: eventItem.userId })
-    //                         }} style={[{ marginTop: 10, marginBottom: 5, width: 50 }]} type="outline" size={3} title={"View"}>
-    //                         </Button>
-
-    //                     </View>
-
-    //                 </View>
-    //             </Card>
-    //             ) : <Card style={[{ backgroundColor: colors.card }]}>
-
-    //                 <Text style={[{ textAlign: "center", fontSize: 15, fontWeight: "bold", color: colors.text, marginBottom: 10 }]}>
-    //                     No Events
-    //                 </Text>
-
-    //             </Card>
-    //         }
-    //     </ScrollView>
-
-    // )
-
-     // const navigation = navigation;
-   
-    // console.log(navigation)
     const _user = route.params.name;
     const _email = route.params.email;
     const _id = route.params._id;
     const _number = route.params.number;
     const _requests = route.params.requests;
     console.log("in am called "+_email)
+
+    
+  const isFocused = useIsFocused()
+   
 
     const [eventStats, setEventStats] = useState({"totalEvents":0, "myEvents":0, "completed":0, "tasksAssigned":0,"pendingEvents":0, "totalNotes":0, "requests":0})
 
@@ -306,17 +120,14 @@ const HomeScreen = ({navigation, route}) => {
         req: _requests,
         num: _number
     })
+    
 
     const { colors } = useTheme();
-
     const [data, setData] = useState({
         "success": true,
         "events": [
         ]});
    
-  
- 
-        
   async function getData()
   {
     
@@ -328,8 +139,11 @@ const HomeScreen = ({navigation, route}) => {
       },
       body: JSON.stringify(apiBody),
   });
+
   const jsonData = await apiData.json();
-   console.log(jsonData.obj, "json");
+
+  console.log(jsonData.obj, "json");
+
 
   if (jsonData.success){
     
@@ -346,10 +160,10 @@ const HomeScreen = ({navigation, route}) => {
 
 useEffect(() => {
   getData() 
-}, [])
+}, [isFocused])
 
     
-    useState(async () => {
+    useEffect(async () => {
         setData({
             ...data, api: true
         });
@@ -363,7 +177,7 @@ useEffect(() => {
             body: JSON.stringify(apiBody),
         });
         const jsonData = await apiData.json();
-         console.log(jsonData + "json");
+         console.log(jsonData.success + "jsonsssssssss");
         if (jsonData.success)
             setData({
                 ...data, api: false, events: [...jsonData.events]
@@ -381,7 +195,7 @@ useEffect(() => {
         });
 
 
-    }, [])    
+    }, [eventStats])    
     
       const viewRef = useRef(null);
       const animation = Animations[Math.floor(Math.random() * Animations.length)]
@@ -412,13 +226,7 @@ useEffect(() => {
           iterationCount="infinite">
          
         </Animatable.Image>
-        {/* <Animatable.Text style={{color:'red', fontSize:24, fontFamily:'sans-serif', marginLeft:20}} animation={anim}
-          easing="ease-in-out"
-          duration={3000} 
-          iterationCount="infinite"
-          >
-           No Events Found
-        </Animatable.Text> */}
+  
           </View>
          </> 
         )
@@ -485,7 +293,7 @@ useEffect(() => {
         })
         // ToastAndroid.show(animation+ ' Animation', ToastAndroid.SHORT);
         return () => unsubscribe;
-      }, [navigation])
+      }, [])
     
       return (
       <>
@@ -511,34 +319,6 @@ useEffect(() => {
       </Animatable.View>
       </View>
       <View  style={Styles.container}>
-            {/* <Card style={[{ backgroundColor: colors.card }]}>
-
-                <Text style={[{ textAlign: "center", fontSize: 15, fontWeight: "bold", color: colors.text, marginBottom: 10 }]}>
-
-                    Hi {homeScreenData.userName} ,
-                    You Have  {homeScreenData.req.length} Requests
-                </Text>
-                <View>
-                    <Button buttonStyle={{backgroundColor:'#00203FFF', borderRadius:10}}  onPress={() => {
-                        // navigate('myRequests', { user: _user, email: _email, number: _number, id: _id })
-                    }} title={"View Requests"}>
-
-                    </Button>
-                </View>
-            </Card>
-            <Card style={[{ backgroundColor: colors.card, marginTop: 5 }]}>
-                <Text style={[{ textAlign: "center", fontSize: 15, fontWeight: "bold", color: colors.text, marginBottom: 10 }]}>
-
-                    Why Are You Waiting ! Just Create New Event
-                </Text>
-                <View>
-                    <Button buttonStyle={{backgroundColor:'#00203FFF', borderRadius:10}} onPress={() => {
-                        // navigate('createEvent', { user: _user, email: _email, number: _number, id: _id })
-                    }} title={"Create Event"}>
-
-                    </Button>
-                </View>
-            </Card> */}
 
           <Animatable.View
             ref={viewRef}
@@ -638,15 +418,9 @@ const styles = StyleSheet.create({
       listItem: {
         height: 300,
         width:'auto',
-         //width: Dimensions.get('window').width / 2 - 16,
-        //width:'auto',
         backgroundColor: 'white',
         margin: 8,
-        // borderRadius: 10,
-        // borderRadius: 10,
-        // shadowColor:'silver',
-        // shadowOpacity:0.8,
-        // shadowOffset:{width:-5, height:8}
+       
       },
       image: {
         height: 230,

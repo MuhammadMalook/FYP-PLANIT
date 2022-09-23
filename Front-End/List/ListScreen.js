@@ -11,6 +11,7 @@ import { Animations } from '../constants/Animations';
 import { Image } from 'react-native-animatable';
 import apiLink from '../shared/apiLink';
 import {EventImages} from '../events-images/EventImages';
+import { useIsFocused } from '@react-navigation/native';
 
 
 const colorAr = [
@@ -58,7 +59,7 @@ console.log(item,"hhhhhhhh")
 
 export default function ListScreen({ route, navigation }) {
 
-
+  const isFocused = useIsFocused()
   console.log(route.params, "helloooooooo")
   // console.log(navigation)
   const _user = route.params.name;
@@ -81,49 +82,7 @@ export default function ListScreen({ route, navigation }) {
   const [data, setData] = useState({
     "success": true,
     "events": [
-        // {
-        //     "_id": "619032f2271ff186b1c1eca7",
-        //     "userId": "619032a107",
-        //     "eventName": "BirthDay",
-        //     "eventDesc": "Simple Desc of Event but this is just nothing just a small description",
-        //     "team": [
-        //         "61903152fd325904426375da"
-        //     ],
-        //     "tasks": [
-        //         "6190e046e5cb2abbe906c653",
-        //         "6190e111aea523d027c4dbed",
-        //         "6191254806d9d4318b2f83f1",
-        //         "6197e64193c8dc7293981279"
-        //     ],
-        //     "guestList": [],
-        //     "notes": [],
-        //     "eventStatus": false,
-        //     "__v": 0
-        // },
-        // {
-        //     "_id": "6196843e6198affe7a130ac8",
-        //     "userId": "619681e80c",
-        //     "eventName": "Party_1",
-        //     "eventDesc": "Simple Desc of Event but this is just nothing just a small description",
-        //     "team": [],
-        //     "tasks": [],
-        //     "guestList": [],
-        //     "notes": [],
-        //     "eventStatus": false,
-        //     "__v": 0
-        // },
-        // {
-        //     "_id": "6196843e6198affe7a130ac8",
-        //     "userId": "619681e80c",
-        //     "eventName": "Party_1",
-        //     "eventDesc": "Simple Desc of Event but this is just nothing just a small description",
-        //     "team": [],
-        //     "tasks": [],
-        //     "guestList": [],
-        //     "notes": [],
-        //     "eventStatus": false,
-        //     "__v": 0
-        // }
+       
     ]});
 
  
@@ -166,7 +125,7 @@ export default function ListScreen({ route, navigation }) {
 }
 useEffect(() => {
   getData() 
-}, [])
+}, [isFocused])
 // useEffect(() => {
 //   isloading()
 // }, [data])

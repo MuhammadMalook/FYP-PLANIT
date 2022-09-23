@@ -183,11 +183,7 @@ async function askForPermissions() {
         data.append("file",image)
         data.append('upload_preset','user-profile')
         data.append('cloud_name',"djzufotuv")
-      //   let base64Img = `data:image/jpg;base64,${img.base64}`;
-      // let data = {
-      //   "file": base64Img,
-      //   "upload_preset": "user-profile",
-      // }
+      
 
       fetch("https://api.cloudinary.com/v1_1/djzufotuv/image/upload",{
             method:"post",
@@ -201,31 +197,6 @@ async function askForPermissions() {
         })
   }
 
-  // const TakePhotoFromCamera = () => {
-  //   ImagePicker.openCamera({
-  //     compressImageMaxWidth: 300,
-  //     compressImageMaxHeight: 300,
-  //     cropping: true,
-  //     compressImageQuality: 0.7
-  //   }).then(image => {
-  //     console.log(image);
-  //     setImage(image.path);
-  //     this.bs.current.snapTo(1);
-  //   });
-  // }
-
-  // const ChoosePhotoFromLibrary = () => {
-  //   ImagePicker.openCamera({
-  //     width: 300,
-  //     height: 300,
-  //     cropping: true,
-  //     compressImageQuality: 0.7
-  //   }).then(image => {
-  //     console.log(image);
-  //     setImage(image.path);
-  //     this.bs.current.snapTo(1);
-  //   });
-  // }
 
   const renderInner = () => (
     <View style={styles.panel}>
@@ -455,93 +426,6 @@ async function askForPermissions() {
                         }
                     
             </View>
-
-        {/* <View style={styles.action}>
-          <FontAwesome name="user-o" color={colors.text} size={20} />
-          <TextInput
-            placeholder="First Name"
-            placeholderTextColor="#666666"
-            autoCorrect={false}
-            style={[
-              styles.textInput,
-              {
-                color: colors.text,
-              },
-            ]}
-          />
-        </View>
-        <View style={styles.action}>
-          <FontAwesome name="user-o" color={colors.text} size={20} />
-          <TextInput
-            placeholder="Last Name"
-            placeholderTextColor="#666666"
-            autoCorrect={false}
-            style={[
-              styles.textInput,
-              {
-                color: colors.text,
-              },
-            ]}
-          />
-        </View>
-        <View style={styles.action}>
-          <Feather name="phone" color={colors.text} size={20} />
-          <TextInput
-            placeholder="Phone"
-            placeholderTextColor="#666666"
-            keyboardType="number-pad"
-            autoCorrect={false}
-            style={[
-              styles.textInput,
-              {
-                color: colors.text,
-              },
-            ]}
-          />
-        </View>
-        <View style={styles.action}>
-          <FontAwesome name="envelope-o" color={colors.text} size={20} />
-          <TextInput
-            placeholder="Email"
-            placeholderTextColor="#666666"
-            keyboardType="email-address"
-            autoCorrect={false}
-            style={[
-              styles.textInput,
-              {
-                color: colors.text,
-              },
-            ]}
-          />
-        </View>
-        <View style={styles.action}>
-          <FontAwesome name="globe" color={colors.text} size={20} />
-          <TextInput
-            placeholder="Country"
-            placeholderTextColor="#666666"
-            autoCorrect={false}
-            style={[
-              styles.textInput,
-              {
-                color: colors.text,
-              },
-            ]}
-          />
-        </View>
-        <View style={styles.action}>
-          <Icon name="map-marker-outline" color={colors.text} size={20} />
-          <TextInput
-            placeholder="City"
-            placeholderTextColor="#666666"
-            autoCorrect={false}
-            style={[
-              styles.textInput,
-              {
-                color: colors.text,
-              },
-            ]}
-          />
-        </View> */}
         <TouchableOpacity style={styles.commandButton} onPress={async () => {
            if(data.isValidEmail == false || data.isValidUser == false || data.isValidNumber == false )
            {

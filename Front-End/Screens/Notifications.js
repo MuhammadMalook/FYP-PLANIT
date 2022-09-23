@@ -5,6 +5,7 @@ import { Avatar } from 'react-native-paper';
 import * as Animatable from 'react-native-animatable'
 import apiLink from '../shared/apiLink';
 import { Button } from 'react-native-elements';
+import { useIsFocused } from '@react-navigation/native';
 
 const Notifications = ({route,navigation}) => {
   const userId = route.params._id
@@ -18,6 +19,8 @@ const Notifications = ({route,navigation}) => {
   })
   const [accepted, setAccepted] = useState(false)
   const [status, setStatus] = useState("")
+
+  const isFocused = useIsFocused()
  // console.log(route.params)
  
   const anim = {
@@ -42,75 +45,9 @@ const Notifications = ({route,navigation}) => {
     else{
       setData({...data, api:false, sucess:false})
     }
-  },[])
+  },[isFocused])
 
-   
-    // {
-    //   "sucess":true,
-    //   "api": true,
-    //   notifications:
-    //   [
-      
-    //     {
-    //         imageUrl:'',
-    //         eventName:'Tea',
-    //         from:'Ali',
-    //         Message:'',
-    //         type:'MemberRequest'
-    //   },
-    //   {
-    //     imageUrl:'',
-    //     eventName:'LUNCH',
-    //     from:'Ali',
-    //     Message:'',
-    //     type:'MemberRequest'
-    //   },
-    //   {
-    //     imageUrl:'',
-    //     eventName:'TEA',
-    //     from:'Ali',
-    //     Message:'',
-    //     type:'MemberRequest'
-    //   },
-    //   {
-    //     imageUrl:'',
-    //     eventName:'TEA',
-    //     from:'Ali',
-    //     Message:'',
-    //     type:'MemberRequest'
-    //   },
-    //   {
-    //     imageUrl:'',
-    //     eventName:'Tea',
-    //     from:'Ali',
-    //     Message:'',
-    //     type:'MemberRequest'
-    //   },
-    //   {
-    //     imageUrl:'',
-    //     eventName:'Tea',
-    //     from:'Ali',
-    //     Message:'',
-    //     type:'MemberRequest'
-    //   },
-    //   {
-    //     imageUrl:'',
-    //     eventName:'Tea',
-    //     from:'Ali',
-    //     Message:'',
-    //     type:'MemberRequest'
-    //   },
-    //   {
-    //     imageUrl:'',
-    //     eventName:'Tea',
-    //     from:'Ali',
-    //     Message:'',
-    //     type:'MemberRequest'
-    //   },
   
-    // ]
-  
-    // }
 
 
 

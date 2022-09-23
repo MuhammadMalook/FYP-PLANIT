@@ -12,9 +12,10 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { AuthContext } from '../components/Context';
 import apiLink from '../shared/apiLink';
+import { useIsFocused } from '@react-navigation/native';
 
 const ViewProfile = ({route, navigation}) => {
-  console.log(route.params.name, 'paramssss')
+  console.log(route.params, 'paramssss')
 //   const profile = route.params
   const {_id} = route.params.id;
   const name = route.params.name;
@@ -24,6 +25,7 @@ const ViewProfile = ({route, navigation}) => {
   // console.log(route.params.imageUrl)
   //console.log(route)
 
+  const isFocused = useIsFocused()// used for checking focus on the tab screen :re-render when this screen is focused
   const [userData, setUSerData] = useState({})
 
   const [data, setData] = useState({"totalEvents":0, "myEvents":0, "completed":0, "tasksAssigned":0,"pendingEvents":0, "totalNotes":0, "requests":0})
@@ -57,6 +59,7 @@ const ViewProfile = ({route, navigation}) => {
 }
 
 useEffect(async () => {
+    getData()
     const apiData = await fetch(`${apiLink}/personByName/${name}`, {
         method:'GET'
     })
@@ -68,7 +71,7 @@ useEffect(async () => {
     else{
         alert(jsonData.msg)
     }
-}, [])
+}, [isFocused])
 
 
 
@@ -118,7 +121,7 @@ useEffect(async () => {
             borderRightWidth: 1
           }]}>
             <Title>{data.myEvents}</Title>
-            <Caption>Your Events</Caption>
+            <Caption>his Events</Caption>
           </View>
           <View style={styles.infoBox}>
             <Title>{data.completed}</Title>

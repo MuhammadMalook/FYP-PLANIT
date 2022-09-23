@@ -26,7 +26,7 @@ const EventGuest = ({route, navigation}) => {
     const _AdminName = route.params.adminName;
 
 
-    
+    console.log(route, "guestssssss")
     const { colors } = useTheme();
     const [data, setData] = useState({
         api: true,
@@ -70,25 +70,9 @@ const EventGuest = ({route, navigation}) => {
         <ScrollView>
 
             <View>
-                <View style={[{ marginTop: 0, marginBottom: 5, marginLeft: 40, marginRight: 40 }]}>
-
-                    {/* <Button onPress={() => {
-                        if(_eventAdmin == _id)
-                        {
-                            navigation.navigate('inviteGuest', { user: _user, email: _email, number: _number, id: _id, eventId: _eventId, eventName: _eventName, eventAdmin: _eventAdmin,adminName : _AdminName })
-                        
-                        }
-                        else
-                        {
-                            alert("Not Authorized")
-
-                        }
-                    }} size={5} title={"Invite New Guest"}>
-
-                    </Button> */}
-                </View>
+                
                 {
-                    data.success == true ? data.guestList.map((guest, i) => <Card key={i} >
+                    data.success == true ? data.guestList.map((guest, i) => <Card key={i} containerStyle={{padding:0}}>
                         <View style={[{ backgroundColor: "#ADD8E6", borderRadius: 5, padding: 5, color: colors.text }]}>
                             <View>
                                 <Text style={[{ textAlign: "center", fontSize: 20, fontWeight: "bold", color: colors.text }]}>
@@ -149,8 +133,25 @@ const EventGuest = ({route, navigation}) => {
                                     </Button>
                                     </View>
                                     <View style={{flex:1, margin:2}}>
-                                        <Button onPress={() => {
-                                        navigation.navigate('ViewProfile', { name: guest.name, id: guest._id });
+                                        <Button onPress={async () => {
+                                            const name = guest.name
+                                            console.log(name)
+
+                                            const user = await fetch(`${apiLink}/personByName/${name}`, {
+                                                method:"GET"
+                                            })
+                                            console.log(user)
+                                            const found =await user.json()
+                                            if(found.success)
+                                            {
+                                                const id = found.foundUser._id
+                                                console.log(found)
+                                                navigation.navigate('ViewProfile', { name: guest.name, id });
+                                            }
+                                            else{
+                                                alert("error")
+                                            }
+                                       
                                     }} buttonStyle={[{ backgroundColor:'blue'}]} title={"View"}  >
                                     </Button>
                                     </View>   

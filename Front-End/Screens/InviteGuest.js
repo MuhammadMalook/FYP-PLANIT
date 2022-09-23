@@ -37,7 +37,7 @@ const InviteGuest = ({route, navigation}) => {
     const _AdminName = route.params.adminName;
 
 
-    const data_1 = { eventName: "Dinner &  Party", eventPlanner: "Faisal Nisar" }
+   
     const { colors } = useTheme();
 
     const [data, setData] = useState({
@@ -54,13 +54,7 @@ const InviteGuest = ({route, navigation}) => {
     const [clicked, setClicked] = useState(false)
 
 
-    const [nameList, setList] = useState(["haseeb",
-    "simple",
-    "qadeer",
-    "qudoos",
-    "aaqib",
-    "teammember",
-]);
+    const [nameList, setList] = useState([]);
 const [FilteredList, setFilteredList] =
     useState([]);
 
@@ -323,12 +317,11 @@ const [FilteredList, setFilteredList] =
                             setFilteredList([]);
                             setData({ ...data, username: items, isValidUser:true,check_textInputChange: true });
                             setClicked(true)
-                        //    textInputChange(items)
+
                           
                             
                             console.log(data,"on prss in text")
-                            // if(data.username)
-                            //getNumber(items)
+                            
                                 
                         }} style={{padding:10, fontSize:20,}}>
                             {items}

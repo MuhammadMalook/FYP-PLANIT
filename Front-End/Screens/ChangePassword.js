@@ -104,36 +104,6 @@ const handleValidNewPass = (val) => {
 
 
 
-
-
-  // const TakePhotoFromCamera = () => {
-  //   ImagePicker.openCamera({
-  //     compressImageMaxWidth: 300,
-  //     compressImageMaxHeight: 300,
-  //     cropping: true,
-  //     compressImageQuality: 0.7
-  //   }).then(image => {
-  //     console.log(image);
-  //     setImage(image.path);
-  //     this.bs.current.snapTo(1);
-  //   });
-  // }
-
-  // const ChoosePhotoFromLibrary = () => {
-  //   ImagePicker.openCamera({
-  //     width: 300,
-  //     height: 300,
-  //     cropping: true,
-  //     compressImageQuality: 0.7
-  //   }).then(image => {
-  //     console.log(image);
-  //     setImage(image.path);
-  //     this.bs.current.snapTo(1);
-  //   });
-  // } 
-
-
-
   return (
     <ScrollView>
       <Animated.View style={{margin: 20,

@@ -153,6 +153,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { AuthContext } from '../components/Context';
 import apiLink from '../shared/apiLink';
+import { useIsFocused } from '@react-navigation/native';
 
 const Profile = ({route, navigation}) => {
   console.log(route.params, 'paramssss')
@@ -166,6 +167,8 @@ const Profile = ({route, navigation}) => {
 
 
   const [data, setData] = useState({"totalEvents":0, "myEvents":0, "completed":0, "tasksAssigned":0,"pendingEvents":0, "totalNotes":0, "requests":0})
+
+  const isFocused = useIsFocused()
 
   async function getData()
   {
@@ -197,7 +200,7 @@ const Profile = ({route, navigation}) => {
 
 useEffect(() => {
   getData() 
-}, [])
+}, [isFocused])
 
 
 

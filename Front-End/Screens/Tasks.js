@@ -134,40 +134,11 @@ return(
                  iterationCount="infinite">
                 
                </Animatable.Image>
-               {/* <Animatable.Text style={{color:'red', fontSize:24, fontFamily:'sans-serif', marginLeft:20}} animation={anim}
-                 easing="ease-in-out"
-                 duration={3000} 
-                 iterationCount="infinite"
-                 >
-                  No Task Assigned
-               </Animatable.Text> */}
+            
                </View>: <Text></Text>
             }  
    
-    {/* <View style={{flex:1}}>
-            <View style = {styles.containerMain}>
-       <TouchableOpacity
-        onPress={()=> {
-            if(data_task.eventAdmin === data_task.id){
-            navigation.navigate('createTask', {...data_task})
-        }
-        else{
-            alert("you are not admin of this event")
-        }
-        }}
-        style={styles.bottomView}
-         >
 
-           <Image source={require('../assets/plus.png')} resizeMode="contain" style={{ 
-                  width:50, height:50,
-                   alignItems:'center'
-                }}
-                
-            
-            />
-         </TouchableOpacity>
-         </View>
-       </View> */}
     
 
     </ScrollView> 

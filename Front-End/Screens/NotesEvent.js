@@ -71,6 +71,7 @@ const NotesEvent = ({route, navigation}) => {
                                 <View style={[{ marginTop: 20, marginBottom: 5, marginLeft: 30, marginRight: 30 }]} >
                                     <Button onPress={async () => {
                                         const apiBody = { eventId: _eventId , plannerId: _eventAdmin, noteId :note._id   };
+                                        console.log(apiBody,"apiBody")
                                         const apiData = await fetch(`${apiLink}/removeNote`, {
                                             method: 'POST', // or 'PUT'
                                             headers: {
@@ -85,10 +86,29 @@ const NotesEvent = ({route, navigation}) => {
                                             const new_Notes =  data.notes.filter(noteItem=> noteItem._id != note._id )
 
                                             setData({...data,notes :[...new_Notes] })
+                                            const apiBody = {_id:note._id, eventId:_eventId}
+                                            console.log(apiBody, "body")
+                                            const apiData = await fetch(`${apiLink}/removeNotification`, {
+                                              method:'POST',
+                                              headers:{
+                                                'Content-type':'application/json'
+                                              },
+                                              body: JSON.stringify(apiBody)
+                                            })
+                                            const result = await apiData.json()
+                                            console.log(result, "Result")
+                                            if(result.success)
+                                            {
+                  
+                                            }
+                                            else{
+                                              console.log('Network error')
+                                            }
+                                            
                                             alert("Note removed")
                                         }
                                         else {
-                                            alert("Incomplete")
+                                            alert("can not remove")
                                         }
 
                                    }}

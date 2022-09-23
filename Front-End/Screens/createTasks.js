@@ -174,9 +174,6 @@ const CreateTask = ({route, navigation}) => {
         <ScrollView>
         <View style={styles.container}>
 
-            {
-                data.api && <ActivityIndicator color="#0000ff" style={{ position: "absolute", left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "center", top: 0 }} size="large" />
-            }
             <StatusBar backgroundColor='#009387' barStyle="light-content" />
 
             <View style={styles.text_header}>
@@ -413,7 +410,7 @@ const CreateTask = ({route, navigation}) => {
                                
 
                                 if (jsonData.success) {
-                                    const apiBody = {eventId:_eventId, eventName:_eventName, to: `${data.assignTo}`, from: _AdminName, Message:"Send you Request", type:'task'}
+                                    const apiBody = {eventId:_eventId, eventName:_eventName, to: `${data.assignTo}`, from: _AdminName, Message:"assingned task", type:'task'}
                                     console.log(apiBody, "Body")
                                             const result = await fetch(`${apiLink}/addNotification`, {
                                                 method:'POST',
@@ -460,6 +457,9 @@ const CreateTask = ({route, navigation}) => {
 
                 </View>
 
+                {
+                data.api && <ActivityIndicator color="#0000ff" style={{ position: "absolute", left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "center", top: 0 }} size="large" />
+                }
             </Animatable.View>
 
         </View>

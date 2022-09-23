@@ -130,6 +130,22 @@ const MainTabScreen = ({navigation,route}) =>{
                   <Text style={{color:focused? "#e32f45" : "black" , fontSize:10}}>notifications</Text>
             </View>
           ),
+          // headerRight: () => (
+          //   <View style={{marginRight: 10}}>
+          //     <MaterialCommunityIcons.Button
+          //       name="account-edit"
+          //       size={25}
+          //       backgroundColor={colors.background}
+          //       color={colors.text}
+          //       // onPress={() => RootNavigation.navigate('Root', { screen: 'EditProfile' })}
+          //     />
+          //   </View>)
+          // tabBarButton: (route) =>(
+          //   <LogoutAccount {...route}/>
+          // // )
+          // tabBarButton: route => (
+          //   <TouchableOpacity {...route} onPress={() => signOut()} />
+          // ),
         }}
         initialParams={route.params.data}
     />
@@ -187,23 +203,4 @@ const style = StyleSheet.create({
     elevation:5
   }
 })
-// const HomeStackScreen = ({navigation}) => (
-// <Tab.Navigator >
-//         <Tab.Screen name="Home" component={HomeScreen} options={{
-//         headerLeft: () => (
-//             <Icon.Button name="ios-menu" size={25} backgroundColor="#009387"></Icon.Button>
-//         )
-//         }} initialParams={{name:"malook"}}/>
-// </Tab.Navigator>
-// );
-
-// const DetailsStackScreen = ({navigation}) => (
-// <Tab.Navigator>
-//         <Tab.Screen name="Details" component={DetailsScreen} options={{
-//         headerLeft: () => (
-//             <Icon.Button name="ios-menu" size={25} backgroundColor="#1f65ff" ></Icon.Button>
-//         )
-//         }} />
-// </Tab.Navigator>
-// );
 

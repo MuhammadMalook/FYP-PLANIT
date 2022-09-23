@@ -74,23 +74,6 @@ const EventTeam = ({route,navigation}) => {
             <View>
                 <View style={[{ marginTop: 0, marginBottom: 5, marginLeft: 40, marginRight: 40 }]}>
 
-                
-                    {
-                    
-                    /* <Button onPress={() => {
-                        if(_eventAdmin == _id)
-                        {
-                            navigation.navigate('sendRequest', { user: _user, email: _email, number: _number, id: _id, eventId: _eventId, eventName: _eventName, eventAdmin: _eventAdmin,adminName : _AdminName })
-                        
-                        }
-                        else
-                        {
-                            alert("Not Authorized")
-
-                        }
-                    }} size={5} title={"Add New Member"}>
-
-                    </Button> */}
                 </View>
                 {
                     data.success == true ? data.team.map((member, i) => <Card key={i} containerStyle={{padding:0}}>
@@ -152,7 +135,7 @@ const EventTeam = ({route,navigation}) => {
                                     </View>
                                     <View style={{flex:1, margin:2}}>
                                         <Button onPress={() => {
-                                        navigation.navigate('memberProfile', { name: member.name, id: member.id });
+                                        navigation.navigate('ViewProfile', { name: member.name, id: member.id });
                                     }} buttonStyle={[{ backgroundColor:'#7fc8f8'}]} title={"View"}  >
                                     </Button>
                                     </View>   

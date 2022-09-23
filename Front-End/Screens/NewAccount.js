@@ -334,14 +334,7 @@ const NewAccount = ({route, navigation}) => {
                                 const jsonData = await apiData.json();
                                 setData({ ...data, api: false })
                                 if (jsonData.success) {
-                                    // auth
-                                    // .createUserWithEmailAndPassword(data.email, data.password)
-                                    // .then(userCredentials => {
-                                    //   const user = userCredentials.user;
-                                    //   console.log('Registered with:', user.email);
-                                    //   console.log(user.getIdToken())
-                                    // })
-                                    // .catch(error => alert(error.message))
+                                   
 
                                     alert("New Account Created")
                                     navigation.navigate('Login', {deviceToken});

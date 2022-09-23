@@ -83,6 +83,7 @@ export default function App() {
   const initialLoginState = {
     isLoading: true,
     // userName: null,
+    update : true,
     userData:{},
     userToken: null,
   };
@@ -118,6 +119,12 @@ export default function App() {
           userToken: action.token,
           userData: action.data,
           isLoading: false,
+        };
+        case 'UPDATE': 
+        return {
+          ...prevState,
+          //userName: action.id,
+          userData: action.data,
         };
     }
   };
@@ -155,6 +162,12 @@ export default function App() {
       // setUserToken('fgkj');
       // setIsLoading(false);
     },
+    togleUpdate:async(value)=>{
+      dispatch({ type: 'UPDATE', data:value });
+    },
+    getUpdate:()=>{
+      return initialLoginState.update
+    }
     // toggleTheme: () => {
     //   setIsDarkTheme( isDarkTheme => !isDarkTheme );
     // }

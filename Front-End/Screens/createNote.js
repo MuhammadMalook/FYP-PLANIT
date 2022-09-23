@@ -24,7 +24,7 @@ const height_logo = height * 0.25;
 const CreateNote = ({route,navigation}) => {
 
     //const navigation = props.navigation;
-
+    console.log(route)
     const _user = route.params.user;
     const _email = route.params.email;
     const _id = route.params.id;
@@ -32,6 +32,7 @@ const CreateNote = ({route,navigation}) => {
     const _eventName = route.params.eventName;
     const _eventId = route.params.eventId;
     const _eventAdmin = route.params.eventAdmin;
+    const _AdminName = route.params.user; 
 
     const { colors } = useTheme();
 
@@ -281,6 +282,28 @@ const CreateNote = ({route,navigation}) => {
     
                             if(jsonData.success)
                             {
+                                const apiBody = {eventId:_eventId, eventName:_eventName, from: _AdminName, Message:"note created", type:'note', noteId:jsonData.note._id}
+                                console.log(apiBody, "Body")
+                                        const result = await fetch(`${apiLink}/addNotification`, {
+                                            method:'POST',
+                                            headers:{
+                                                'Content-type':'application/json'
+                                            },
+                                            body: JSON.stringify(apiBody)
+
+                                        })
+                                        const jsonResult = await result.json()
+                                        setData({
+                                            ...data, api: false
+                                        });
+                                        if(jsonResult.success)
+                                        {
+                                            console.log('notification added')
+                                        }
+                                        else{
+                                            console.log('notification not added')
+                                        }
+
                                 alert("Note Created")
                             }
                             else

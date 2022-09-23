@@ -577,12 +577,14 @@ exports.getEventByID = catchAsyncErrors(async (req, res, next) => {
 })
 
 exports.addNotification = catchAsyncErrors (async (req, res, next)=> {
-    const {eventId, eventName, to, from, imageUrl, Message, type} = req.body;
+    const {eventId, eventName, to, from, imageUrl, Message, type, noteId} = req.body;
    
+    let NotificationCreated = {}
+    if(type != "note"){
     const person = await PersonSchema.findOne({name:to})
     console.log(person)
     const userId = person._id
-    const NotificationCreated = await NotificationSchema.create({
+     NotificationCreated = await NotificationSchema.create({
         eventId,
         eventName,
         to,
@@ -591,7 +593,19 @@ exports.addNotification = catchAsyncErrors (async (req, res, next)=> {
         imageUrl,
         Message,
         type
-    })
+        })
+    }
+    else{
+        NotificationCreated = await NotificationSchema.create({
+            eventId,
+            eventName,
+            from,
+            imageUrl,
+            Message,
+            type,
+            noteId,
+            })
+    }
 
     const eventById = await EventSchema.findById({_id:eventId})
     console.log(eventById);
@@ -641,13 +655,16 @@ exports.getNotifications = catchAsyncErrors(async (req, res, next)=>{
 
 exports.removeNotification = catchAsyncErrors(async (req, res, next)=>{
     const {_id, eventId} = req.body
-    const updatedNotifications = await NotificationSchema.deleteOne({_id})
+    const noti = await NotificationSchema.findOne({noteId:_id})
+    const id = noti._id
+    console.log(noti, "dhfsd "+ id)
+    const updatedNotifications = await NotificationSchema.deleteOne({noteId:_id})
 
     const event = await EventSchema.findById({_id:eventId})
     console.log(event)
     const notifications = event.notifications
     console.log(notifications)
-    const index = notifications.indexOf(_id)
+    const index = notifications.indexOf(id)
     console.log(index)
 
     if(index!=-1)

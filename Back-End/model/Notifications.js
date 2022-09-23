@@ -32,6 +32,10 @@ const NotificationSchema = new mongoose.Schema({
     type : {
         type : String, 
         required : true
+    },
+    noteId:{
+        type:String,
+        required: false
     }
 })
 

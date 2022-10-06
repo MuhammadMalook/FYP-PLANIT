@@ -387,6 +387,7 @@ const styles = StyleSheet.create({
     errorMsg: {
         color: '#FF0000',
         fontSize: 14,
+        marginLeft:30,
     },
     button: {
         alignItems: 'center',

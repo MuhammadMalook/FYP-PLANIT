@@ -40,15 +40,17 @@ const { togleUpdate } = React.useContext(AuthContext)
 
     const [data, setData] = useState({
         api:false,
-        isValidEventName: false,
+        isValidEventName: true,
         isValidPId : true,
-        isValidDesc:false,
+        isValidDesc:true,
         isValidPlanner: true,
         eventName: "",
         plannerId: _id,
         eventStatus: false,
         eventDesc: "",
-        PlannerName: _user
+        PlannerName: _user,
+        changeEventName:false,
+        changeEventDesc : false,
     });
     
     const handleValidPlannerId = (val) => {
@@ -73,13 +75,15 @@ const { togleUpdate } = React.useContext(AuthContext)
         setData({
             ...data,
             eventName: value,
-            isValidEventName: true
+            isValidEventName: true,
+            changeEventName:true
         })
         else
         setData({
             ...data,
             eventName: value,
-            isValidEventName: false
+            isValidEventName: false,
+            changeEventName:false
             
         })
     }
@@ -123,13 +127,15 @@ const { togleUpdate } = React.useContext(AuthContext)
         setData({
             ...data,
             eventDesc: value,
-            isValidDesc: true
+            isValidDesc: true,
+            changeEventDesc:true,
         })
         else
         setData({
             ...data,
             eventDesc: value,
-            isValidDesc: false
+            isValidDesc: false,
+            changeEventDesc:false
         })
     }
 
@@ -208,7 +214,7 @@ const { togleUpdate } = React.useContext(AuthContext)
 
                         />
                        
-                        {data.isValidEventName ?
+                        {data.changeEventName ?
                             <Animatable.View
                                 animation="bounceIn"
                             >
@@ -218,13 +224,13 @@ const { togleUpdate } = React.useContext(AuthContext)
                                     size={20}
                                 />
                             </Animatable.View>
-                            : null}
+                            : <Text>      </Text>}
                     </View>
 
                     {data.isValidEventName ? null :
                         <Animatable.View animation="fadeInLeft" duration={500}>
 
-                            <Text style={styles.errorMsg}>Event Name must be 4 characters long.</Text>
+                            <Text style={styles.errorMsg}>Events Name must be 4 characters long.</Text>
                         </Animatable.View>
                     }
                 </View>
@@ -262,7 +268,7 @@ const { togleUpdate } = React.useContext(AuthContext)
                                     size={20}
                                 />
                             </Animatable.View>
-                            : null}
+                            : <Text>      </Text>}
                     </View>
 
                     {data.isValidPlanner ? null :
@@ -305,7 +311,7 @@ const { togleUpdate } = React.useContext(AuthContext)
                                     size={20}
                                 />
                             </Animatable.View>
-                            : null}
+                            : <Text>      </Text>}
                     </View>
 
                     {data.isValidPId ? null :
@@ -337,7 +343,7 @@ const { togleUpdate } = React.useContext(AuthContext)
                             onChangeText={(val) => eventDesc(val)}
                             // onEndEditing={(e) => handleValidDesc(e.nativeEvent.text)}
                         />
-                        {data.isValidDesc ?
+                        {data.changeEventDesc ?
                             <Animatable.View
                                 animation="bounceIn"
                             >
@@ -347,7 +353,7 @@ const { togleUpdate } = React.useContext(AuthContext)
                                     size={20}
                                 />
                             </Animatable.View>
-                            : null}
+                            : <Text>      </Text>}
                     </View>
 
                     {data.isValidDesc ? null :
@@ -446,7 +452,8 @@ const styles = StyleSheet.create({
     },
     text_footer: {
         color: '#05375a',
-        fontSize: 18
+        fontSize: 18,
+        marginLeft:25,
     },
     action: {
         flexDirection: 'row',
@@ -466,6 +473,7 @@ const styles = StyleSheet.create({
     errorMsg: {
         color: '#FF0000',
         fontSize: 14,
+        marginLeft:30,
     },
     button: {
         alignItems: 'center',

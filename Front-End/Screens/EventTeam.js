@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, ScrollView, ActivityIndicator, Dimensions,TouchableOpacity, Pressable } from "react-native";
 import { Card, ListItem, ThemeProvider, Button, Icon } from 'react-native-elements'
-import { useTheme } from '@react-navigation/native';
+import { useTheme, useIsFocused } from '@react-navigation/native';
 import apiLink from "../shared/apiLink";
 import * as Animatable from 'react-native-animatable'
 import Colors from "../constants/Colors";
 import { FAB } from "react-native-paper";
+
 
 const theme = {
     Button: {
@@ -17,6 +18,7 @@ const theme = {
 
 const EventTeam = ({route,navigation}) => {
     //const navigation = props.navigation;
+    const isFocused = useIsFocused()
 
     const _user = route.params.user;
     const _email = route.params.email;
@@ -63,7 +65,7 @@ const EventTeam = ({route,navigation}) => {
             setData({ ...data, api:false, success: false, })
         }
 
-    }, [])
+    }, [isFocused])
     return (
         <View style={{flex:1}}>
             

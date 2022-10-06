@@ -47,7 +47,7 @@ const SignInScreen = ({route,navigation}) => {
     const { signIn } = React.useContext(AuthContext);
 
     const textInputChange = (val) => {
-        if (val.trim().length >= 4) {
+        if (val.trim().length > 8 && val.trim().match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
             setData({
                 ...data,
                 username: val,
@@ -61,7 +61,9 @@ const SignInScreen = ({route,navigation}) => {
                 check_textInputChange: false,
                 isValidUser: false
             });
+
         }
+          
     }
 
     const handlePasswordChange = (val) => {
@@ -169,7 +171,7 @@ const SignInScreen = ({route,navigation}) => {
                 </View>
                 {data.isValidUser ? null :
                     <Animatable.View animation="fadeInLeft" duration={500}>
-                        <Text style={styles.errorMsg}>Username must be 4 characters long.</Text>
+                        <Text style={styles.errorMsg}>email must be valid.</Text>
                     </Animatable.View>
                 }
 
@@ -217,7 +219,7 @@ const SignInScreen = ({route,navigation}) => {
 
 
                 <TouchableOpacity>
-                    <Text style={{ color: '#009387', marginTop: 15 }}>Forgot password?</Text>
+                   
                 </TouchableOpacity>
                 {
                     data.api && <ActivityIndicator color="#0000ff" style={{ position: "absolute", left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "center", top: 0 }} size="large" />

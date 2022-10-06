@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Card, Button } from 'react-native-elements'
 
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import { useTheme } from '@react-navigation/native';
+import { useTheme, useIsFocused } from '@react-navigation/native';
 import apiLink from "../shared/apiLink";
 import { useBackHandler } from "@react-native-community/hooks"
 import Colors from "../constants/Colors";
@@ -11,6 +11,7 @@ const OneEvent = ({ route, navigation }) => {
 
    // const tasks_data = route.params;
     // const navigation = props.navigation;
+    const isFocused = useIsFocused()
 
     console.log(route, "palkkkkkkk")    
 
@@ -65,7 +66,7 @@ const OneEvent = ({ route, navigation }) => {
         else {
             alert("No Notes")
         }
-    }, [])
+    }, [isFocused])
 
     return (
         <ScrollView>
@@ -206,7 +207,7 @@ const OneEvent = ({ route, navigation }) => {
                                 const jsonData = await apiData.json();
                                  console.log(jsonData);
                                 setData({
-                                    ...data, api: false
+                                    ...data, api: false,
                                 });
 
 

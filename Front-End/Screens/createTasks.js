@@ -24,7 +24,7 @@ const { height } = Dimensions.get("screen");
 const height_logo = height * 0.25;
 const CreateTask = ({route, navigation}) => {
     console.log(route)
-    //const navigation = props.navigation;
+
     const _user = route.params.user;  //current user name
     const _email = route.params.email;
     const _id = route.params.id;  //current user id
@@ -388,7 +388,7 @@ const CreateTask = ({route, navigation}) => {
                         onPress={
                             async () => {
 
-                                if (data.isValidTask == false || data.isValidPerson == false) {
+                                if (data.changeTaskTo == false || data.changeTaskDesc == false) {
                                     alert("please Enter Complete Details")
                                     return;
                                 }
@@ -524,6 +524,7 @@ const styles = StyleSheet.create({
     errorMsg: {
         color: '#FF0000',
         fontSize: 14,
+        marginLeft:30,
     },
     button: {
         alignItems: 'center',

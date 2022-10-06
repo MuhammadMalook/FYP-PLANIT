@@ -34,6 +34,11 @@ const NewAccount = ({route, navigation}) => {
         isValidUser: true,
         isValidPassword: true,
         isValidEmail: true,
+
+        isValidChangedNumber : false,
+        isValidChangedEmail : false,
+        isValidChangedUser : false,
+       
     });
 
     const { colors } = useTheme();
@@ -55,7 +60,8 @@ const NewAccount = ({route, navigation}) => {
             setData({
                 ...data,
                 username: val,
-                isValidUser: true
+                isValidUser: true,
+                isValidChangedUser:true,
             })
         }
         else
@@ -63,17 +69,19 @@ const NewAccount = ({route, navigation}) => {
             setData({
                 ...data,
                 username: val,
-                isValidUser: false
+                isValidUser: false,
+                isValidChangedUser:false,
             })
 
         }
     }
     const handleValidEmail = (val) => {
-        if (val.trim().length > 8) {
+        if (val.trim().length > 8 && val.trim().match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
             setData({
                 ...data,
                 email: val,
-                isValidEmail: true
+                isValidEmail: true,
+                isValidChangedEmail :true,
             })
         }
         else {
@@ -81,7 +89,8 @@ const NewAccount = ({route, navigation}) => {
             setData({
                 ...data,
                 email: val,
-                isValidEmail: false
+                isValidEmail: false,
+                isValidChangedEmail :false,
             })
         }
     }
@@ -108,7 +117,8 @@ const NewAccount = ({route, navigation}) => {
             setData({
                 ...data,
                 number: val,
-                isValidNumber: true
+                isValidNumber: true,
+                isValidChangedNumber:true
             })
         }
         else {
@@ -116,7 +126,8 @@ const NewAccount = ({route, navigation}) => {
             setData({
                 ...data,
                 number: val,
-                isValidNumber: false
+                isValidNumber: false,
+                isValidChangedNumber:false,
             })
         }
     }
@@ -139,7 +150,7 @@ const NewAccount = ({route, navigation}) => {
                     <View style={{ marginBottom: 10 }}>
                         <Text style={[styles.text_footer, {
                             color: colors.text
-                        }]}>Fullrname</Text>
+                        }]}>Fullname</Text>
                         <View style={styles.action}>
                             <FontAwesome
                                 name="user-o"
@@ -157,7 +168,7 @@ const NewAccount = ({route, navigation}) => {
                                 autoCapitalize="none"
                                 onChangeText={(val) => handleValidUser(val)}
                             />
-                            {data.isValidUser ?
+                            {data.isValidChangedUser ?
                                 <Animatable.View
                                     animation="bounceIn"
                                 >
@@ -167,7 +178,7 @@ const NewAccount = ({route, navigation}) => {
                                         size={20}
                                     />
                                 </Animatable.View>
-                                : null}
+                                : <Text>      </Text>}
                         </View>
 
                         {data.isValidUser ? null :
@@ -199,7 +210,7 @@ const NewAccount = ({route, navigation}) => {
                                 autoCapitalize="none"
                                 onChangeText={(val) => handleValidEmail(val)}
                             />
-                            {data.isValidEmail ?
+                            {data.isValidChangedEmail ?
                                 <Animatable.View
                                     animation="bounceIn"
                                 >
@@ -209,7 +220,7 @@ const NewAccount = ({route, navigation}) => {
                                         size={20}
                                     />
                                 </Animatable.View>
-                                : null}
+                                : <Text>      </Text>}
                         </View>
 
                         {data.isValidEmail ? null :
@@ -241,7 +252,7 @@ const NewAccount = ({route, navigation}) => {
                                 autoCapitalize="none"
                                 onChangeText={(val) => handleValidNumber(val)}
                             />
-                            {data.isValidNumber ?
+                            {data.isValidChangedNumber ?
                                 <Animatable.View
                                     animation="bounceIn"
                                 >
@@ -251,7 +262,7 @@ const NewAccount = ({route, navigation}) => {
                                         size={20}
                                     />
                                 </Animatable.View>
-                                : null}
+                                : <Text>      </Text>}
                         </View>
 
                         {data.isValidNumber ? null :
@@ -316,7 +327,7 @@ const NewAccount = ({route, navigation}) => {
                         <TouchableOpacity
 
                             onPress={async () => {
-                                if(data.isValidEmail == false || data.isValidUser == false , data.isValidPassword == false || data.isValidNumber == false )
+                                if(data.email == false || data.username == false , data.password == false || data.number == false )
                                 {
                                     alert("Please Enter All Data Correctly")
                                     return ;
@@ -428,6 +439,7 @@ const styles = StyleSheet.create({
     errorMsg: {
         color: '#FF0000',
         fontSize: 14,
+        marginLeft:30,
     },
     button: {
         alignItems: 'center',

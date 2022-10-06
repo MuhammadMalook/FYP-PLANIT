@@ -294,7 +294,7 @@ const SendRequest = ({route,navigation}) => {
 
                             async () => {
 
-                                if (data.username == "") {
+                                if (!data.isValidUser) {
                                     alert("please Enter the User Name ")
                                     return;
                                 }
@@ -442,6 +442,7 @@ const styles = StyleSheet.create({
     errorMsg: {
         color: '#FF0000',
         fontSize: 14,
+        marginLeft:30,
     },
     button: {
         alignItems: 'center',

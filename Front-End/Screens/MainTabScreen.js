@@ -7,10 +7,7 @@ import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Icon from 'react-native-vector-icons/Ionicons';
-
 import HomeScreen from './HomeScreen';
-
-
 import LoginScreen from './Login';
 import MyEvents from './MyEvents'
 import ListScreen from '../List/ListScreen';
@@ -37,17 +34,6 @@ const CustomTabBarButton = ({children, onPress}) =>(
   </TouchableOpacity>
 )
 
-
-// const LogoutAccount = ({children, onPress}) =>(
-//   <TouchableOpacity style={{top:-30, justifyContent: 'center', alignItems:'center', ...style.ShadowRoot}}
-//   onPress={onPress}
-//   > 
-//   <View style={{width:70, height: 70, borderRadius:35 , backgroundColor: 'e32f45'}}>{children}</View>
-//   </TouchableOpacity>
-// )
-// const onPress = () =>{
-  
-// }
 
 const MainTabScreen = ({navigation,route}) =>{
   console.log(route)
@@ -130,22 +116,6 @@ const MainTabScreen = ({navigation,route}) =>{
                   <Text style={{color:focused? "#e32f45" : "black" , fontSize:10}}>notifications</Text>
             </View>
           ),
-          // headerRight: () => (
-          //   <View style={{marginRight: 10}}>
-          //     <MaterialCommunityIcons.Button
-          //       name="account-edit"
-          //       size={25}
-          //       backgroundColor={colors.background}
-          //       color={colors.text}
-          //       // onPress={() => RootNavigation.navigate('Root', { screen: 'EditProfile' })}
-          //     />
-          //   </View>)
-          // tabBarButton: (route) =>(
-          //   <LogoutAccount {...route}/>
-          // // )
-          // tabBarButton: route => (
-          //   <TouchableOpacity {...route} onPress={() => signOut()} />
-          // ),
         }}
         initialParams={route.params.data}
     />
@@ -161,23 +131,7 @@ const MainTabScreen = ({navigation,route}) =>{
             }}/>
               <Text style={{color:focused? "#e32f45" : "black" , fontSize:10}}>Profile</Text>
         </View>
-          ),
-          // headerRight: () => (
-          //   <View style={{marginRight: 10}}>
-          //     <MaterialCommunityIcons.Button
-          //       name="account-edit"
-          //       size={25}
-          //       backgroundColor={colors.background}
-          //       color={colors.text}
-          //       // onPress={() => RootNavigation.navigate('Root', { screen: 'EditProfile' })}
-          //     />
-          //   </View>)
-          // tabBarButton: (route) =>(
-          //   <LogoutAccount {...route}/>
-          // // )
-          // tabBarButton: route => (
-          //   <TouchableOpacity {...route} onPress={() => signOut()} />
-          // ),
+          )
         }} initialParams={route.params.data}
       />
     </Tab.Navigator>

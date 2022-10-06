@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, ScrollView, ActivityIndicator } from "react-native";
 import { Card, ListItem, ThemeProvider, Button, Icon } from 'react-native-elements'
-import { useTheme } from '@react-navigation/native';
+import { useTheme, useIsFocused } from '@react-navigation/native';
 import apiLink from "../shared/apiLink";
 import * as Animatable from 'react-native-animatable'
 import { FAB } from "react-native-paper";
@@ -16,6 +16,7 @@ const theme = {
 
 const EventGuest = ({route, navigation}) => {
    
+    const isFocused = useIsFocused()
     const _user = route.params.user;
     const _email = route.params.email;
     const _id = route.params.id;
@@ -63,7 +64,7 @@ const EventGuest = ({route, navigation}) => {
             setData({ ...data, success: false, api:false })
         }
 
-    }, [])
+    }, [isFocused])
 
     return (
         <View style={{flex:1}}>

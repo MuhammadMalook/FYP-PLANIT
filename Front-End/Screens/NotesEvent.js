@@ -6,10 +6,12 @@ import * as Animatable from 'react-native-animatable'
 import apiLink from "../shared/apiLink";
 import { FAB } from "react-native-paper";
 import Colors from "../constants/Colors";
+import { useIsFocused } from '@react-navigation/native';
 
 
 
 const NotesEvent = ({route, navigation}) => {
+    const isFocused = useIsFocused()
    // const navigation = props.navigation;
 
     const _user = route.params.user;
@@ -50,7 +52,7 @@ const NotesEvent = ({route, navigation}) => {
             setData({ ...data, api:false, success: false})
         }
 
-    }, [])
+    }, [isFocused])
     return (
         <View style={{flex:1}}>
 

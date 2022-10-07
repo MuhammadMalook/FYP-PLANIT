@@ -114,8 +114,7 @@ return(
                             const jsonData = await completeTask.json()
                             if(jsonData.success)
                             {
-                                alert("Task completed")
-                                
+                                alert("Task completed")   
                             }
                             else
                             alert(jsonData.msg)

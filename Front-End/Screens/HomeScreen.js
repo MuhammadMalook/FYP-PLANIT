@@ -83,11 +83,11 @@ import { color } from "react-native-reanimated";
             
             {/* <Icon type={Icons.Feather} name="more-vertical" size={20} color={Colors.black} /> */}
             {item[8] ?  <Button title='' buttonStyle={{backgroundColor:'green'}} type="solid" icon={ <Icon name="check-circle" size={15}   color="white"/>}
-            ></Button> : <Button
-            buttonStyle={{backgroundColor:'rgba(199, 43, 98, 1)', borderRadius:5,borderColor:'white'}}  titleStyle={{
+            ></Button> : <Text
+            style={{ borderRadius:5,borderColor:'white', fontWeight:"bold"}}  titleStyle={{
               color: 'white',
-
-            }} title='Complete' type="outline" style={{fontSize:12}}></Button>}
+              
+            }} >In Progess</Text>}
           </View>
         </View>
       </Animatable.View>

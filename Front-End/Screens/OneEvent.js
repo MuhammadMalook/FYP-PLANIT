@@ -66,7 +66,7 @@ const OneEvent = ({ route, navigation }) => {
         else {
             alert("No Notes")
         }
-    }, [isFocused])
+    }, [isFocused, data])
 
     return (
         <ScrollView>
@@ -213,6 +213,7 @@ const OneEvent = ({ route, navigation }) => {
 
                                 if (jsonData.success) {
                                     alert(" Event Completed ")
+                                    setData({...data, eventStatus:true})
                                 }
                                 else {
                                     alert("You are not creator of this event")

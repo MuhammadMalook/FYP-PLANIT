@@ -115,6 +115,7 @@ return(
                             if(jsonData.success)
                             {
                                 alert("Task completed")
+                                
                             }
                             else
                             alert(jsonData.msg)

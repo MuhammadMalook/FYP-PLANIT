@@ -29,7 +29,7 @@ const NotesEvent = ({route, navigation}) => {
       }
 
     const { colors } = useTheme();
-    const [data, setData] = useState({ success: false, api:true });
+    const [data, setData] = useState({ success: false, api:false });
 
     useEffect(async () => {
         const apiBody = { eventId: _eventId };
@@ -58,9 +58,10 @@ const NotesEvent = ({route, navigation}) => {
 
         
         <ScrollView>
-            {
-                data.api && <ActivityIndicator color="#0000ff" style={{ position: "absolute", left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "center", top: 250 }} size="large" />
-            }
+                    {
+                    data.api && <ActivityIndicator color="#0000ff" style={{ position: "absolute", left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "center", top: 0 }} size="large" />
+                    }
+           
             <View>
                 <Card.Title style={[{ backgroundColor: colors.card, fontSize: 30 }]}>{_eventName}</Card.Title>
                 {
@@ -71,7 +72,9 @@ const NotesEvent = ({route, navigation}) => {
                                     {note.NotesText}
                                 </Text>
                                 <View style={[{ marginTop: 20, marginBottom: 5, marginLeft: 30, marginRight: 30 }]} >
+                                
                                     <Button onPress={async () => {
+                                        setData({ ...data, api: true })
                                         const apiBody = { eventId: _eventId , plannerId: _eventAdmin, noteId :note._id   };
                                         console.log(apiBody,"apiBody")
                                         const apiData = await fetch(`${apiLink}/removeNote`, {
@@ -83,6 +86,7 @@ const NotesEvent = ({route, navigation}) => {
                                         });
                                         const jsonData = await apiData.json();
                                         // console.log(jsonData);
+                                        setData({ ...data, api: false })
 
                                         if (jsonData.success) {
                                             const new_Notes =  data.notes.filter(noteItem=> noteItem._id != note._id )
@@ -99,15 +103,16 @@ const NotesEvent = ({route, navigation}) => {
                                             })
                                             const result = await apiData.json()
                                             console.log(result, "Result")
+                                            
                                             if(result.success)
                                             {
-                  
+                                                    
                                             }
                                             else{
                                               console.log('Network error')
                                             }
                                             
-                                            alert("Note removed")
+                                            
                                         }
                                         else {
                                             alert("can not remove")
@@ -134,7 +139,7 @@ const NotesEvent = ({route, navigation}) => {
                       </View>: <Text></Text>
                 }
             </View>
-
+                               
         </ScrollView>
         <FAB 
                 icon="plus"

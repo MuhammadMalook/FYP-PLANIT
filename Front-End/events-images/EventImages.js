@@ -11,7 +11,7 @@ export const EventImages = {
    'breakfast':require('../assets/events-images/breakfast.jpg'),
    'holi':require('../assets/events-images/holi.jpeg'), 
    'session':require('../assets/events-images/session.png'),
-   'Workshop':require('../assets/events-images/workshop.jpeg'),
+   'workshop':require('../assets/events-images/workshop.jpeg'),
    
    
 }

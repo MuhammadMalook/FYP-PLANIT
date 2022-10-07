@@ -32,7 +32,7 @@ const NewAccount = ({route, navigation}) => {
 
         isValidNumber: true,
         isValidUser: true,
-        isValidPassword: true,
+        isValidPassword: false,
         isValidEmail: true,
 
         isValidChangedNumber : false,
@@ -327,7 +327,7 @@ const NewAccount = ({route, navigation}) => {
                         <TouchableOpacity
 
                             onPress={async () => {
-                                if(data.email == false || data.username == false , data.password == false || data.number == false )
+                                if(data.isValidChangedEmail == false || data.isValidChangedUser == false , data.isValidPassword == false || data.isValidChangedNumber == false )
                                 {
                                     alert("Please Enter All Data Correctly")
                                     return ;

@@ -28,6 +28,8 @@ const OneEvent = ({ route, navigation }) => {
     useBackHandler(backActionHandler);
 
     const { colors } = useTheme();
+    const [status, setStatus] = useState(false)
+
     const [data, setData] = useState({
         api: false,
 
@@ -66,7 +68,7 @@ const OneEvent = ({ route, navigation }) => {
         else {
             alert("No Notes")
         }
-    }, [isFocused, data])
+    }, [isFocused])
 
     return (
         <ScrollView>
@@ -190,7 +192,8 @@ const OneEvent = ({ route, navigation }) => {
 
                     <View style={[styles.row, { justifyContent: "space-evenly" }]}>
                         {
-                            data.event.eventStatus == false ? <Button onPress={async () => {
+                            data.event.eventStatus == false && !status ? <Button onPress={async () => {
+                                //setStatus(false)
 
                                 setData({
                                     ...data, api: true
@@ -213,7 +216,8 @@ const OneEvent = ({ route, navigation }) => {
 
                                 if (jsonData.success) {
                                     alert(" Event Completed ")
-                                    setData({...data, eventStatus:true})
+                                    // setData({...data, eventStatus:true})
+                                    setStatus(true)
                                 }
                                 else {
                                     alert("You are not creator of this event")

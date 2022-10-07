@@ -3,9 +3,7 @@ const dotEnv = require('dotenv')
 
 const connectDatabase = require('./config/database')
 
-dotEnv.config({
-    path:"./config/config.env"
-})
+dotEnv.config()
 
 connectDatabase();
 const server  = app.listen(process.env.PORT|| 3000, ()=>

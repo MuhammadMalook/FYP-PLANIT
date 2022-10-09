@@ -164,7 +164,7 @@ const NewAccount = ({route, navigation}) => {
                                 placeholderTextColor="#666666"
                                 style={[styles.textInput, {
                                     color: colors.text
-                                }]}
+                                }]} 
                                 autoCapitalize="none"
                                 onChangeText={(val) => handleValidUser(val)}
                             />
